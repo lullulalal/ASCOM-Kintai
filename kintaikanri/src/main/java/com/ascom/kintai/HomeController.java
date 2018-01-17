@@ -1,5 +1,8 @@
 package com.ascom.kintai;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -33,7 +36,13 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver");
+//			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","admin");
+//			System.out.println(conn);
+//		}catch(ClassNotFoundException|SQLException e) {
+//			System.out.println("failed");
+//		}
 		return "home";
 	}
-	
 }
