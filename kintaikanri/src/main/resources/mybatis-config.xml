@@ -7,6 +7,12 @@
 
 	<typeAliases>
 		<typeAlias type="com.ascom.kintai.vo.TestVo" alias="TestVo" />
+		<typeAlias type="com.ascom.kintai.vo.Employee" alias="Employee" />
+		<typeAlias type="com.ascom.kintai.vo.WorkappAppSet" alias="AppSet" />
+		<typeAlias type="com.ascom.kintai.vo.WorkappInfo" alias="Info" />
+		<typeAlias type="com.ascom.kintai.vo.WorkappSession" alias="Session" />
+		<typeAlias type="com.ascom.kintai.vo.WorkappSuperAdmin" alias="Super" />
+		<typeAlias type="com.ascom.kintai.vo.WorkappTextSet" alias="TextSet" />
 	</typeAliases>
 	
 	<mappers>
