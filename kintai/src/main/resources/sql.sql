@@ -1,4 +1,4 @@
-create database ascomdatabase;
+﻿create database ascomdatabase;
 
 use ascomdatabase;
 
@@ -11,6 +11,14 @@ CREATE TABLE TEST_TABLE (
 
 INSERT INTO TEST_TABLE (NAME) VALUES ('박지성');
 --test end
+
+
+drop TABLE EMPLOYEE_TABLE;
+drop TABLE workapp_session_table;
+drop TABLE workapp_info_table;
+drop TABLE workapp_text_set_table;
+drop TABLE WORKAPP_SUPER_ADMIN_SET_TABLE;
+drop TABLE WORKAPP_APP_SET_TABLE;
 
 
 CREATE TABLE EMPLOYEE_TABLE ( 
@@ -41,11 +49,13 @@ CREATE TABLE workapp_info_table (
   constraint fk_id1 foreign key (email) references EMPLOYEE_TABLE (email) on delete cascade
 );
 
+
 CREATE TABLE workapp_text_set_table (
-  lang varchar(10) UNIQUE KEY NOT NULL,
+  lang varchar(10) NOT NULL,
   code varchar(10) NOT NULL,
   text varchar(100) UNIQUE KEY NOT NULL
 );
+
 
 CREATE TABLE WORKAPP_SUPER_ADMIN_SET_TABLE ( 
   setting varchar(20) UNIQUE KEY NOT NULL,
@@ -53,11 +63,13 @@ CREATE TABLE WORKAPP_SUPER_ADMIN_SET_TABLE (
 );
 
 CREATE TABLE WORKAPP_APP_SET_TABLE ( 
-  email varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,worldworldsyssysascomdatabase
   setting varchar(20) UNIQUE KEY NOT NULL,
   setvalue varchar(20) NOT NULL,
   constraint fk_id2 foreign key (email) references EMPLOYEE_TABLE (email) on delete cascade
 );
 
 show tables;
+
+
 
