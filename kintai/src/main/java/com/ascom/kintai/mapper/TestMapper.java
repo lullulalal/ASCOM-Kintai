@@ -1,4 +1,4 @@
-package com.ascom.kintai.dao;
+package com.ascom.kintai.mapper;
 
 import com.ascom.kintai.vo.TestVo;
 

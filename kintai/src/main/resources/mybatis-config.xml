@@ -10,7 +10,8 @@
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="testMapper.xml" />
+		<mapper resource="./mapper/testMapper.xml" />
+		<mapper resource="./mapper/KintaiCommonMapper.xml" />
 	</mappers>
 	
 </configuration>

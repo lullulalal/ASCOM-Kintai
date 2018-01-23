@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ascom.kintai.mapper.KintaiCommonMapper">
+	<select id="getText" resultType="string">
+		select 
+			text 
+		from 
+			workapp_text_set_table 
+		where
+			lang = #{0} and code = #{1}
+	</select>
+
+</mapper>

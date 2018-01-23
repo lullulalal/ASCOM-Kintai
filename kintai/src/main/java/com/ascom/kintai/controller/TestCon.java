@@ -22,6 +22,6 @@ public class TestCon {
 		
 		dao.insert(testvo);
 		
-		return "home";
+		return "test";
 	}
 }
