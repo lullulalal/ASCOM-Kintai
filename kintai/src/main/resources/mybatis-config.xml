@@ -7,6 +7,8 @@
 
 	<typeAliases>
 		<typeAlias type="com.ascom.kintai.vo.TestVo" alias="TestVo" />
+		<typeAlias type="com.ascom.kintai.vo.AppSet" alias="AppSet" />
+		<typeAlias type="com.ascom.kintai.vo.WorkappUser" alias="WorkappUser" />
 	</typeAliases>
 	
 	<mappers>

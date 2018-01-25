@@ -22,8 +22,10 @@ public class KintaiCommonRestController {
 	@ResponseBody
 	@RequestMapping(value = "/getText", method = RequestMethod.POST)
 	public Map getText(String code, HttpSession session) {
-		AppSet appSet = (AppSet)session.getAttribute("appSet");
-		//로그인 하자 마자 설정을 세선에 다 넣자~!
+		AppSet appSet = (AppSet)session.getAttribute("setting");
+		
 		return service.getText(appSet, code);
 	}
+	
+
 }
