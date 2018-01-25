@@ -16,11 +16,11 @@ public class TestCon {
 	@Autowired
 	TestDao dao;
 	
-	@RequestMapping(value = "test", method = RequestMethod.POST)
+	@RequestMapping(value = "test", method = RequestMethod.GET)
 	public String test(TestVo testvo) {
 		System.out.println(testvo.getName());
 		
-		dao.insert(testvo);
+		//dao.insert(testvo);
 		
 		return "test";
 	}

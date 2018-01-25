@@ -13,4 +13,33 @@
 			lang = #{0} and code = #{1}
 	</select>
 
+	<select id="getPassword" resultType="string">
+		select 
+			password
+		from 
+			app_account_table 
+		where
+			email = #{0}
+	</select>
+	
+	<select id="getAppSetting" resultType="AppSet">
+		select distinct 
+			(select setvalue from workapp_app_set_table where setting='language' and email = #{0}) as language,
+			(select setvalue from workapp_app_set_table where setting='workLocation' and email = #{0}) as workLocation,
+			(select setvalue from workapp_app_set_table where setting='authority' and email = #{0}) as authority	
+		from
+			workapp_app_set_table 
+		where 
+			email = #{0}
+	</select>
+	
+	<update id="keepLogin" parameterType="WorkappUser">
+		update app_account_table set sessionKey = #{sessionId}, sessionLimit = #{sessionLimit} where email=#{email}
+    </update>
+    
+    <select id="checkUserWithSessionKey" resultType="WorkappUser">
+        select * from app_account_table where sessionKey = #{sessionId} and sessionLimit > now()
+    </select>
+
+
 </mapper>
