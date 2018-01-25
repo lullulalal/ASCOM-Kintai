@@ -18,7 +18,7 @@
   <link href="./resources/css/sb-admin.css" rel="stylesheet">
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="index.html"><img class="banner_top" src="./resources/img/logo_banner.png">ASCOM</a> 
@@ -86,79 +86,39 @@
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb3">
-        <li>勤怠表</li>
+        <li>{{::getText('0022')}}</li>
       </ol>
       <!-- Example DataTables Card-->
       <div class="card mb-3">
         <div class="card-header">
-          <input type="date"><button type="button">検索</button></div>
+          <input type="month" ng-model="workInfo" class="searchTime"><button type="button" id="searchInfo">{{::getText('0025')}}</button></div>
         <div class="card-body2">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>日付</th>
-                  <th>出勤時間</th>
-                  <th>退勤時間</th>
-                  <th>休み</th>
-                  <th>勤務時間</th>
-                  <th>修正</th>
+                  <th>{{::getText('0023')}}</th>
+                  <th>{{::getText('0011')}}</th>
+                  <th>{{::getText('0016')}}</th>
+                  <th>{{::getText('0017')}}</th>
+                  <th>{{::getText('0027')}}</th>
+                  <th>{{::getText('0041')}}</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>01.01</td>
-                  <td>09:00</td>
-                  <td>18:00</td>
-                  <td>1</td>
-                  <td>8</td>
-                  <td><button>ok</button></td>
-                </tr>
-                <tr>
-                  <td>01.02</td>
-                  <td>09:00</td>
-                  <td>18:00</td>
-                  <td>1</td>
-                  <td>8</td>
-                  <td><button>ok</button></td>
-                </tr>
-                <tr>
-                  <td>01.03</td>
-                  <td>09:00</td>
-                  <td>18:00</td>
-                  <td>1</td>
-                  <td>8</td>
-                  <td><button>ok</button></td>
-                </tr>
-                <tr>
-                  <td>01.04</td>
-                  <td>09:00</td>
-                  <td>18:00</td>
-                  <td>1</td>
-                  <td>8</td>
-                  <td><button>ok</button></td>
-                </tr>
-                <tr>
-                  <td>01.05</td>
-                  <td>09:00</td>
-                  <td>18:00</td>
-                  <td>1</td>
-                  <td>8</td>
-                  <td><button>ok</button></td>
-                </tr>
- 
+              <tbody class="WorkInfoTable">
+
               </tbody>
             </table>
             <div>
             	<table class="bottom_table">
             	 <thead>
                  <tr>
-                  <th>今日の勤務時間</th>
+                  <th>{{::getText('0026')}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-              	  <td>160</td>
+              	  <td id="AllWorkTime">&nbsp;</td>
                 </tr>
               </tbody>
             	</table>
@@ -206,10 +166,179 @@
     <!-- Page level plugin JavaScript-->
     <script src="./resources/vendor/datatables/jquery.dataTables.js"></script>
     <script src="./resources/vendor/datatables/dataTables.bootstrap4.js"></script>
-    <!-- Custom scripts for all pages-->
-<!--     <script src="./resources/js/sb-admin.js"></script>
-    Custom scripts for this page
-    <script src="./resources/js/sb-admin-datatables.js"></script> -->
+    <!-- angular js -->
+  	<script src="./resources/vendor/angular/angular.min.js"></script>
+  	<script src="./resources/angular/app.js"></script>
+ 	<script src="./resources/angular/service/common_service.js"></script>
+  	<script src="./resources/angular/controller/common_controller.js"></script>
+  	
+    <!-- modal -->
+    <link href="./resources/css/jquery.modal.css" rel="stylesheet">
+    <link href="./resources/css/jquery.modal.theme-atlant.css" rel="stylesheet">
+    <link href="./resources/css/jquery.modal.theme-xenon.css" rel="stylesheet">   
+    <script src="./resources/js/jquery.modal.js"></script>
+    
+    <script>
+    
+    
+    $(function(){
+    	
+    	var date = NowDate();
+	        	
+    	GetWorkInfoList(date);
+    	
+    	$("#searchInfo").click(function(){
+    		InputDate();
+    	});
+    	
+    });
+    
+    	
+    //今月の勤務表をもらうため現在の時間を型変換してインプットボックスに入れる機能
+	function NowDate(){
+		
+	    d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        year = d.getFullYear();
+	    if (month.length < 2) month = '0' + month;
+	    
+	    date = [year, month].join('-');
+	    
+	    $('.searchTime').val(date);
+	    
+	    return date;
+	    
+	}
+	
+    function InputDate(){
+    	
+    	date = $('.searchTime').val();
+
+		GetWorkInfoList(date);
+    }
+    
+	//入れた変数の勤務表をもらう機能
+    function GetWorkInfoList(date){
+
+  		$.ajax({
+			type:"post",
+			url:"workInfo",
+			data:{
+				date:date
+			},
+			success:function(data){
+				
+				var workInfoList;
+
+				if(data[0].length==0){
+					
+					workInfoList = '';
+					$('#AllWorkTime').text("0");
+					
+				}else{
+					$.each(data[0],function(index,item){
+						
+						workInfoList += '<tr><td>'+item.workDate+'</td><td>'+item.startTime
+									 	+'</td><td>'+item.endTime+'</td><td>'+item.restTime
+									 	+'</td><td>'+item.workTime+'</td><td><button date=\"'
+								  		+item.workDate+'\" class=\"update_btn\">ok</button></td></tr>';
+					});	
+					$('#AllWorkTime').text(data[1]);
+				}
+				$('.WorkInfoTable').html(workInfoList);
+				
+		  		UpdateInfo();
+			}
+		}); 
+  		
+    }
+    
+    
+	//修正ボタンを押せば該当する修正したい日の情報をデータベースでもらう機能
+    function UpdateInfo(){
+    	
+    	$('.update_btn').click(function(){
+
+    		var UpDate = $(this).attr("date");
+
+    		ym = $('.searchTime').val();
+    		Udate = [ym, UpDate].join('-');
+
+
+    		$.ajax({
+    			type:"post",
+    			url:"workInfo",
+    			data:{
+    				date:Udate
+    			},
+    			success:function(data){
+    				UpdateBox(data[0]);	
+    			}
+    		});
+    	});
+    }
+    
+    
+ 	//データベースでもらった情報をアラートで見える機能
+	 function UpdateBox(workInfo){
+		 
+		 var updateInfo;
+ 			$.each(workInfo,function(index,item){
+				updateInfo = '<table class=\"table table-bordered\"><tr><td>'+item.workDate
+							 +'</td><td><input type=\"time\" id=\"UstartTime\" value=\"'
+							 +item.startTime+'\"></td><td><input type=\"time\" id=\"UendTime\" value=\"'
+							 +item.endTime+'\"></td><td><input type=\"text\" id=\"UrestTime\" value=\"'
+							 +item.restTime+'\"></td></tr></table>';
+			}); 
+		 		  
+		    modal({
+		        type: 'success',
+		        title: '日時修正',
+		        text: updateInfo,
+				buttons: [{
+					text: 'OK', 
+					val: 'ok', 
+					eKey: true,
+					addClass: 'btn-orange btn-square', 
+					onClick: function() {
+						UpdateWorkInfo();
+						return true;
+					}
+				}, ]
+		    }); 
+
+		}
+	 
+	 
+	 //アラートで情報を修正する機能
+	 function UpdateWorkInfo(){
+		 
+		 var UstartTime = $('#UstartTime').val();
+		 var UendTime = $('#UendTime').val();
+		 var UrestTime = $('#UrestTime').val();
+
+  		 $.ajax({
+			 type:'post',
+			 url:'UpdateWorkInfo',
+			 data:{
+				 workDate:Udate,
+				 startTime:[Udate,UstartTime].join('-'),
+				 endTime:[Udate,UendTime].join('-'),
+				 restTime:UrestTime
+			 },
+			 success:function(data){
+				 if(data==="success"){
+					 InputDate();
+				 }else{
+					return false;
+				 }
+			 }
+		 });  
+	 }
+
+	</script>
+ 
+
   </div>
 </body>
 

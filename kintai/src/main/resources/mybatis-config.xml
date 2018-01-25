@@ -7,9 +7,11 @@
 
 	<typeAliases>
 		<typeAlias type="com.ascom.kintai.vo.TestVo" alias="TestVo" />
+		<typeAlias type="com.ascom.kintai.vo.WorkappInfo" alias="WorkappInfo" />
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="./mapper/WorkappInfoMapper.xml" />
 		<mapper resource="./mapper/testMapper.xml" />
 		<mapper resource="./mapper/KintaiCommonMapper.xml" />
 	</mappers>
