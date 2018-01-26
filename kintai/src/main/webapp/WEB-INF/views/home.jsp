@@ -33,22 +33,22 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">{{::getText('0006')}}</div>
       <div class="card-body">
-        <form>
+        <form action="login" method="post" id="loginForm">
           <div class="form-group">
             <label for="exampleInputEmail1">{{::getText('0001')}}</label>
-            <input class="form-control" type="text" ng-model="user_id">
+            <input class="form-control" type="text" id="email" name="email" placeholder={{::getText('0002')}}>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">{{::getText('0003')}}</label>
-            <input class="form-control" type="password">
+            <input class="form-control" type="password" id="pwd" name="pwd" placeholder={{::getText('0004')}}>
           </div>
           <div class="form-group">
             <div class="form-check">
               <label class="form-check-label">
-                <input class="form-check-input" type="checkbox"> {{::getText('0005')}}</label>
+                <input class="form-check-input" name="autoLogin" type="checkbox" checked> {{::getText('0005')}}</label>
             </div>
           </div>
-          <a class="btn btn-primary btn-block">{{::getText('0006')}}</a>
+          <a class="btn btn-primary btn-block" onClick="javascript:login();">{{::getText('0006')}}</a>
         </form>
       </div>
     </div>
@@ -64,6 +64,13 @@
   <script src="./resources/angular/app.js"></script>
   <script src="./resources/angular/service/common_service.js"></script>
   <script src="./resources/angular/controller/common_controller.js"></script>
+  
+  <script>
+
+  function login(){
+	  $('#loginForm').submit();
+  }
+  </script>
 
 </body>
 
