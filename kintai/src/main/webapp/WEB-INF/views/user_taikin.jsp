@@ -91,26 +91,17 @@
       </ol>
       
       <div class="breadcrumb2">
-      	<input type="datetime-local" class="input_date">休み<input type="number" class="input_time">
+      	<input type="datetime-local" class="input_date">休み<input type="time" class="input_time">
       </div>
       <!-- Icon Cards-->
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-3">
           <div class="card text-white bg-warning o-hidden h-100">
             <div class="card-body">
-              <div class="mr-5" onclick="successBox()">退勤</div>
+              <div class="mr-5" onclick="taikinInsertCheck()">退勤</div>
             </div>
 
           </div>
-        </div>
-
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <a href="table"><div class="card text-white bg-danger o-hidden h-100">
-            <div class="card-body">
-              <div class="mr-5">勤怠表</div>
-            </div>
-          </div>
-          </a>
         </div>
       </div>
       </div>
@@ -128,34 +119,42 @@
     <script src="./resources/js/jquery.modal.js"></script>
     
 	<script>
-	 
-	 $(function(){
-		   var now =  new Date();//모두 표시 하므로 시 분 초만 얻음
-		   console.log(now);
-
-		   var y = now.getYear()+1900;
-		   var m = now.getMonth()+1;
-		   var d = now.getDate(); 
-		   
-		   var alldate = new Date(y,m,d); 
- 		   var h = now.getHours();
-		   var mi = now.getMinutes(); 
-		
-/* 		   $(".input_date").val(now); */
-		});
-	 
-	 function successBox(){
-		 var date = $(".input_date").val();
-		 console.log(date);
-		    modal({
-		        type: 'success',
-		        title: '日時確認',
-		        text: date
-		    }); 
-		}
-	 
-	 
+	function taikinInsertCheck(){
+		 modal({
+             type: 'confirm',
+             title: 'Confirm',
+             text: '帰りますか？',
+             callback: function(result) {
+                 if(result==true){
+                	 taikinInsert();
+                 }
+             }
+         });
+	} 
 	
+	 function taikinInsert(){
+		 var date = $(".input_date").val();
+		 var restTime = $(".input_time").val();
+		 
+		 endTime=date.replace('T',' ');
+		 
+		 console.log(endTime);
+		 console.log(restTime);
+
+		    $.ajax({
+				url : 'taikinInsert',
+				type : 'POST',
+				data : {
+					endTime: endTime,
+					restTime: restTime
+				},
+				success :function() {
+					
+				},
+				error : function() {
+				}
+			});
+		}
 	</script>
 
 </body>
