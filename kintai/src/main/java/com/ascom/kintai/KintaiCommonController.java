@@ -43,8 +43,6 @@ public class KintaiCommonController {
 			session.setAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT, account);
 			session.setAttribute(KintaiConstant.SESSION_SETTING, appSet);
 			
-			System.out.println(autoLogin);
-			
 			if(("on").equals(autoLogin) && 
 					appSet.getAuthority()!=KintaiConstant.AUTH_SUPER_ADMIN){
 				System.out.println("emfdjdhkTekd!!");
@@ -58,7 +56,7 @@ public class KintaiCommonController {
 			}
 				
 			if(appSet.getAuthority() == KintaiConstant.AUTH_SUPER_ADMIN)
-				return "super_kanri";
+				return "redirect:/superSetting";
 			else if (appSet.getAuthority() == KintaiConstant.AUTH_ADMIN)
 				return "redirect:/shukinCheck";
 			else if (appSet.getAuthority() == KintaiConstant.AUTH_USER)
@@ -68,7 +66,7 @@ public class KintaiCommonController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value = "logout", method = RequestMethod.POST)
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpSession session,HttpServletRequest request, HttpServletResponse response) {
 		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
 		if ( account != null ){

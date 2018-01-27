@@ -67,6 +67,7 @@
           </a>
         </li>
       </ul>
+      
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
           <a class="nav-link text-center" id="sidenavToggler">
@@ -74,6 +75,7 @@
           </a>
         </li>
       </ul>
+      
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
