@@ -63,15 +63,24 @@ public class KintaiUserRestController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/updateUserAppSetting", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateUserWorkLocation", method = RequestMethod.POST)
+	public void updateUserWorkLocation(AppSet set,  HttpSession session) {
+		WorkappUser acc = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		
+		service.updateUserAppWorkLocation(set, acc.getEmail());
+
+		AppSet sset = (AppSet)session.getAttribute(KintaiConstant.SESSION_SETTING);
+		sset.setWorkLocation(set.getWorkLocation());
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateUserLanguage", method = RequestMethod.POST)
 	public void updateUserAppSetting(AppSet set,  HttpSession session) {
 		WorkappUser acc = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
 		
-		service.updateUserAppSetting(set, acc.getEmail());
-		//service.updateUserPassword(pwd, acc.getEmail());
-		
+		service.updateUserAppLanguage(set, acc.getEmail());
+
 		AppSet sset = (AppSet)session.getAttribute(KintaiConstant.SESSION_SETTING);
-		sset.setWorkLocation(set.getWorkLocation());
 		sset.setLanguage(set.getLanguage());
 	}
 	

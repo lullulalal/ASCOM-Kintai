@@ -1,24 +1,23 @@
 'use strict';
 
-app.factory('userSetService', ['comnService', function(comnService){
+app.factory('userSetService', ['comnService',  function(comnService){
 	
-	function getUserAppSetting(){
-		var setting = null;
+	function getUserAppSetting(rstHandle){
 		
 		$.ajax({
 			url:'getUserAppSetting', 
 			type: 'post',             
-			async: false,
+
 			success: function(response) { 
-				setting = response;
+				rstHandle(response);
 			}
 		});
-		return setting;
+
 	}
 	
 	function setWorkLocationSelect(userAppSet){
-		$('#0028').html( comnService.getText('0028'));
-		$('#0029').html( comnService.getText('0029'));
+		comnService.getText('0028');
+		comnService.getText('0029');
 		
 		var select = userAppSet['workLocation'];
 		$('#'+select).attr("selected",true);
@@ -26,46 +25,25 @@ app.factory('userSetService', ['comnService', function(comnService){
     }
     
 	function setWorkLanguageSelect(userAppSet){
-		$('#JP').html( comnService.getText('0053'));
-		$('#KR').html( comnService.getText('0032'));
-		
+		comnService.getText('0053');
+		comnService.getText('0032');
+
 		var select = userAppSet['language'];
 		$('#'+select).attr("selected",true);
     }
     
-	function updateUserAppSetting(userAppSet){
-		/*var pwd1 = $("#pwd1").val();
-		var pwd2 = $("#pwd2").val();
+	function updateUserAppSetting(userAppSet, opt){
 		
-		if(pwd1 != pwd2){
-			   var title = comnService.getText('0052');
-			   var text = comnService.getText('0054');
-			   var btnText = comnService.getText('0037');
-			   
-			   var modalObj =  {
-			        'type' : 'fail',
-			        'title' : title,
-			        'text' : text,
-					'buttons' : [{
-						'text': btnText,
-						'val': 'ok',
-						'eKey' : true,
-						'addClass': 'btn-orange btn-square',
-						'onClick': function() {
-							return true;
-						}
-					}]
-			    } 
-			    
-				comnService.commonModal(modalObj);
-			return;
-		}
-		*/
-		userAppSet['workLocation'] = $("#location option:selected").val();
-		userAppSet['language'] = $("#language option:selected").val();
+		userAppSet[opt] = $('#' + opt + ' option:selected').val();
+		
+		var url;
+		if(opt == 'language') 
+			url = 'updateUserLanguage';
+		else if (opt == 'workLocation') 
+			url = 'updateUserWorkLocation';
 		
 		$.ajax({
-			url:'updateUserAppSetting', 
+			url : url, 
 			type: 'post', 
 			data : {
 				language : userAppSet['language'],
@@ -73,29 +51,7 @@ app.factory('userSetService', ['comnService', function(comnService){
 				authority : userAppSet['authority']
 			}, 
 			success: function(response) { 
-				
-				
-				   var title = comnService.getText('0007');
-				   var text = comnService.getText('0050');
-				   var btnText = comnService.getText('0037');
-				   
-				   var modalObj =  {
-				        'type' : 'fail',
-				        'title' : title,
-				        'text' : text,
-						'buttons' : [{
-							'text': btnText,
-							'val': 'ok',
-							'eKey' : true,
-							'addClass': 'btn-orange btn-square',
-							'onClick': function() {
-								location.reload(); 
-								return true;
-							}
-						}]
-				    } 
-				    
-					comnService.commonModal(modalObj);
+				comnService.commonModal('0007', '0050', '0037');
 				   
 			}
 		});
@@ -107,27 +63,8 @@ app.factory('userSetService', ['comnService', function(comnService){
 		var pwd1 = $("#pwd1").val();
 		var pwd2 = $("#pwd2").val();
 		
-		if(pwd1 != pwd2){
-			   var title = comnService.getText('0052');
-			   var text = comnService.getText('0054');
-			   var btnText = comnService.getText('0037');
-			   
-			   var modalObj =  {
-			        'type' : 'fail',
-			        'title' : title,
-			        'text' : text,
-					'buttons' : [{
-						'text': btnText,
-						'val': 'ok',
-						'eKey' : true,
-						'addClass': 'btn-orange btn-square',
-						'onClick': function() {
-							return true;
-						}
-					}]
-			    } 
-			    
-				comnService.commonModal(modalObj);
+		if( (pwd1 != pwd2) || (pwd1 == '') || (pwd2 == '')){
+			comnService.commonModal('0052', '0054', '0037');
 			return;
 		}
 
@@ -137,30 +74,11 @@ app.factory('userSetService', ['comnService', function(comnService){
 			data : {
 				pwd : pwd1
 			}, 
-			success: function(response) { 
-				   var title = comnService.getText('0052');
-				   var text = comnService.getText('0057');
-				   var btnText = comnService.getText('0037');
-				   
-				   var modalObj =  {
-				        'type' : 'fail',
-				        'title' : title,
-				        'text' : text,
-						'buttons' : [{
-							'text': btnText,
-							'val': 'ok',
-							'eKey' : true,
-							'addClass': 'btn-orange btn-square',
-							'onClick': function() {
-								return true;
-							}
-						}]
-				    } 
-				    
-					comnService.commonModal(modalObj);
-				   
-					$("#pwd1").val('');
-					$("#pwd2").val('');
+			success: function(response) {
+				comnService.commonModal('0052', '0057', '0037');
+
+				$("#pwd1").val('');
+				$("#pwd2").val('');
 			}
 		});
 		

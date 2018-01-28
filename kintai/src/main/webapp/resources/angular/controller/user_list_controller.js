@@ -113,26 +113,11 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
 							 +item.restTime+'\"></td></tr></table>';
 			}); 
 		 		 
-		   var title = comnService.getText('0051');
-		   var text = updateInfo;
-		   var btnVal = comnService.getText('0037');
-			   
-		   var modalObj =  {
-		        'type' : 'success',
-		        'title' : title,
-		        'text' : text,
-				'buttons' : [{
-				'text': 'OK',
-				'val': btnVal,
-				'eKey' : true,
-				'addClass': 'btn-orange btn-square',
-				'onClick': function() {
-						$scope.UpdateWorkInfo();
-						return true;
-					}
-				}]
-		   } 
-		   comnService.commonModal(modalObj);		
+ 		   comnService.commonModal('0051', updateInfo, '0037', function() {
+				$scope.UpdateWorkInfo();
+				return true;
+			});
+ 			 
 		}
 	 
 	 

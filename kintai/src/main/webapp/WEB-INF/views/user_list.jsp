@@ -121,6 +121,11 @@
 	<input type="hidden"  value={{::getText('0035')}}>
 	<input type="hidden"  value={{::getText('0036')}}>
 	<input type="hidden"  value={{::getText('0042')}}>
+	
+	<!-- logout modal -->
+	<input type="hidden" value={{::getText('0043')}}>
+ 	<input type="hidden" value={{::getText('0045')}}>
+  	<input type="hidden" value={{::getText('0044')}}>
 	<input type="hidden"  value={{::getText('0021')}}>
     
     <!-- Bootstrap core JavaScript-->

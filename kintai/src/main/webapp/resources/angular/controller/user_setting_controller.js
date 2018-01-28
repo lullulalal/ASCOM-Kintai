@@ -6,14 +6,19 @@ app.controller('userSetCtrl', ['$scope', 'userSetService', function($scope, user
 	
     angular.element(document).ready(function () {
 		$(document).ready(function(){
-			userAppSet = userSetService.getUserAppSetting();
-			userSetService.setWorkLocationSelect(userAppSet);
-			userSetService.setWorkLanguageSelect(userAppSet);
+			userSetService.getUserAppSetting(function(setting){
+				userAppSet= setting;
+				
+				userSetService.setWorkLocationSelect(userAppSet);
+				userSetService.setWorkLanguageSelect(userAppSet);
+			});
+			
+
 		});
     });
 
-	$scope.updateUserAppSetting = function() {
-		userSetService.updateUserAppSetting(userAppSet);
+	$scope.updateUserAppSetting = function(opt) {
+		userSetService.updateUserAppSetting(userAppSet, opt);
 	};
     
 	$scope.updateUserPassword = function() {

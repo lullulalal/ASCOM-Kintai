@@ -40,12 +40,18 @@ public class KintaiUserDao extends TimeOnlyTypeHandler{
 		return result;
 	}
 	
-	public void updateUserAppSetting(AppSet set, String email) {
+	public void updateUserAppWorkLocation(AppSet set, String email) {
+		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
+
+		Wmapper.updateUserAppWorkLocation(set.getWorkLocation(), email);
+	}
+	
+	public void updateUserAppLanguage(AppSet set, String email) {
 		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
 		
 		Wmapper.updateUserAppLanguage(set.getLanguage(), email);
-		Wmapper.updateUserAppWorkLocation(set.getWorkLocation(), email);
 	}
+	
 	
 	public void updateUserPassword(String HashedPwd, String email) {
 		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);

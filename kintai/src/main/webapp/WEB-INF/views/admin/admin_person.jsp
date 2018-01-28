@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>ASCOM-SUPER</title>
+  <title>ASCOM-ADMIN</title>
   <!-- Bootstrap core CSS-->
   <link href="./resources/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -16,13 +16,12 @@
   <link href="./resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="./resources/css/sb-admin.css" rel="stylesheet">
-
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="superSetting"><img class="banner_top" src="./resources/img/logo_banner.png">ASCOM</a> 
+    <a class="navbar-brand" href="#"><img class="banner_top" src="./resources/img/logo_banner.png">ASCOM</a> 
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -32,79 +31,68 @@
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb3">
-        <li><span class='0042'></span></li>
+        <li>月別勤怠情報</li>
       </ol>
       <!-- Example DataTables Card-->
       <div class="card mb-3">
-          <div class="table-responsive" ng-controller="userSetCtrl">
-          	<hr>
-				<div style="padding : 4px">
-					<table>
-						<tr>
-							<td>
-								<span class='0030'></span>
-							</td>
-							<td>
-								<select id="workLocation">
-								  <option value="0028" class="0028" id="0028"></option>
-								  <option value="0029" class="0029" id="0029"></option>
-								</select>
-							</td>
-							<td>
-								<div style="margin : 8px" >
-								<button class="btn btn-secondary" ng-click="updateUserAppSetting('workLocation')"><span class='0047'></span></button></div>
-				  			</td>
-						</tr>
-						<tr>
-							<td>
-								<span class='0031'></span>
-							</td>
-							<td>
-								<select id="language">
-								  <option value="JP" class="0053" id="JP"></option>
-								  <option value="KR" class="0032" id="KR"></option>
-								</select>
-							</td>
-							<td>
-								<div style="margin : 8px" >
-								<button class="btn btn-secondary" ng-click="updateUserAppSetting('language')"><span class='0047'></span></button></div>
-				  			</td>
-						</tr>
-
-					</table>
-				</div>
-
-	        <hr>
-		     	 <div style="padding : 4px">
-		     	 	<table>
-		     	 		<tr>
-		     	 			<td colspan="2">
-		     	 				<span class='0052'></span>
-		     	 			</td>
-		     	 		</tr>
-		     	 		<tr>
-		     	 			<td>
-		     	 				<span class='0055'></span>
-		     	 			</td>
-		     	 			<td>
-		     	 				<input type="password" id="pwd1" >
-		     	 			</td>
-		     	 		</tr>
-		     	 		<tr>
-		     	 			<td>
-		     	 				 <span class='0056'></span>
-		     	 			</td>
-		     	 			<td>
-		     	 				<input type="password" id="pwd2" >
-		     	 			</td>
-		     	 		</tr>
-		     	 	</table>
-		      	</div>
-
-		      	<div align=right>
-		    	  <button class="btn btn-secondary" ng-click="updateUserPassword()"><span class='0047'></span></button>
-	      		</div>
-	        <hr>
+        <div class="card-header">
+          <input type="date">
+          <select class="select_type">
+          	<option>全体</option>
+          	<option>現場</option>
+          	<option>社内</option>
+          </select>  
+        </div>
+        <div class="card-body2">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                  	<button class="btn_nichiji">ソ</button>
+                  </td>
+                  <td>
+                  	<button class="btn_nichiji">ジン</button>
+                  </td>
+                  <td>
+                  	<button class="btn_nichiji">クリ</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  	<button class="btn_nichiji">ソ</button>
+                  </td>
+                  <td>
+                  	<button class="btn_nichiji">ジン</button>
+                  </td>
+                  <td>
+                  	<button class="btn_nichiji">クリ</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  	<button class="btn_nichiji">ソ</button>
+                  </td>
+                  <td>
+                  	<button class="btn_nichiji">ジン</button>
+                  </td>
+                  <td>
+                  	<button class="btn_nichiji">クリ</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  	<button class="btn_nichiji">ソ</button>
+                  </td>
+                  <td>
+                  	<button class="btn_nichiji">ジン</button>
+                  </td>
+                  <td>
+                  	<button class="btn_nichiji">クリ</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -139,15 +127,8 @@
         </div>
       </div>
     </div>
- 
-
-  <input type="hidden" value={{::getText('0007')}}>
-  <input type="hidden" value={{::getText('0043')}}>
-  <input type="hidden" value={{::getText('0045')}}>
-  <input type="hidden" value={{::getText('0044')}}>
-  <input type="hidden" value={{::getText('0047')}}>
-  
-  <!-- menu -->
+    
+    <!-- menu -->
   	<input type="hidden"  value={{::getText('0034')}}>
 	<input type="hidden"  value={{::getText('0035')}}>
 	<input type="hidden"  value={{::getText('0036')}}>
@@ -155,17 +136,13 @@
 	<input type="hidden"  value={{::getText('0013')}}>
 	<input type="hidden" value={{::getText('0042')}}>
 	<input type="hidden" value={{::getText('0021')}}>
+
+	<!-- logout modal -->
+	<input type="hidden" value={{::getText('0043')}}>
+ 	<input type="hidden" value={{::getText('0045')}}>
+  	<input type="hidden" value={{::getText('0044')}}>
+
 	
-  <input type="hidden" value={{::getText('0030')}}>
-  <input type="hidden" value={{::getText('0031')}}>
-  <input type="hidden" value={{::getText('0052')}}>
-  
-  <input type="hidden" value={{::getText('0053')}}>
-  <input type="hidden" value={{::getText('0032')}}>
-  
-  <input type="hidden" value={{::getText('0055')}}>
-  <input type="hidden" value={{::getText('0056')}}>
-  
     <!-- Bootstrap core JavaScript-->
     <script src="./resources/vendor/jquery/jquery.min.js"></script>
     <script src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -174,21 +151,23 @@
     <!-- Page level plugin JavaScript-->
     <script src="./resources/vendor/datatables/jquery.dataTables.js"></script>
     <script src="./resources/vendor/datatables/dataTables.bootstrap4.js"></script>
-    
+    <!-- Custom scripts for all pages-->
     <!-- modal -->
     <link href="./resources/css/jquery.modal.css" rel="stylesheet">
     <link href="./resources/css/jquery.modal.theme-atlant.css" rel="stylesheet">
     <link href="./resources/css/jquery.modal.theme-xenon.css" rel="stylesheet">   
     <script src="./resources/js/jquery.modal.js"></script>
-
-	<!-- angular js -->
+    
+    <!-- angular js -->
 	<script src="./resources/vendor/angular/angular.min.js"></script>
 	<script src="./resources/angular/app.js"></script>
  	<script src="./resources/angular/service/common_service.js"></script>
 	<script src="./resources/angular/controller/common_controller.js"></script>
-  	<script src="./resources/angular/service/user_setting_service.js"></script>
-  	<script src="./resources/angular/controller/user_setting_controller.js"></script>
 	
+	<script src="./resources/angular/service/admin_service.js"></script>
+	<script src="./resources/angular/controller/admin_controller.js"></script>
+	
+  </div>
 </body>
 
 </html>

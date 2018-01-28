@@ -5,46 +5,30 @@ app.controller('superAdminCtrl', ['$scope', 'superAdminService', function($scope
 	
     angular.element(document).ready(function () {
 		$(document).ready(function(){
-			superAdminSetting = $scope.getSuperAdminSetting();
-			
-			setTimepicker('minTimepicker', superAdminSetting["minTime"]);
-			setTimepicker('maxTimepicker', superAdminSetting["maxTime"]);
+			$scope.getSuperAdminSetting();
+		
 		});
     });
     
 	$scope.getSuperAdminSetting = function() {
-		return superAdminService.getSuperAdminSetting();
+		superAdminService.getSuperAdminSetting(function(adminSet) {
+			superAdminSetting = adminSet;
+			
+			superAdminService.setTimepicker('minTimepicker', superAdminSetting["minTime"]);
+			superAdminService.setTimepicker('maxTimepicker', superAdminSetting["maxTime"]);
+			
+		});
 	};
 	
 	$scope.updateSuperAdminSetting = function() {
-		superAdminSetting["minTime"] = changeTimeType( $('#minTimepicker').val() );
-		superAdminSetting["maxTime"] = changeTimeType( $('#maxTimepicker').val() );
-
-		superAdminService.updateSuperAdminSetting(superAdminSetting);
-	};
-	
-	function changeTimeType(timeStr){
-		var hourStr = $('#hourStr').val();
-		var minuteStr = $('#minuteStr').val();
-		
-		var newTimeStr = timeStr.replace(hourStr, ":");
-		return newTimeStr.replace(minuteStr, "");
-	}
-	
-	function setTimepicker(eid, dfrtTime){
-		var hourStr = $('#hourStr').val();
-		var minuteStr = $('#minuteStr').val();
-		
-		$('#' + eid).timepicker({
-		    timeFormat: 'h' + hourStr + 'mm' + minuteStr,
-		    interval: 15,
-		    minTime: '6',
-		    maxTime: '12:45pm',
-		    defaultTime: dfrtTime,
-		    startTime: '6:00',
-		    dynamic: false,
-		    dropdown: true,
-		    scrollbar: true
+		superAdminService.changeTimeType( $('#minTimepicker').val(), function(newMinTime){
+			superAdminSetting["minTime"] = newMinTime;
+			superAdminService.changeTimeType( $('#maxTimepicker').val(), function(newMaxTime){
+				 superAdminSetting["maxTime"] = newMaxTime;
+				 
+				 superAdminService.updateSuperAdminSetting(superAdminSetting);
+			});
 		});
-	}
+	};
+
 }]);

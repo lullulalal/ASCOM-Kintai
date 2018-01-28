@@ -30,9 +30,14 @@ public class KintaiUserService {
 		return result;	
 	}
 	
-	public void updateUserAppSetting(AppSet set, String email) {
+	public void updateUserAppWorkLocation(AppSet set, String email) {
 		
-		wdao.updateUserAppSetting(set, email);
+		wdao.updateUserAppWorkLocation(set, email);
+	}
+	
+	public void updateUserAppLanguage(AppSet set, String email) {
+		
+		wdao.updateUserAppLanguage(set, email);
 	}
 	
 	public void updateUserPassword(String pwd, String email) {
