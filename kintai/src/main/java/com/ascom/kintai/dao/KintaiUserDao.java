@@ -7,17 +7,18 @@ import org.apache.ibatis.type.TimeOnlyTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ascom.kintai.mapper.WorkappInfoMapper;
+import com.ascom.kintai.mapper.KintaiUserMapper;
+import com.ascom.kintai.vo.AppSet;
 import com.ascom.kintai.vo.WorkappInfo;
 
 @Repository
-public class WorkappInfoDao extends TimeOnlyTypeHandler{
+public class KintaiUserDao extends TimeOnlyTypeHandler{
 	
 	@Autowired
 	private SqlSession sqlsession;
 
 	public ArrayList<Object> workInfo(String email,String date){
-		WorkappInfoMapper Wmapper = sqlsession.getMapper(WorkappInfoMapper.class);
+		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
 
 		ArrayList<Object> AllWorkData = new ArrayList<>();
 		ArrayList<WorkappInfo> workList = new ArrayList<>();
@@ -34,9 +35,22 @@ public class WorkappInfoDao extends TimeOnlyTypeHandler{
 	}
 	
 	public int UpdateWorkInfo(WorkappInfo updateInfo){
-		WorkappInfoMapper Wmapper = sqlsession.getMapper(WorkappInfoMapper.class);
+		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
 		int result = Wmapper.UpdateWorkInfo(updateInfo);
 		return result;
-		
 	}
+	
+	public void updateUserAppSetting(AppSet set, String email) {
+		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
+		
+		Wmapper.updateUserAppLanguage(set.getLanguage(), email);
+		Wmapper.updateUserAppWorkLocation(set.getWorkLocation(), email);
+	}
+	
+	public void updateUserPassword(String HashedPwd, String email) {
+		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
+		
+		Wmapper.updateUserPassword(HashedPwd, email);
+	}
+	
 }

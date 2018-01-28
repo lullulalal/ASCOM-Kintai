@@ -16,9 +16,7 @@
   <link href="./resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="./resources/css/sb-admin.css" rel="stylesheet">
-  <!-- TimePicker-->
-  <link href="./resources/css/jquery.timepicker.min.css" rel="stylesheet">
-  
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
@@ -34,26 +32,70 @@
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb3">
-        <li><span class='0007'></span></li>
+        <li><span class='0042'></span></li>
       </ol>
       <!-- Example DataTables Card-->
       <div class="card mb-3">
-          <div class="table-responsive" ng-controller="superAdminCtrl">
+          <div class="table-responsive" ng-controller="userSetCtrl">
           	<hr>
 				<div style="padding : 4px">
-					<span class='0008'></span>
+					<table>
+						<tr>
+							<td>
+								<span class='0030'></span>
+							</td>
+							<td>
+								<select id="location">
+								  <option value="0028" id="0028"></option>
+								  <option value="0029" id="0029"></option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class='0031'></span>
+							</td>
+							<td>
+								<select id="language">
+								  <option value="JP" id="JP"></option>
+								  <option value="KR" id="KR"></option>
+								</select>
+							</td>
+						</tr>
+					</table>
 				</div>
-				<div style="padding : 4px">
-		          	<span class='0009'></span>
-		          	<input type="text" id="minTimepicker" name="minTime" readonly>
-	          	</div>
+				<div align=right>
+		    	  <button class="btn btn-secondary" ng-click="updateUserAppSetting()"><span class='0047'></span></button>
+	      		</div>
+	        <hr>
 		     	 <div style="padding : 4px">
-		      	    <span class='0010'></span>
-		      	    <input type="text" id="maxTimepicker"  name="maxTime" readonly>
+		     	 	<table>
+		     	 		<tr>
+		     	 			<td colspan="2">
+		     	 				<span class='0052'></span>
+		     	 			</td>
+		     	 		</tr>
+		     	 		<tr>
+		     	 			<td>
+		     	 				<span class='0055'></span>
+		     	 			</td>
+		     	 			<td>
+		     	 				<input type="password" id="pwd1" >
+		     	 			</td>
+		     	 		</tr>
+		     	 		<tr>
+		     	 			<td>
+		     	 				 <span class='0056'></span>
+		     	 			</td>
+		     	 			<td>
+		     	 				<input type="password" id="pwd2" >
+		     	 			</td>
+		     	 		</tr>
+		     	 	</table>
 		      	</div>
-		    <hr>
-		      	<div align=right style="padding : 4px">
-		    	  <button class="btn btn-secondary" ng-click="updateSuperAdminSetting()"><span class='0047'></span></button>
+
+		      	<div align=right>
+		    	  <button class="btn btn-secondary" ng-click="updateUserPassword()"><span class='0047'></span></button>
 	      		</div>
 	        <hr>
           </div>
@@ -92,20 +134,30 @@
     </div>
  
 
-  
   <input type="hidden" value={{::getText('0007')}}>
-  <input type="hidden" value={{::getText('0042')}}>
-  <input type="hidden" value={{::getText('0021')}}>
   <input type="hidden" value={{::getText('0043')}}>
   <input type="hidden" value={{::getText('0045')}}>
   <input type="hidden" value={{::getText('0044')}}>
-  <input type="hidden" value={{::getText('0008')}}>
-  <input type="hidden" value={{::getText('0009')}}>
-  <input type="hidden" value={{::getText('0010')}}>
-  <input type="hidden" value={{::getText('0047')}}> 
+  <input type="hidden" value={{::getText('0047')}}>
   
-  <input type="hidden" id = "hourStr" value={{::getText('0048')}}>
-  <input type="hidden" id = "minuteStr" value={{::getText('0049')}}> 
+  <!-- menu -->
+  	<input type="hidden"  value={{::getText('0034')}}>
+	<input type="hidden"  value={{::getText('0035')}}>
+	<input type="hidden"  value={{::getText('0036')}}>
+	<input type="hidden"  value={{::getText('0046')}}>
+	<input type="hidden"  value={{::getText('0013')}}>
+	<input type="hidden" value={{::getText('0042')}}>
+	<input type="hidden" value={{::getText('0021')}}>
+	
+  <input type="hidden" value={{::getText('0030')}}>
+  <input type="hidden" value={{::getText('0031')}}>
+  <input type="hidden" value={{::getText('0052')}}>
+  
+  <input type="hidden" value={{::getText('0053')}}>
+  <input type="hidden" value={{::getText('0032')}}>
+  
+  <input type="hidden" value={{::getText('0055')}}>
+  <input type="hidden" value={{::getText('0056')}}>
   
     <!-- Bootstrap core JavaScript-->
     <script src="./resources/vendor/jquery/jquery.min.js"></script>
@@ -115,9 +167,6 @@
     <!-- Page level plugin JavaScript-->
     <script src="./resources/vendor/datatables/jquery.dataTables.js"></script>
     <script src="./resources/vendor/datatables/dataTables.bootstrap4.js"></script>
-    
-    <!-- Timepicker-->
-    <script src="./resources/js/jquery.timepicker.min.js"></script>
     
     <!-- modal -->
     <link href="./resources/css/jquery.modal.css" rel="stylesheet">
@@ -130,9 +179,8 @@
 	<script src="./resources/angular/app.js"></script>
  	<script src="./resources/angular/service/common_service.js"></script>
 	<script src="./resources/angular/controller/common_controller.js"></script>
-	
-	<script src="./resources/angular/service/superAdmin_service.js"></script>
-	<script src="./resources/angular/controller/superAdmin_controller.js"></script>
+  	<script src="./resources/angular/service/user_setting_service.js"></script>
+  	<script src="./resources/angular/controller/user_setting_controller.js"></script>
 	
 </body>
 

@@ -13,6 +13,12 @@ public class KintaiUserController {
 		return "user_list";
 	}
 	
+	@RequestMapping(value="/appSetting", method=RequestMethod.GET)
+	public String userAppSetting(){
+		
+		return "user_app_setting";
+	}
+	
 	@RequestMapping(value="/workappInfoPage2", method=RequestMethod.GET)
 	public String WorkappInfoPage2(){
 		

@@ -1,6 +1,7 @@
 package com.ascom.kintai.controller;
 
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,22 +10,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ascom.kintai.dao.WorkappInfoDao;
+import com.ascom.kintai.service.KintaiUserService;
+import com.ascom.kintai.util.KintaiConstant;
+import com.ascom.kintai.vo.AppSet;
 import com.ascom.kintai.vo.WorkappInfo;
+import com.ascom.kintai.vo.WorkappUser;
 
 @RestController
 public class KintaiUserRestController {
 	
 	@Autowired
-	WorkappInfoDao wdao;
+	KintaiUserService service;
 	
 	@ResponseBody
 	@RequestMapping(value="workInfo", method = RequestMethod.POST)
-	public ArrayList<Object> workInfo(String date,HttpSession session){
+	public ArrayList<Object> workInfo(String date, HttpSession session){
 		//세션처리하기
-		System.out.println(date);
-		String email = "park.siwon@a-s.com.co";
-		ArrayList<Object> AllWorkData = wdao.workInfo(email, date);
+		
+		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		String email = account.getEmail();
+		
+		ArrayList<Object> AllWorkData = service.workInfo(email, date);
 
 		return AllWorkData;
 		
@@ -32,12 +38,14 @@ public class KintaiUserRestController {
 
 	@ResponseBody
 	@RequestMapping(value="UpdateWorkInfo", method = RequestMethod.POST)
-	public String UpdateWorkInfo(WorkappInfo updateInfo){
+	public String UpdateWorkInfo(WorkappInfo updateInfo, HttpSession session){
 		String mention;
 		//세션처리하기
-		String email = "park.siwon@a-s.com.co";
+		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		String email = account.getEmail();
+		
 		updateInfo.setEmail(email);
-		int result = wdao.UpdateWorkInfo(updateInfo);
+		int result = service.UpdateWorkInfo(updateInfo);
 		if(result!=0){
 			mention="success";
 		}else{
@@ -46,5 +54,36 @@ public class KintaiUserRestController {
 		return mention;	
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/getUserAppSetting", method = RequestMethod.POST)
+	public Object getUserAppSetting(HttpSession session) {
 
+		return session.getAttribute(KintaiConstant.SESSION_SETTING);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateUserAppSetting", method = RequestMethod.POST)
+	public void updateUserAppSetting(AppSet set,  HttpSession session) {
+		WorkappUser acc = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		
+		service.updateUserAppSetting(set, acc.getEmail());
+		//service.updateUserPassword(pwd, acc.getEmail());
+		
+		AppSet sset = (AppSet)session.getAttribute(KintaiConstant.SESSION_SETTING);
+		sset.setWorkLocation(set.getWorkLocation());
+		sset.setLanguage(set.getLanguage());
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateUserPassword", method = RequestMethod.POST)
+	public void updateUserPassword(String pwd,  HttpSession session) {
+
+		WorkappUser acc = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		
+		service.updateUserPassword(pwd, acc.getEmail());
+		
+	}
+	
+	
 }

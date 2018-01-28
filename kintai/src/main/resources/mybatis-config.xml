@@ -13,9 +13,10 @@
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="./mapper/WorkappInfoMapper.xml" />
+		<mapper resource="./mapper/KintaiUserMapper.xml" />
 		<mapper resource="./mapper/testMapper.xml" />
 		<mapper resource="./mapper/KintaiCommonMapper.xml" />
+		<mapper resource="./mapper/KintaiSuperAdminMapper.xml" />
 	</mappers>
 	
 </configuration>

@@ -7,16 +7,21 @@
 
 	<typeAliases>
 		<typeAlias type="com.ascom.kintai.vo.TestVo" alias="TestVo" />
+<<<<<<< HEAD
+=======
 		<typeAlias type="com.ascom.kintai.vo.WorkappInfo" alias="WorkappInfo" />
+>>>>>>> origin/kuri
 		<typeAlias type="com.ascom.kintai.vo.AppSet" alias="AppSet" />
 		<typeAlias type="com.ascom.kintai.vo.WorkappUser" alias="WorkappUser" />
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="./mapper/KintaiUserMapper.xml" />
+<<<<<<< HEAD
+=======
+		<mapper resource="./mapper/WorkappInfoMapper.xml" />
+>>>>>>> origin/kuri
 		<mapper resource="./mapper/testMapper.xml" />
 		<mapper resource="./mapper/KintaiCommonMapper.xml" />
-		<mapper resource="./mapper/KintaiSuperAdminMapper.xml" />
 	</mappers>
 	
 </configuration>
