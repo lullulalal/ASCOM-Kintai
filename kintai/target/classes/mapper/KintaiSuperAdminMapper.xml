@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ascom.kintai.mapper.KintaiSuperAdminMapper">
+	<select id="getSuperAdminSetting" resultType="hashmap">
+		select distinct 
+			(select setvalue from workapp_super_admin_set_table where setting='maxTime') as maxTime,
+			(select setvalue from workapp_super_admin_set_table where setting='minTime') as minTime,
+			(select setvalue from workapp_super_admin_set_table where setting='notice') as notice	
+		from
+			workapp_super_admin_set_table 
+	</select>
+	
+	<update id="updateMaxTimeSuperAdminSet" parameterType="hashmap">
+		update 
+			workapp_super_admin_set_table 
+		set 
+			setvalue= #{maxTime} 	
+		where 
+			setting = 'maxTime'
+	</update>
+	<update id="updateMinTimeSuperAdminSet" parameterType="hashmap">
+		update 
+			workapp_super_admin_set_table 
+		set 
+			setvalue= #{minTime} 	
+		where 
+			setting = 'minTime'
+	</update>
+	
+	<update id="updateNoticeSuperAdminSet" parameterType="hashmap">
+		update 
+			workapp_super_admin_set_table 
+		set
+			setvalue= #{notice} 	
+		where
+			setting = 'notice'
+	</update>
+</mapper>

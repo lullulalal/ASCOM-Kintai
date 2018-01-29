@@ -13,6 +13,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.ascom.kintai.service.KintaiCommonService;
 import com.ascom.kintai.util.KintaiConstant;
+import com.ascom.kintai.vo.AppSet;
 import com.ascom.kintai.vo.WorkappUser;
 
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
@@ -31,6 +32,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
         	WorkappUser account = service.checkUserWithSessionKey(sessionId);
         	if ( account != null ){ 
         			session.setAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT, account);
+        			AppSet appSet = service.getAppSetting(account.getEmail());
+        			session.setAttribute(KintaiConstant.SESSION_SETTING, appSet);
         			response.sendRedirect("shukinCheck");
         			return false;
         	}

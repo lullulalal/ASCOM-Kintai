@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ascom.kintai.mapper.KintaiUserMapper">
+
+	<select id="workInfo" parameterType="String" resultType="WorkappInfo">
+		select 
+			date_format(workDate,'%d') as workDate, 
+			date_format(startTime,'%H:%i:%s') as startTime,
+			date_format(endTime,'%H:%i:%s') as endTime,
+			date_format(restTime,'%H:%i') as restTime,
+			date_format(workTime,'%H:%i') as workTime 
+				
+			from 
+				workapp_info_table
+			where 
+				email=#{param1} and workDate like CONCAT(#{param2}, '%')
+			
+			order by workDate asc
+	</select>
+	
+	
+	<update id="UpdateWorkInfo" parameterType="WorkappInfo">
+		update 
+			workapp_info_table 
+		
+			set 
+				startTime= #{startTime},endTime= #{endTime},restTime=#{restTime} 
+			
+			where 
+				email = #{email} and workDate like CONCAT(#{workDate}, '%')
+				
+	</update>
+	
+	<select id="AllWorkTime" parameterType="String" resultType="String">
+		select 
+			time_format(sec_to_time(sum(time_to_sec(workTime))),'%H')
+			
+			from 
+				workapp_info_table 
+			where 
+				email=#{param1} and workDate like CONCAT(#{param2}, '%')
+	</select>
+	
+	<update id="updateUserAppLanguage">
+		update 
+			workapp_app_set_table 
+		
+			set 
+				setvalue = #{0}
+			where 
+				email = #{1} and setting='language'
+	</update>
+	
+	<update id="updateUserAppWorkLocation">
+		update 
+			workapp_app_set_table 
+		
+			set 
+				setvalue = #{0}
+			where 
+				email = #{1} and setting='workLocation'
+	</update>
+
+	<update id="updateUserPassword">
+		update 
+			app_account_table 
+		set 
+			password = #{0}
+		where 
+			email = #{1}
+	</update>
+	
+</mapper>
