@@ -27,7 +27,9 @@
 			workapp_info_table 
 		
 			set 
-				startTime= #{startTime},endTime= #{endTime},restTime=#{restTime} 
+				startTime=CONCAT(#{workDate},' ',#{startTime}),
+				endTime=CONCAT(#{workDate},' ',#{endTime}),restTime=#{restTime},
+				workTime=(select subtime((select subtime(#{endTime},#{startTime})),#{restTime}))
 			
 			where 
 				email = #{email} and workDate like CONCAT(#{workDate}, '%');

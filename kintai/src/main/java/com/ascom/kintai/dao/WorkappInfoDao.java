@@ -35,6 +35,7 @@ public class WorkappInfoDao extends TimeOnlyTypeHandler{
 	
 	public int UpdateWorkInfo(WorkappInfo updateInfo){
 		WorkappInfoMapper Wmapper = sqlsession.getMapper(WorkappInfoMapper.class);
+		System.out.println("????"+updateInfo.getWorkDate());
 		int result = Wmapper.UpdateWorkInfo(updateInfo);
 		return result;
 		

@@ -310,7 +310,7 @@
 		}
 	 
 	 
-	 //アラートで情報を修正する機能
+/* 	 //アラートで情報を修正する機能
 	 function UpdateWorkInfo(){
 		 
 		 var UstartTime = $('#UstartTime').val();
@@ -334,7 +334,34 @@
 				 }
 			 }
 		 });  
+	 } */
+	 
+	 //アラートで情報を修正する機能
+	 function UpdateWorkInfo(){
+		 
+		 var UstartTime = $('#UstartTime').val();
+		 var UendTime = $('#UendTime').val();
+		 var UrestTime = $('#UrestTime').val();
+
+  		 $.ajax({
+			 type:'post',
+			 url:'UpdateWorkInfo',
+			 data:{
+				 workDate:Udate,
+				 startTime:UstartTime,
+				 endTime:UendTime,
+				 restTime:UrestTime
+			 },
+			 success:function(data){
+				 if(data==="success"){
+					 InputDate();
+				 }else{
+					return false;
+				 }
+			 }
+		 });  
 	 }
+	 
 
 	</script>
  
