@@ -8,12 +8,14 @@
 	<typeAliases>
 		<typeAlias type="com.ascom.kintai.vo.TestVo" alias="TestVo" />
 		<typeAlias type="com.ascom.kintai.vo.WorkappInfo" alias="WorkappInfo" />
+		<typeAlias type="com.ascom.kintai.vo.Employee" alias="Employee" />
 		<typeAlias type="com.ascom.kintai.vo.AppSet" alias="AppSet" />
 		<typeAlias type="com.ascom.kintai.vo.WorkappUser" alias="WorkappUser" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="./mapper/KintaiUserMapper.xml" />
+		<mapper resource="./com/ascom/kintai/mapper/kintaiMapper.xml" />
 		<mapper resource="./mapper/testMapper.xml" />
 		<mapper resource="./mapper/KintaiCommonMapper.xml" />
 		<mapper resource="./mapper/KintaiSuperAdminMapper.xml" />

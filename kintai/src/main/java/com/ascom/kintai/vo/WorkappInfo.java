@@ -7,13 +7,14 @@ public class WorkappInfo {
 	public String endTime;
 	public String restTime;
 	public String workTime;
+	public String workState;
 
 	public WorkappInfo() {
 		super();
 	}
 
 	public WorkappInfo(String email, String workDate, String startTime, String endTime, String restTime,
-			String workTime) {
+			String workTime, String workState) {
 		super();
 		this.email = email;
 		this.workDate = workDate;
@@ -21,6 +22,7 @@ public class WorkappInfo {
 		this.endTime = endTime;
 		this.restTime = restTime;
 		this.workTime = workTime;
+		this.workState=workState;
 	}
 
 	public String getEmail() {
@@ -71,9 +73,12 @@ public class WorkappInfo {
 		this.workTime = workTime;
 	}
 
-	@Override
-	public String toString() {
-		return "WorkappInfo [email=" + email + ", workDate=" + workDate + ", startTime=" + startTime + ", endTime="
-				+ endTime + ", restTime=" + restTime + ", workTime=" + workTime + "]";
+	public String getWorkState() {
+		return workState;
 	}
+
+	public void setWorkState(String workState) {
+		this.workState = workState;
+	}
+	
 }
