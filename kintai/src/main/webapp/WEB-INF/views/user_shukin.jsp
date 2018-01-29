@@ -24,7 +24,8 @@
 	rel="stylesheet" />
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<body class="fixed-nav sticky-footer bg-dark" id="page-top"
+	ng-app="ascomApp" ng-controller="comnCtrl">
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
 		id="mainNav">
@@ -36,65 +37,26 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarResponsive">
-			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Dashboard"><a class="nav-link" href="index.html"> <i
-						class="fa fa-fw fa-dashboard"></i> <span class="nav-link-text">Dashboard</span>
-				</a></li>
-				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Charts"><a class="nav-link" href="charts.html"> <i
-						class="fa fa-fw fa-area-chart"></i> <span class="nav-link-text">Charts</span>
-				</a></li>
-				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Tables"><a class="nav-link" href="tables.html"> <i
-						class="fa fa-fw fa-table"></i> <span class="nav-link-text">Tables</span>
-				</a></li>
-				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Components"><a
-					class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
-					href="#collapseComponents" data-parent="#exampleAccordion"> <i
-						class="fa fa-fw fa-wrench"></i> <span class="nav-link-text">Components</span>
-				</a>
-					<ul class="sidenav-second-level collapse" id="collapseComponents">
-						<li><a href="navbar.html">Navbar</a></li>
-						<li><a href="cards.html">Cards</a></li>
-					</ul></li>
-
-				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Link"><a class="nav-link" href="#"> <i
-						class="fa fa-fw fa-link"></i> <span class="nav-link-text">Link</span>
-				</a></li>
-			</ul>
-			<ul class="navbar-nav sidenav-toggler">
-				<li class="nav-item"><a class="nav-link text-center"
-					id="sidenavToggler"> <i class="fa fa-fw fa-angle-left"></i>
-				</a></li>
-			</ul>
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a class="nav-link" data-toggle="modal"
-					data-target="#exampleModal"> <i class="fa fa-fw fa-sign-out"></i>Logout
-				</a></li>
-			</ul>
-		</div>
+		<div class="collapse navbar-collapse" id="navbarResponsive"></div>
 	</nav>
 
 	<div class="content-wrapper-gray">
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item active">クリさん、今日もお疲れ様です。</li>
-			</ol>
+			<ol class="breadcrumb"></ol>
 
 			<div class="breadcrumb2">
-				<input type="datetime-local" class="input_date">
+				<input type="text" id="date" readonly style=text-align:center;>
+				<input type="text" id="time" style=text-align:center;>
 			</div>
 			<!-- Icon Cards-->
 			<div class="row">
 				<div class="col-xl-3 col-sm-6 mb-3">
 					<div class="card text-white bg-warning o-hidden h-100">
 						<div class="card-body">
-							<div class="mr-5" onclick="shukinInsertCheck()">出勤</div>
+							<div class="mr-5" onclick="shukinInsertCheck()">
+								<span class='0011'></span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -102,17 +64,26 @@
 				<div class="col-xl-3 col-sm-6 mb-3">
 					<div class="card text-white bg-danger o-hidden h-100">
 						<div class="card-body">
-							<div class="mr-5" onclick="vacationInsertCheck()">休み</div>
+							<div class="mr-5" onclick="vacationInsertCheck()">
+								<span class='0012'></span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
+		<!-- 出勤 -->
+		<input type="hidden" value={{::getText('0011')}}>
+		<!-- 休み -->
+		<input type="hidden" value={{::getText('0012')}}>
+
 		<!-- Bootstrap core JavaScript-->
 		<script src="./resources/vendor/jquery/jquery.min.js"></script>
 		<script src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<!-- Core plugin JavaScript-->
+		<script src="./resources/time/timedropper.js"></script>
+		<link rel="stylesheet" type="text/css" href="./resources/time/timedropper.css">
 		<!-- Custom scripts for all pages-->
 		<script src="./resources/js/sb-admin.js"></script>
 		<!-- modal -->
@@ -122,27 +93,60 @@
 		<link href="./resources/css/jquery.modal.theme-xenon.css"
 			rel="stylesheet">
 		<script src="./resources/js/jquery.modal.js"></script>
+		<!-- angular js -->
+		<script src="./resources/vendor/angular/angular.min.js"></script>
+		<script src="./resources/angular/app.js"></script>
+		<script src="./resources/angular/service/common_service.js"></script>
+		<script src="./resources/angular/controller/common_controller.js"></script>
 
 		<script>
 			$(function() {
+				buttonCheck();
+				getComment();
+				timeInit();
+			});
+			
+			var workDate;
+			function timeInit(){
+				$('#time').timeDropper();
+				$.ajax({
+					url : 'currentTime',
+					type : 'POST',
+					datatype:'json',
+					success : function(data) {
+						$("#date").val(data);
+						workDate=data;
+					},
+					error : function() {
+					}
+				});
+			}
+			
+			function getComment(){
+				$.ajax({
+					url : 'getComment',
+					type : 'POST',
+					datatype:'json',
+					success : function(data) {
+						$(".breadcrumb").append('<li class="breadcrumb-item active">'+data+'</li>');
+					},
+					error : function() {
+					}
+				});
+			}
+			
+			function buttonCheck(){
 				var shukinChk = "${shukinCheck}";
 				var vacationChk = "${vacationCheck}";
-				
+
 				if (shukinChk == "true" || vacationChk == "true") {
 					$(".row").hide();
 				}
-			});
-
+			}
+			
 			var startTime;
-			var workDate;
-
 			function shukinInsertCheck() {
-				var date = $(".input_date").val();
-
-				startTime = date.replace('T', ' ');
-				workDate = startTime.substr(0, 10);
-				console.log(workDate);
-
+				startTime=$("#time").val();
 				modal({
 					type : 'confirm',
 					title : 'Confirm',
@@ -167,7 +171,6 @@
 						window.location.href = 'shukinCheck';
 					},
 					error : function() {
-
 					}
 				});
 			}
