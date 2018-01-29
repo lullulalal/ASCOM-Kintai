@@ -15,7 +15,7 @@
 	
 	<mappers>
 		<mapper resource="./mapper/KintaiUserMapper.xml" />
-		<mapper resource="./mapper/kintaiMapper.xml" />
+		<mapper resource="./com/ascom/kintai/mapper/kintaiMapper.xml" />
 		<mapper resource="./mapper/testMapper.xml" />
 		<mapper resource="./mapper/KintaiCommonMapper.xml" />
 		<mapper resource="./mapper/KintaiSuperAdminMapper.xml" />

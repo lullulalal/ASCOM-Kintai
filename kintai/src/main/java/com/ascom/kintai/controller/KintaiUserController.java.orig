@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ascom.kintai.HomeController;
 import com.ascom.kintai.dao.KintaiDao;
 import com.ascom.kintai.vo.WorkappInfo;
 
 @Controller
 public class KintaiUserController {
-	private static final Logger logger = LoggerFactory.getLogger(KintaiUserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
 	KintaiDao dao;
