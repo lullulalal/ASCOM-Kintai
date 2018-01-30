@@ -20,41 +20,38 @@ import com.ascom.kintai.vo.WorkappUser;
 @Controller
 public class KintaiUserController {
 	private static final Logger logger = LoggerFactory.getLogger(KintaiUserController.class);
-
+	
 	@Autowired
-	KintaiUserDao dao;
+	KintaiUserDao wdao;
 	
-	
-	@RequestMapping(value="/workappInfoPage", method=RequestMethod.GET)
-	public String WorkappInfoPage(){
-		
+	@RequestMapping(value = "/workappInfoPage", method = RequestMethod.GET)
+	public String WorkappInfoPage() {
+
 		return "user_list";
 	}
-	
-	@RequestMapping(value="/appSetting", method=RequestMethod.GET)
-	public String userAppSetting(){
-		
+
+	@RequestMapping(value = "/appSetting", method = RequestMethod.GET)
+	public String userAppSetting() {
+
 		return "user_app_setting";
 	}
-
-	
 	@RequestMapping(value = "shukinCheck", method = RequestMethod.GET)
-	public String shukin(HttpSession session,Model model) {		
-		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+	public String shukinCheck(HttpSession session) {
+		WorkappUser account = (WorkappUser) session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
 		String email = account.getEmail();
-
-		if(dao.vacationCheck(email)==0){
-			model.addAttribute("vacationCheck", "false");
-			if(dao.shukinCheck(email)==0) {
-				model.addAttribute("shukinCheck", "false");
+		if (wdao.vacationCheck(email) == 0) {
+			System.out.println(wdao.vacationCheck(email));
+			if (wdao.shukinCheck(email) == 0) {
 				return "user_shukin";
-			}else{
-				model.addAttribute("shukinCheck", "true");
-				return "user_taikin";
+			} else {
+				if (wdao.taikinCheck(email) == 0) {
+					return "user_taikin";
+				} else {
+					return "user_check_kanryo";
+				}
 			}
-		}else {
-			model.addAttribute("vacationCheck", "true");
-			return "user_shukin";
+		} else {
+			return "user_check_kanryo";
 		}
 	}
 }

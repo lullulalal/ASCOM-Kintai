@@ -2,10 +2,13 @@ package com.ascom.kintai.dao;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.type.TimeOnlyTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import com.ascom.kintai.mapper.KintaiUserMapper;
 import com.ascom.kintai.vo.AppSet;
@@ -124,4 +127,12 @@ public class KintaiUserDao extends TimeOnlyTypeHandler{
 		return comment;
 	}
 	
+	public int taikinCheck(String email) {
+		int checkResult = 0;
+
+		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
+		checkResult = Wmapper.taikinCheck(email);
+
+		return checkResult;
+	}
 }

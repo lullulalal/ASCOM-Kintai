@@ -90,13 +90,15 @@
 			(
 				email, 
 				workdate, 
-				starttime
+				starttime,
+				workState
 			)
 		VALUES 
 			(
 				#{email},
-				#{workDate},
-				#{startTime}
+				curdate(),
+				#{startTime},
+				#{workState}
 			)
 	</insert>
 	
@@ -105,7 +107,8 @@
 				workapp_info_table
 			SET 
 				endTime=#{endTime},
-				restTime=#{restTime}
+				restTime=#{restTime},
+				workState=#{workState}
 			WHERE 
 				email=#{email} 
 			AND 
@@ -172,5 +175,18 @@
 			WORKAPP_SUPER_ADMIN_SET_TABLE
 		where
 			setting='notice'
+	</select>
+	
+	<select id="taikinCheck" parameterType ="String" resultType="int">
+		select
+			count(*) 
+		from 
+			workapp_info_table 
+		where 
+			endTime>'00:00:00' 
+		and 
+			email=#{email}
+		and 
+			workDate=curdate()
 	</select>
 </mapper>

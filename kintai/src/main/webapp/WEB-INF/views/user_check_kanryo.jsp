@@ -20,10 +20,11 @@
 	rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="./resources/css/sb-admin.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css"
+	rel="stylesheet" />
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top"
-	ng-app="ascomApp" ng-controller="comnCtrl">
+<body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
 		id="mainNav">
@@ -41,29 +42,26 @@
 	<div class="content-wrapper-gray">
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
-			<ol class="breadcrumb"></ol>
-
-			<div class="breadcrumb2">
-				<input type="text" id="date" size="10" readonly style="text-align: center;"> 
-				<input type="text" id="time" size="10" readonly style="text-align: center;"> 
-				<input type="text" id="rest" size="10" readonly style="text-align: center;">
-			</div>
-
+			<ol class="breadcrumb"><span class='0058'></span></ol>
 			<!-- Icon Cards-->
 			<div class="row">
 				<div class="col-xl-3 col-sm-6 mb-3">
 					<div class="card text-white bg-warning o-hidden h-100">
 						<div class="card-body">
-							<div class="mr-5" onclick="taikinInsertCheck()">
-								<span class='0016'></span>
+							<div class="mr-5" onclick="kintaiCheck()">
+								<span class='0046'></span>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
 		</div>
 
+		<!-- 出勤 /退勤-->
+		<input type="hidden" value={{::getText('0046')}}>
+		<!-- 勤怠チェックが完了しました。　明日も頑張りましょう！ -->
+		<input type="hidden" value={{::getText('0058')}}>
+		
 		<!-- Logout Modal-->
 		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,36 +89,30 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- 退勤 -->
-		<input type="hidden" value={{::getText('0016')}}>
-
-		<!-- logout modal -->
-		<input type="hidden" value={{::getText('0043')}}>
-	 	<input type="hidden" value={{::getText('0045')}}>
-	  	<input type="hidden" value={{::getText('0044')}}>
-		<input type="hidden"  value={{::getText('0021')}}>
-	
 		
+			<!-- logout modal -->
+	<input type="hidden" value={{::getText('0043')}}>
+ 	<input type="hidden" value={{::getText('0045')}}>
+  	<input type="hidden" value={{::getText('0044')}}>
+	<input type="hidden"  value={{::getText('0021')}}>
+    
+			
 		<!-- Bootstrap core JavaScript-->
 		<script src="./resources/vendor/jquery/jquery.min.js"></script>
 		<script src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		
 		<!-- Core plugin JavaScript-->
 		<script src="./resources/time/timedropper.js"></script>
-		<link rel="stylesheet" type="text/css" href="./resources/time/timedropper.css">
-		<script src="./resources/mobitime/mobiscroll.jquery.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="./resources/mobitime/mobiscroll.jquery.min.css">
-
+		<link rel="stylesheet" type="text/css"
+			href="./resources/time/timedropper.css">
 		<!-- Custom scripts for all pages-->
 		<script src="./resources/js/sb-admin.js"></script>
-		
 		<!-- modal -->
 		<link href="./resources/css/jquery.modal.css" rel="stylesheet">
-		<link href="./resources/css/jquery.modal.theme-atlant.css" rel="stylesheet">
-		<link href="./resources/css/jquery.modal.theme-xenon.css" rel="stylesheet">
+		<link href="./resources/css/jquery.modal.theme-atlant.css"
+			rel="stylesheet">
+		<link href="./resources/css/jquery.modal.theme-xenon.css"
+			rel="stylesheet">
 		<script src="./resources/js/jquery.modal.js"></script>
-
 		<!-- angular js -->
 		<script src="./resources/vendor/angular/angular.min.js"></script>
 		<script src="./resources/angular/app.js"></script>
@@ -129,83 +121,11 @@
 
 		<script>
 			$(function() {
-				getComment();
-				timeInit();
 			});
-
-			var workDate;
-			function timeInit() {
-				$('#time').timeDropper();
-				 $('#rest').mobiscroll().time({
-				        theme: 'mobiscroll',
-				        display: 'center',
-				        timeFormat: 'HH:ii',
-				        onInit: function (event, inst) {
-				            inst.setVal('00:00', true);
-				        }
-				    });
-				
-				$.ajax({
-					url : 'currentTime',
-					type : 'POST',
-					datatype : 'json',
-					success : function(data) {
-						$("#date").val(data);
-						workDate = data;
-					},
-					error : function() {
-					}
-				});
-			}
-
-			function getComment() {
-				$.ajax({
-					url : 'getComment',
-					type : 'POST',
-					datatype : 'json',
-					success : function(data) {
-						$(".breadcrumb").append(
-								'<li class="breadcrumb-item active">' + data
-										+ '</li>');
-					},
-					error : function() {
-					}
-				});
-			}
-
-			function taikinInsertCheck() {
-				modal({
-					type : 'confirm',
-					title : 'Confirm',
-					text : '帰りますか？',
-					callback : function(result) {
-						if (result == true) {
-							taikinInsert();
-						}
-					}
-				});
-			}
-
-			function taikinInsert() {
-				var endTime = $("#time").val();
-				var restTime = $("#rest").val();
-
-				$.ajax({
-					url : 'taikinInsert',
-					type : 'POST',
-					data : {
-						workDate : workDate,
-						endTime : endTime,
-						restTime : restTime
-					},
-					success : function() {
-						window.location.href = 'workappInfoPage';
-					},
-					error : function() {
-					}
-				});
+			
+			function kintaiCheck(){
+				window.location.href = 'shukinCheck';
 			}
 		</script>
 </body>
-
 </html>

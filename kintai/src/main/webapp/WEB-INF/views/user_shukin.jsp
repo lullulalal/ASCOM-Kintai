@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>SB Admin - Start Bootstrap Template</title>
+<title>ASCOM</title>
 <!-- Bootstrap core CSS-->
 <link href="./resources/vendor/bootstrap/css/bootstrap.css"
 	rel="stylesheet">
@@ -29,7 +29,7 @@
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
 		id="mainNav">
-		<a class="navbar-brand" href="index.html"><img class="banner_top"
+		<a class="navbar-brand" href="#"><img class="banner_top"
 			src="./resources/img/logo_banner.png">ASCOM</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button"
 			data-toggle="collapse" data-target="#navbarResponsive"
@@ -46,8 +46,8 @@
 			<ol class="breadcrumb"></ol>
 
 			<div class="breadcrumb2">
-				<input type="text" id="date" readonly style=text-align:center;>
-				<input type="text" id="time" style=text-align:center;>
+				<input type="text" id="date" readonly style="text-align: center;">
+				<input type="text" id="time" style="text-align: center;">
 			</div>
 			<!-- Icon Cards-->
 			<div class="row">
@@ -73,17 +73,50 @@
 			</div>
 		</div>
 
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">
+							<span class='0043'></span>
+						</h5>
+						<button class="close" type="button" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<span class='0045'></span>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">
+							<span class='0044'></span>
+						</button>
+						<a class="btn btn-primary" href="logout"><span class='0021'></span></a>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- 出勤 -->
 		<input type="hidden" value={{::getText('0011')}}>
 		<!-- 休み -->
 		<input type="hidden" value={{::getText('0012')}}>
-
+			<!-- logout modal -->
+		<input type="hidden" value={{::getText('0043')}}>
+	 	<input type="hidden" value={{::getText('0045')}}>
+	  	<input type="hidden" value={{::getText('0044')}}>
+		<input type="hidden"  value={{::getText('0021')}}>
+			
 		<!-- Bootstrap core JavaScript-->
 		<script src="./resources/vendor/jquery/jquery.min.js"></script>
 		<script src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<!-- Core plugin JavaScript-->
 		<script src="./resources/time/timedropper.js"></script>
-		<link rel="stylesheet" type="text/css" href="./resources/time/timedropper.css">
+		<link rel="stylesheet" type="text/css"
+			href="./resources/time/timedropper.css">
 		<!-- Custom scripts for all pages-->
 		<script src="./resources/js/sb-admin.js"></script>
 		<!-- modal -->
@@ -101,52 +134,44 @@
 
 		<script>
 			$(function() {
-				buttonCheck();
 				getComment();
 				timeInit();
 			});
-			
+
 			var workDate;
-			function timeInit(){
+			function timeInit() {
 				$('#time').timeDropper();
 				$.ajax({
 					url : 'currentTime',
 					type : 'POST',
-					datatype:'json',
+					datatype : 'json',
 					success : function(data) {
 						$("#date").val(data);
-						workDate=data;
+						workDate = data;
 					},
 					error : function() {
 					}
 				});
 			}
-			
-			function getComment(){
+
+			function getComment() {
 				$.ajax({
 					url : 'getComment',
 					type : 'POST',
-					datatype:'json',
+					datatype : 'json',
 					success : function(data) {
-						$(".breadcrumb").append('<li class="breadcrumb-item active">'+data+'</li>');
+						$(".breadcrumb").append(
+								'<li class="breadcrumb-item active">' + data
+										+ '</li>');
 					},
 					error : function() {
 					}
 				});
 			}
-			
-			function buttonCheck(){
-				var shukinChk = "${shukinCheck}";
-				var vacationChk = "${vacationCheck}";
 
-				if (shukinChk == "true" || vacationChk == "true") {
-					$(".row").hide();
-				}
-			}
-			
 			var startTime;
 			function shukinInsertCheck() {
-				startTime=$("#time").val();
+				startTime = $("#time").val();
 				modal({
 					type : 'confirm',
 					title : 'Confirm',
@@ -193,7 +218,6 @@
 					url : 'vacationInsert',
 					type : 'POST',
 					data : {
-						email : "lullulalal@gmail.com"
 					},
 					success : function() {
 						window.location.href = 'shukinCheck';

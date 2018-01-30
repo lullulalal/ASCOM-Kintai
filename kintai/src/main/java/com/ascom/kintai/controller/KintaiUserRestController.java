@@ -97,21 +97,24 @@ public class KintaiUserRestController {
 	@ResponseBody
 	@RequestMapping(value = "shukinInsert", method = RequestMethod.POST)
 	public int shukinInsert(String workDate, String startTime, HttpSession session) {
-		WorkappUser acc = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);		
-		return service.shukinInsert(workDate, startTime, acc.getEmail());	
+		WorkappUser acc = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		AppSet aps = (AppSet)session.getAttribute(KintaiConstant.SESSION_SETTING);
+		return service.shukinInsert(workDate, startTime, acc.getEmail(), aps.getWorkLocation());	
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "taikinInsert", method = RequestMethod.POST)
 	public int taikinInsert(String workDate, String endTime, String restTime, HttpSession session) {
 		WorkappUser acc = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
-		return service.taikinInsert(workDate, endTime, restTime, acc.getEmail());
+		AppSet aps = (AppSet)session.getAttribute(KintaiConstant.SESSION_SETTING);
+		return service.taikinInsert(workDate, endTime, restTime, acc.getEmail(), aps.getWorkLocation());
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "vacationInsert", method = RequestMethod.POST)
-	public int vacationInsert(String email) {
-		return service.vacationInsert(email);
+	public int vacationInsert(HttpSession session) {
+		WorkappUser acc = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		return service.vacationInsert(acc.getEmail());
 	}
 	
 	@ResponseBody
@@ -125,4 +128,6 @@ public class KintaiUserRestController {
 	public String getComment() {
 		return service.getComment();
 	}
+	
+
 }
