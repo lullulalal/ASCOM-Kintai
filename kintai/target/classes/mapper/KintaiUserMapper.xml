@@ -72,5 +72,121 @@
 		where 
 			email = #{1}
 	</update>
+
+	<select id="shukinCheck" parameterType ="String" resultType="int">
+		select
+			count(*) 
+		from 
+			workapp_info_table 
+		where 
+			email=#{email}
+		and 
+			workdate=curdate()
+	</select>
 	
+	<insert id="shukinInsert" parameterType ="WorkappInfo">
+		INSERT INTO 
+			workapp_info_table 
+			(
+				email, 
+				workdate, 
+				starttime,
+				workState
+			)
+		VALUES 
+			(
+				#{email},
+				curdate(),
+				#{startTime},
+				#{workState}
+			)
+	</insert>
+	
+	<update id="taikinInsert" parameterType="WorkappInfo">	
+			UPDATE
+				workapp_info_table
+			SET 
+				endTime=#{endTime},
+				restTime=#{restTime},
+				workState=#{workState}
+			WHERE 
+				email=#{email} 
+			AND 
+				workdate=curdate()
+	</update>
+	
+	<update id="worktimeInsert" parameterType="String">	
+		UPDATE 
+				workapp_info_table
+			SET 
+				workTime=  
+					(select * from 
+						(select subtime
+							(  
+								(select subtime   
+									( 
+										(select time(endTime) from workapp_info_table where email=#{email} and workdate=curdate())
+								   		,(select time(startTime) from workapp_info_table where email=#{email} and workdate=curdate())
+								 	)  
+							 	) 
+							 	,(select time(restTime) from workapp_info_table where email=#{email} and workdate=curdate()))
+						 ) 
+					 	as r
+					 )
+			WHERE 
+				email=#{email} 
+			AND 
+				workdate=curdate()
+	</update>
+	
+	<insert id="vacationInsert" parameterType="String">
+		INSERT INTO 
+			workapp_info_table 
+			(
+				email, 
+				workdate, 
+				workstate
+			)
+		VALUES
+			(
+				#{email},
+				curdate(),
+				'0012'
+			)
+	</insert>
+	
+	<select id="vacationCheck" parameterType ="String" resultType="int">
+		select
+			count(*) 
+		from 
+			workapp_info_table 
+		where 
+			email=#{email}
+		and 
+			workdate=curdate()
+		and 
+			workstate='0012'
+	</select>
+	
+	<select id="getComment" resultType="String">
+		select
+			setvalue
+		from 
+			WORKAPP_SUPER_ADMIN_SET_TABLE
+		where
+			setting='notice'
+	</select>
+	
+	<select id="taikinCheck" parameterType ="String" resultType="int">
+		select
+			count(*) 
+		from 
+			workapp_info_table 
+		where 
+			endTime>'00:00:00' 
+		and 
+			email=#{email}
+		and 
+			workDate=curdate()
+	</select>
 </mapper>

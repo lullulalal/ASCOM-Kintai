@@ -13,5 +13,12 @@ public interface KintaiUserMapper {
 	public void updateUserAppLanguage(String set, String email) ;
 	public void updateUserAppWorkLocation(String set, String email) ;
 	public void updateUserPassword(String HashedPwd, String email);
-	
+	public int shukinCheck(String email);
+	public int taikinCheck(String email);
+	public int shukinInsert(WorkappInfo workappinfo);
+	public int taikinInsert(WorkappInfo workappinfo);
+	public int worktimeInsert(String email);
+	public int vacationInsert(String email);
+	public int vacationCheck(String email);
+	public String getComment();
 }

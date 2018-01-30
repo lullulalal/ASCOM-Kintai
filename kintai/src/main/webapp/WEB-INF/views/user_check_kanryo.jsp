@@ -24,8 +24,7 @@
 	rel="stylesheet" />
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top"
-	ng-app="ascomApp" ng-controller="comnCtrl">
+<body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
 		id="mainNav">
@@ -43,29 +42,14 @@
 	<div class="content-wrapper-gray">
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
-			<ol class="breadcrumb"></ol>
-
-			<div class="breadcrumb2">
-				<input type="text" id="date" readonly style="text-align: center;">
-				<input type="text" id="time" style="text-align: center;">
-			</div>
+			<ol class="breadcrumb"><span class='0058'></span></ol>
 			<!-- Icon Cards-->
 			<div class="row">
 				<div class="col-xl-3 col-sm-6 mb-3">
 					<div class="card text-white bg-warning o-hidden h-100">
 						<div class="card-body">
-							<div class="mr-5" onclick="shukinInsertCheck()">
-								<span class='0011'></span>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xl-3 col-sm-6 mb-3">
-					<div class="card text-white bg-danger o-hidden h-100">
-						<div class="card-body">
-							<div class="mr-5" onclick="vacationInsertCheck()">
-								<span class='0012'></span>
+							<div class="mr-5" onclick="kintaiCheck()">
+								<span class='0046'></span>
 							</div>
 						</div>
 					</div>
@@ -73,6 +57,11 @@
 			</div>
 		</div>
 
+		<!-- 出勤 /退勤-->
+		<input type="hidden" value={{::getText('0046')}}>
+		<!-- 勤怠チェックが完了しました。　明日も頑張りましょう！ -->
+		<input type="hidden" value={{::getText('0058')}}>
+		
 		<!-- Logout Modal-->
 		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -100,15 +89,13 @@
 				</div>
 			</div>
 		</div>
-		<!-- 出勤 -->
-		<input type="hidden" value={{::getText('0011')}}>
-		<!-- 休み -->
-		<input type="hidden" value={{::getText('0012')}}>
+		
 			<!-- logout modal -->
-		<input type="hidden" value={{::getText('0043')}}>
-	 	<input type="hidden" value={{::getText('0045')}}>
-	  	<input type="hidden" value={{::getText('0044')}}>
-		<input type="hidden"  value={{::getText('0021')}}>
+	<input type="hidden" value={{::getText('0043')}}>
+ 	<input type="hidden" value={{::getText('0045')}}>
+  	<input type="hidden" value={{::getText('0044')}}>
+	<input type="hidden"  value={{::getText('0021')}}>
+    
 			
 		<!-- Bootstrap core JavaScript-->
 		<script src="./resources/vendor/jquery/jquery.min.js"></script>
@@ -134,97 +121,10 @@
 
 		<script>
 			$(function() {
-				getComment();
-				timeInit();
 			});
-
-			var workDate;
-			function timeInit() {
-				$('#time').timeDropper();
-				$.ajax({
-					url : 'currentTime',
-					type : 'POST',
-					datatype : 'json',
-					success : function(data) {
-						$("#date").val(data);
-						workDate = data;
-					},
-					error : function() {
-					}
-				});
-			}
-
-			function getComment() {
-				$.ajax({
-					url : 'getComment',
-					type : 'POST',
-					datatype : 'json',
-					success : function(data) {
-						$(".breadcrumb").append(
-								'<li class="breadcrumb-item active">' + data
-										+ '</li>');
-					},
-					error : function() {
-					}
-				});
-			}
-
-			var startTime;
-			function shukinInsertCheck() {
-				startTime = $("#time").val();
-				modal({
-					type : 'confirm',
-					title : 'Confirm',
-					text : startTime,
-					callback : function(result) {
-						if (result == true) {
-							shukinInsert();
-						}
-					}
-				});
-			}
-
-			function shukinInsert() {
-				$.ajax({
-					url : 'shukinInsert',
-					type : 'POST',
-					data : {
-						workDate : workDate,
-						startTime : startTime
-					},
-					success : function() {
-						window.location.href = 'shukinCheck';
-					},
-					error : function() {
-					}
-				});
-			}
-
-			function vacationInsertCheck() {
-				modal({
-					type : 'confirm',
-					title : 'Confirm',
-					text : '今日は休みですか？',
-					callback : function(result) {
-						if (result == true) {
-							vacationInsert();
-						}
-					}
-				});
-			}
-
-			function vacationInsert() {
-				$.ajax({
-					url : 'vacationInsert',
-					type : 'POST',
-					data : {
-					},
-					success : function() {
-						window.location.href = 'shukinCheck';
-					},
-					error : function() {
-					}
-				});
+			
+			function kintaiCheck(){
+				window.location.href = 'shukinCheck';
 			}
 		</script>
 </body>
