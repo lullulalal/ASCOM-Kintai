@@ -17,9 +17,21 @@ app.factory('adminService', ['comnService', '$compile' , function(comnService, $
 			}
 		});
     }
+    
+    function getCurrentDate(handler){
+		$.ajax({
+			url : 'currentTime', 
+			type: 'post', 
+			success: function(response) { 
+				handler(response);
+			}
+		});
+    }
+    
 
 	 return {
-		 getWorkInfoByDay : getWorkInfoByDay
+		 getWorkInfoByDay : getWorkInfoByDay,
+		 getCurrentDate : getCurrentDate
 	 }
 
 }]);

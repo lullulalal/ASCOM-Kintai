@@ -12,4 +12,8 @@ app.controller('comnCtrl', ['$scope', 'comnService', function($scope, comnServic
 		comnService.getText(code);
 	};
 	
+	$scope.commonModal = function(titleCode, textCode, btnTextCode, btnHandler) {
+		comnService.commonModal(titleCode, textCode, btnTextCode, btnHandler);
+	};
+	
 }]);

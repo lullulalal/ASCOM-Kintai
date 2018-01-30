@@ -6,11 +6,16 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
 		$(document).ready(function(){
 			$("#workState option:first").remove();
 			//날짜 받아 오기
-			$('#date').val("2018-01-21");
 			
-			adminService.getWorkInfoByDay( '2018-01-21', '0029', function(response){
-				printHtml(response);
+			adminService.getCurrentDate(function(date){
+
+				$('#date').val(date);
+				
+				adminService.getWorkInfoByDay( date, '0029', function(response){
+					printHtml(response);
+				});
 			});
+			
 		});
     });
     

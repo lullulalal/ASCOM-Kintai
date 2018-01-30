@@ -193,7 +193,14 @@
 			}
 
 			function taikinInsertCheck() {
-				modal({
+
+				var modalFunc = angular.element(document.getElementById('page-top')).scope().commonModal;
+				
+				modalFunc('0016', '0059', '0037', function() {
+						taikinInsert();
+				});
+				
+			/*	modal({
 					type : 'confirm',
 					title : 'Confirm',
 					text : '帰りますか？',
@@ -202,7 +209,7 @@
 							taikinInsert();
 						}
 					}
-				});
+				});*/
 			}
 
 			function taikinInsert() {

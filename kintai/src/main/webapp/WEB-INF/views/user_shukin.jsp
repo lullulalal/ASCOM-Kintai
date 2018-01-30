@@ -201,7 +201,14 @@
 			}
 
 			function vacationInsertCheck() {
-				modal({
+				var modalFunc = angular.element(document.getElementById('page-top')).scope().commonModal;
+				
+				modalFunc('0011', '0060', '0037', function() {
+					vacationInsert();
+				});
+				
+				
+				/*modal({
 					type : 'confirm',
 					title : 'Confirm',
 					text : '今日は休みですか？',
@@ -210,7 +217,7 @@
 							vacationInsert();
 						}
 					}
-				});
+				});*/
 			}
 
 			function vacationInsert() {

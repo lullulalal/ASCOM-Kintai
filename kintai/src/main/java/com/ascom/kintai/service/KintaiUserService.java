@@ -4,21 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ascom.kintai.dao.KintaiUserDao;
-import com.ascom.kintai.util.KintaiConstant;
 import com.ascom.kintai.vo.AppSet;
 import com.ascom.kintai.vo.WorkappInfo;
-import com.ascom.kintai.vo.WorkappUser;
 
 @Repository
 public class KintaiUserService {
@@ -85,7 +78,7 @@ public class KintaiUserService {
 		String new_endTime = workDate + " " + endTime;
 		System.out.println(new_endTime);
 
-		WorkappInfo workappinfo = new WorkappInfo(email, "", "", new_endTime, restTime, "", workState);
+		WorkappInfo workappinfo = new WorkappInfo(email, "", "", new_endTime, restTime, "", workState, "", "", "");
 		
 		resultTaikin = wdao.taikinInsert(workappinfo);
 		
@@ -99,7 +92,7 @@ public class KintaiUserService {
 		int resultShukin = 0;
 		
 		String new_startTime = workDate + " " + startTime;
-		WorkappInfo workappinfo = new WorkappInfo(email, workDate, new_startTime, "", "", "", workState);
+		WorkappInfo workappinfo = new WorkappInfo(email, workDate, new_startTime, "", "", "", workState, "", "", "");
 		
 		System.out.println(email + "/" + workDate + "/" + startTime);
 		resultShukin = wdao.shukinInsert(workappinfo);
