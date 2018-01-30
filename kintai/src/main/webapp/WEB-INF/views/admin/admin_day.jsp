@@ -20,6 +20,7 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top"  ng-app="ascomApp" ng-controller="comnCtrl">
   <!-- Navigation-->
+  <div ng-controller="adminCtrl">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="#"><img class="banner_top" src="./resources/img/logo_banner.png">ASCOM</a> 
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,68 +32,24 @@
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb3">
-        <li>日別勤怠情報</li>
+        <li><span class="0034"></span></li>
       </ol>
       <!-- Example DataTables Card-->
       <div class="card mb-3">
         <div class="card-header">
-          <input type="date">
-          <select class="select_type">
-          	<option>全体</option>
-          	<option>現場</option>
-          	<option>社内</option>
+          <input type="date" id="date" ng-model="workDate" ng-change="changeWorkState()">
+
+          <select class="select_type" id="workState" ng-model="workState" ng-change="changeWorkState()" >
+				<option value="0029" class="0029" id="0029"></option>
+				<option value="0028" class="0028" id="0028"></option>
+				<option value="0012" class="0012" id="0012"></option>
           </select>  
         </div>
         <div class="card-body2">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <tbody>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          	<div id="people-list">
+          	
+          	</div>
           </div>
         </div>
       </div>
@@ -140,6 +97,11 @@
 	<input type="hidden" value={{::getText('0043')}}>
  	<input type="hidden" value={{::getText('0045')}}>
   	<input type="hidden" value={{::getText('0044')}}>
+  	
+  	<!-- select box -->
+	<input type="hidden" value={{::getText('0029')}}>
+ 	<input type="hidden" value={{::getText('0028')}}>
+  	<input type="hidden" value={{::getText('0012')}}>
     
     <!-- Bootstrap core JavaScript-->
     <script src="./resources/vendor/jquery/jquery.min.js"></script>
@@ -150,6 +112,7 @@
     <script src="./resources/vendor/datatables/jquery.dataTables.js"></script>
     <script src="./resources/vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
+    
     <!-- modal -->
     <link href="./resources/css/jquery.modal.css" rel="stylesheet">
     <link href="./resources/css/jquery.modal.theme-atlant.css" rel="stylesheet">
@@ -165,6 +128,7 @@
 	<script src="./resources/angular/service/admin_service.js"></script>
 	<script src="./resources/angular/controller/admin_controller.js"></script>
 	
+  </div>
   </div>
 </body>
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ascom.kintai.mapper.KintaiAdminMapper">
+	<select id="getWorkInfoByDay" resultType="WorkappInfo">
+		select 
+			wit.workDate workDate,
+			DATE_FORMAT(wit.startTime, '%H:%i:%s') startTime,
+			DATE_FORMAT(wit.endTime, '%H:%i:%s') endTime,
+			DATE_FORMAT(wit.restTime, '%H:%i') restTime,
+			wit.workTime workTime,
+			wit.workState workState,
+			et.nickName nickName,
+			et.email email,
+			et.firstname,
+			et.lastname
+			
+		from 
+			workapp_info_table wit, 
+			employee_table et
+		where
+			et.email = wit.email
+		and
+			wit.workState = #{1}
+		
+		and wit.workDate = #{0}
+	</select>
+</mapper>

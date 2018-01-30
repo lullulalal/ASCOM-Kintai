@@ -5,6 +5,114 @@
  */
  
  
+ 
+ #workInfoTable{
+	 font-size: 18px;
+	 
+ }
+ 
+ h2 {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.table-bordered {
+  border: 1px solid #ddd !important;
+}
+
+table caption {
+	padding: .5em 0;
+}
+
+@media screen and (max-width: 767px) {
+  table caption {
+    display: none;
+  }
+}
+
+.p {
+  text-align: center;
+  padding-top: 140px;
+  font-size: 14px;
+}
+
+ .btn_bad{
+	background-color: #960000;
+    border-width: 1px;
+    border-radius:5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-family: "Sawarabi Gothic";
+    font: bold;
+    font-size: 20px;
+}
+
+ .btn_warn{
+	background-color: #ffff00;
+    border-width: 1px;
+    border-radius:5px;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-family: "Sawarabi Gothic";
+    font: bold;
+    font-size: 20px;
+}
+
+ .btn_good{
+	background-color: #020096;
+    border-width: 1px;
+    border-radius:5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-family: "Sawarabi Gothic";
+    font: bold;
+    font-size: 20px;
+}
+
+ .btn_yasumi{
+	background-color: #f9f9f9;
+    border-width: 1px;
+    border-radius:5px;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-family: "Sawarabi Gothic";
+    font: bold;
+    font-size: 20px;
+}
+
+ 
 .content-wrapper-gray {
   min-height: calc(100vh - 56px);
   padding-top: 1rem; }  

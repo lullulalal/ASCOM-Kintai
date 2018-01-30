@@ -148,7 +148,7 @@
   <input type="hidden" value={{::getText('0047')}}>
   
   <!-- menu -->
-  	<input type="hidden"  value={{::getText('0034')}}>
+ 	<input type="hidden"  value={{::getText('0034')}}>
 	<input type="hidden"  value={{::getText('0035')}}>
 	<input type="hidden"  value={{::getText('0036')}}>
 	<input type="hidden"  value={{::getText('0046')}}>

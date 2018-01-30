@@ -62,7 +62,7 @@ public class KintaiUserController {
 		//String email=(String) session.getAttribute("email");
 		String email="lullulalal@gmail.com";
 		
-		WorkappInfo workappinfo=new WorkappInfo(email, workDate, startTime,"","","","");
+		WorkappInfo workappinfo=new WorkappInfo(email, workDate, startTime,"","","","", "", "", "");
 		
 		System.out.println(email+"/"+workDate+"/"+startTime);
 		resultShukin=dao.shukinInsert(workappinfo);
@@ -81,7 +81,7 @@ public class KintaiUserController {
 		System.out.println(endTime);
 		System.out.println(restTime);
 		
-		WorkappInfo workappinfo=new WorkappInfo(email, "", "",endTime,restTime,"","");
+		WorkappInfo workappinfo=new WorkappInfo(email, "", "",endTime,restTime,"","", "", "", "");
 		
 		resultTaikin=dao.taikinInsert(workappinfo);
 		

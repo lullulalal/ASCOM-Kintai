@@ -16,6 +16,10 @@
   <link href="./resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="./resources/css/sb-admin.css" rel="stylesheet">
+  <!-- modal -->
+  <link href="./resources/css/jquery.modal.css" rel="stylesheet">
+  <link href="./resources/css/jquery.modal.theme-atlant.css" rel="stylesheet">
+  <link href="./resources/css/jquery.modal.theme-xenon.css" rel="stylesheet">  
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
@@ -151,10 +155,7 @@
     <script src="./resources/vendor/datatables/jquery.dataTables.js"></script>
     <script src="./resources/vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
-    <!-- modal -->
-    <link href="./resources/css/jquery.modal.css" rel="stylesheet">
-    <link href="./resources/css/jquery.modal.theme-atlant.css" rel="stylesheet">
-    <link href="./resources/css/jquery.modal.theme-xenon.css" rel="stylesheet">   
+    <!-- modal --> 
     <script src="./resources/js/jquery.modal.js"></script>
     
     <!-- angular js -->

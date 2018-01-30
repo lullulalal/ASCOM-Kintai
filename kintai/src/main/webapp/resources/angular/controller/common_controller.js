@@ -10,7 +10,6 @@ app.controller('comnCtrl', ['$scope', 'comnService', function($scope, comnServic
 	
 	$scope.getText = function(code) {
 		comnService.getText(code);
-
 	};
 	
 }]);

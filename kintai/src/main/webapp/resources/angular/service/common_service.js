@@ -76,7 +76,7 @@ app.factory('comnService',  function(){
 		}
 	}
 	
-	function commonModal(titleCode, textCode, btnTextCode, btnHandler = null) {
+	function commonModal(titleCode, textCode, btnTextCode, btnHandler) {
 		var modaltitle = '';
 		var modalText = '';
 		var modalBtnText = '';
@@ -108,10 +108,10 @@ app.factory('comnService',  function(){
 									'text': modalBtnText,
 									'val': 'ok',
 									'eKey' : true,
-									'addClass': 'btn-orange btn-square',
+									'addClass': 'btn-white',
 									'onClick': btnHandler
 								}]
-						} 
+						} ;
 					    modal({
 					        type: modalObj['type'],
 					        title: modalObj['title'],
@@ -127,7 +127,8 @@ app.factory('comnService',  function(){
 		 getText : getText,
 		 getMenu : getMenu,
 		 getText2 : getText2,
-		 commonModal : commonModal
+		 commonModal : commonModal,
+		 printMenuRec : printMenuRec
 	 }
 
 });

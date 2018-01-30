@@ -99,24 +99,7 @@
 
 }
 
-.btn_nichiji{
-	background-color: #f44336;
-    border-width: 1px;
-    border-radius:5px;
-    color: white;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    -webkit-transition-duration: 0.4s; 
-    transition-duration: 0.4s;
-    cursor: pointer;
-    font-family: "Sawarabi Gothic";
-    font: bold;
-    font-size: 20px;
-}
+
 
 .select_type{
 	

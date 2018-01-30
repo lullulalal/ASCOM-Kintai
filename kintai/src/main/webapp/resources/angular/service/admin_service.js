@@ -1,12 +1,25 @@
 'use strict';
 
-app.factory('adminService', ['comnService', function(comnService){
+app.factory('adminService', ['comnService', '$compile' , function(comnService, $compile){
 	
-	function test(){
-	}
-	
+    
+    function getWorkInfoByDay(date, state, handler){
+		$.ajax({
+			url : 'getWorkInfoByDay', 
+			type: 'post', 
+			data : {
+				date : date, 
+				state : state
+			}, 
+			success: function(response) { 
+				
+				handler(response);
+			}
+		});
+    }
+
 	 return {
-		 test : test
+		 getWorkInfoByDay : getWorkInfoByDay
 	 }
 
 }]);

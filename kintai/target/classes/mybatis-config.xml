@@ -19,6 +19,7 @@
 		<mapper resource="./mapper/testMapper.xml" />
 		<mapper resource="./mapper/KintaiCommonMapper.xml" />
 		<mapper resource="./mapper/KintaiSuperAdminMapper.xml" />
+		<mapper resource="./mapper/KintaiAdminMapper.xml" />
 	</mappers>
 	
 </configuration>

@@ -30,7 +30,6 @@ public class KintaiUserDao extends TimeOnlyTypeHandler{
 		AllWorkData.add(0, workList);
 		AllWorkData.add(1, AllWorkTime);
 
-		
 		return AllWorkData;
 	}
 	
