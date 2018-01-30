@@ -123,28 +123,45 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
     $scope.UpdateBox = function(workInfo){
 		 
 		 var updateInfo;
-	 
- 			$.each(workInfo,function(index,item){
- 				
- 				updateInfo = '<table class=\"Updatetable\">'
-					 +'<tbody><tr><th>出勤:</th><td><input type=\"time\" id=\"UstartTime\" value=\"'
-					 +item.startTime+'\"></td><th>退勤:</th><td><input type=\"time\" id=\"UendTime\" value=\"'
-					 +item.endTime+'\"></td></tr><tr><th>休み:</th><td><input type=\"text\" id=\"UrestTime\" value=\"'
-					 +item.restTime+'\"></td></tr></tbody></table>';
- 				
-			});
+		 var shukinStr = '';
+		 var takinStr = '';
+		 var yasumiStr = '';
 		 
- 		   comnService.commonModal(Udate, updateInfo, '0037', function() {
-				$scope.UpdateWorkInfo();
-				return true;
-			}, function(){
-				$('#UrestTime').timeDropper({
-					setCurrentTime: false,
-					textColor: '#FF9436',
-					primaryColor: '#FF5E00',
-                    borderColor: '#C92800',
-				});
-			});
+		 comnService.getText2('0011', function(text){
+			 shukinStr = text;
+			 comnService.getText2('0016', function(text){
+				 takinStr = text;
+				 comnService.getText2('0017', function(text){
+					 yasumiStr = text;
+					 
+			 			$.each(workInfo,function(index,item){
+			 				
+			 				updateInfo = '<table class=\"Updatetable\">'
+								 +'<tbody><tr><th>' + shukinStr + ':</th><td><input type=\"time\" id=\"UstartTime\" value=\"'
+								 +item.startTime+'\"></td><th>' + takinStr + ':</th><td><input type=\"time\" id=\"UendTime\" value=\"'
+								 +item.endTime+'\"></td></tr><tr><th>' + yasumiStr +  ':</th><td><input type=\"text\" id=\"UrestTime\" value=\"'
+								 +item.restTime+'\"></td></tr></tbody></table>';
+			 				
+						});
+					 
+			 		   comnService.commonModal(Udate, updateInfo, '0037', function() {
+							$scope.UpdateWorkInfo();
+							return true;
+						}, function(){
+							$('#UrestTime').timeDropper({
+								setCurrentTime: false,
+								textColor: '#FF9436',
+								primaryColor: '#FF5E00',
+			                    borderColor: '#C92800',
+							});
+						});
+			 		   
+					 
+					 
+				 });
+			 });
+		 });
+
  		   
  		   
  			 
