@@ -23,20 +23,22 @@
 	
 	
 	<update id="UpdateWorkInfo" parameterType="WorkappInfo">
-		update 
-			workapp_info_table 
-		
-			set 
-				startTime= #{startTime},endTime= #{endTime},restTime=#{restTime} 
-			
-			where 
-				email = #{email} and workDate like CONCAT(#{workDate}, '%')
-				
-	</update>
+      update 
+         workapp_info_table 
+      
+         set 
+            startTime=CONCAT(#{workDate},' ',#{startTime}),
+            endTime=CONCAT(#{workDate},' ',#{endTime}),restTime=#{restTime},
+            workTime=(select subtime((select subtime(#{endTime},#{startTime})),#{restTime}))
+         
+         where 
+            email = #{email} and workDate like CONCAT(#{workDate}, '%');
+            
+   </update>
 	
 	<select id="AllWorkTime" parameterType="String" resultType="String">
 		select 
-			time_format(sec_to_time(sum(time_to_sec(workTime))),'%H')
+			time_format(sec_to_time(sum(time_to_sec(workTime))),'%H:%i')
 			
 			from 
 				workapp_info_table 

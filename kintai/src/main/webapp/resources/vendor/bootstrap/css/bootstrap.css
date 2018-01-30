@@ -9,6 +9,23 @@
 /*-------------------------  */
 
 
+.Updatetable{
+	text-align: center;
+}
+
+.Updatetable td{
+	width: 40%;
+	padding: 3px;
+}
+
+.Updatetable input{
+	width: 100%;
+	text-align: center;
+}
+
+
+/*  */
+
 .main_logo {
 	text-align: center;
 }
@@ -85,8 +102,6 @@
 	width: 40%;
 	border-collapse: collapse;
 	border: 1px solid black;
-	border-radius: 10px; 
-	left: 10px;
 }
 
 .bottom_table th{

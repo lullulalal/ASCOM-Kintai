@@ -76,7 +76,7 @@ app.factory('comnService',  function(){
 		}
 	}
 	
-	function commonModal(titleCode, textCode, btnTextCode, btnHandler = null) {
+	function commonModal(titleCode, textCode, btnTextCode, btnHandler, rstHandler) {
 		var modaltitle = '';
 		var modalText = '';
 		var modalBtnText = '';
@@ -118,6 +118,8 @@ app.factory('comnService',  function(){
 					        text: modalObj['text'],
 							buttons: modalObj['buttons']
 					    }); 
+						
+						if(rstHandler != null ) rstHandler();
 				   });
 			   });
 		   });
