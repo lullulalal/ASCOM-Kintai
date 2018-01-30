@@ -42,11 +42,25 @@
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
 			<ol class="breadcrumb"></ol>
-
+			
 			<div class="breadcrumb2">
-				<input type="text" id="date" size="10" readonly style="text-align: center;"> 
+				<table style="width:100%">
+				  <tr>
+				  	<td style="color:white"><span class='0023'></span></td>
+				  	<td style="color:white"><span class='0016'></span></td>
+				  	<td style="color:white"><span class='0017'></span></td>
+				  </tr>
+				  <tr>
+				    <td><input type="text" id="date" size="10" readonly style="text-align: center;"> </td>
+				    <td><input type="text" id="time" size="10" readonly style="text-align: center;"></td> 
+				    <td><input type="text" id="rest" size="10" readonly style="text-align: center;"></td>
+				  </tr>
+			  
+				<!-- <input type="text" id="date" size="10" readonly style="text-align: center;"> 
 				<input type="text" id="time" size="10" readonly style="text-align: center;"> 
-				<input type="text" id="rest" size="10" readonly style="text-align: center;">
+				<input type="text" id="rest" size="10" readonly style="text-align: center;"> -->
+				
+				</table>
 			</div>
 
 			<!-- Icon Cards-->
@@ -94,12 +108,17 @@
 
 		<!-- 退勤 -->
 		<input type="hidden" value={{::getText('0016')}}>
+		<!-- 休み時間 -->
+		<input type="hidden" value={{::getText('0017')}}>
+		<!-- 日付 -->
+		<input type="hidden" value={{::getText('0023')}}>
 
 		<!-- logout modal -->
 		<input type="hidden" value={{::getText('0043')}}>
 	 	<input type="hidden" value={{::getText('0045')}}>
 	  	<input type="hidden" value={{::getText('0044')}}>
-		<input type="hidden"  value={{::getText('0021')}}>
+		<input type="hidden" value={{::getText('0021')}}>
+		
 	
 		
 		<!-- Bootstrap core JavaScript-->
