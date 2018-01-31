@@ -40,7 +40,6 @@ public class KintaiUserController {
 		WorkappUser account = (WorkappUser) session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
 		String email = account.getEmail();
 		if (wdao.vacationCheck(email) == 0) {
-			System.out.println(wdao.vacationCheck(email));
 			if (wdao.shukinCheck(email) == 0) {
 				return "user_shukin";
 			} else {

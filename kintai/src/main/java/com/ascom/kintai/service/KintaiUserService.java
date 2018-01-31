@@ -55,14 +55,12 @@ public class KintaiUserService {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		currentTime = sdf.format(cal.getTime());
-		System.out.println(currentTime);
 		return currentTime;
 	}
 
 	public String getComment() {
 		String comment = "";
 		comment = wdao.getComment();
-		System.out.println(comment);
 		return comment;
 	}
 
@@ -76,7 +74,6 @@ public class KintaiUserService {
 		int resultTaikin = 0;
 
 		String new_endTime = workDate + " " + endTime;
-		System.out.println(new_endTime);
 
 		WorkappInfo workappinfo = new WorkappInfo(email, "", "", new_endTime, restTime, "", workState, "", "", "");
 		
@@ -94,7 +91,6 @@ public class KintaiUserService {
 		String new_startTime = workDate + " " + startTime;
 		WorkappInfo workappinfo = new WorkappInfo(email, workDate, new_startTime, "", "", "", workState, "", "", "");
 		
-		System.out.println(email + "/" + workDate + "/" + startTime);
 		resultShukin = wdao.shukinInsert(workappinfo);
 		
 		return resultShukin;

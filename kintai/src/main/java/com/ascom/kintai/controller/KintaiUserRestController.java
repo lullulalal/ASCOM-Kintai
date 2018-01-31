@@ -57,9 +57,7 @@ public class KintaiUserRestController {
 	@ResponseBody
 	@RequestMapping(value = "/getUserAppSetting", method = RequestMethod.POST)
 	public Object getUserAppSetting(HttpSession session) {
-
 		return session.getAttribute(KintaiConstant.SESSION_SETTING);
-		
 	}
 	
 	@ResponseBody
@@ -128,6 +126,4 @@ public class KintaiUserRestController {
 	public String getComment() {
 		return service.getComment();
 	}
-	
-
 }
