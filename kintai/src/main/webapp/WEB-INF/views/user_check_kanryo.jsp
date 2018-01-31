@@ -43,6 +43,8 @@
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
 			<ol class="breadcrumb"><span class='0058'></span></ol>
+			<ol class="breadcrumb2"></ol>
+			
 			<!-- Icon Cards-->
 			<div class="row">
 				<div class="col-xl-3 col-sm-6 mb-3">
@@ -121,10 +123,26 @@
 
 		<script>
 			$(function() {
+				getComment();
 			});
 			
 			function kintaiCheck(){
 				window.location.href = 'shukinCheck';
+			}
+			
+			function getComment() {
+				$.ajax({
+					url : 'getComment',
+					type : 'POST',
+					datatype : 'json',
+					success : function(data) {
+						$(".breadcrumb").append(
+								'<li class="breadcrumb-item active">' + data
+										+ '</li>');
+					},
+					error : function() {
+					}
+				});
 			}
 		</script>
 </body>
