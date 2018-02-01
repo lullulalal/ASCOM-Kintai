@@ -62,33 +62,24 @@
 		<!-- 勤怠チェックが完了しました。　明日も頑張りましょう！ -->
 		<input type="hidden" value={{::getText('0058')}}>
 		
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">
-							<span class='0043'></span>
-						</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<span class='0045'></span>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">
-							<span class='0044'></span>
-						</button>
-						<a class="btn btn-primary" href="logout"><span class='0021'></span></a>
-					</div>
-				</div>
-			</div>
-		</div>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title_logout" id="exampleModalLabel"><span class='0043'></span></h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body"><span class='0045'></span></div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal"><span class='0044'></span></button>
+            <a class="btn btn-primary" href="logout"><span class='0021'></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
 		
 			<!-- logout modal -->
 	<input type="hidden" value={{::getText('0043')}}>

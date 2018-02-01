@@ -129,5 +129,12 @@ public class KintaiUserRestController {
 		return service.getComment();
 	}
 	
-
+	@ResponseBody
+	@RequestMapping(value = "currentRestTime", method = RequestMethod.POST,  produces = "application/text; charset=utf8")
+	public String currentRestTime(HttpSession session) {
+		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		String email = account.getEmail();
+		
+		return service.currentRestTime(email);
+	}
 }

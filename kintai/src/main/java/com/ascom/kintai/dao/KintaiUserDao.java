@@ -134,4 +134,9 @@ public class KintaiUserDao extends TimeOnlyTypeHandler{
 
 		return checkResult;
 	}
+	
+	public String currentRestTime(String email) {
+		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
+		return Wmapper.currentRestTime(email);
+	}
 }

@@ -73,33 +73,24 @@
 			</div>
 		</div>
 
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">
-							<span class='0043'></span>
-						</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<span class='0045'></span>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">
-							<span class='0044'></span>
-						</button>
-						<a class="btn btn-primary" href="logout"><span class='0021'></span></a>
-					</div>
-				</div>
-			</div>
-		</div>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title_logout" id="exampleModalLabel"><span class='0043'></span></h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body"><span class='0045'></span></div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal"><span class='0044'></span></button>
+            <a class="btn btn-primary" href="logout"><span class='0021'></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
 		<!-- 出勤 -->
 		<input type="hidden" value={{::getText('0011')}}>
 		<!-- 休み -->
@@ -172,7 +163,15 @@
 			var startTime;
 			function shukinInsertCheck() {
 				startTime = $("#time").val();
-				modal({
+				
+				var modalFunc = angular.element(document.getElementById('page-top')).scope().commonModal;
+				
+				modalFunc('0011', '0061', '0037', function() {
+					shukinInsert();
+				});
+				
+				
+/* 				modal({
 					type : 'confirm',
 					title : 'Confirm',
 					text : startTime,
@@ -181,7 +180,7 @@
 							shukinInsert();
 						}
 					}
-				});
+				}); */
 			}
 
 			function shukinInsert() {
@@ -203,7 +202,7 @@
 			function vacationInsertCheck() {
 				var modalFunc = angular.element(document.getElementById('page-top')).scope().commonModal;
 				
-				modalFunc('0011', '0060', '0037', function() {
+				modalFunc('0012', '0060', '0037', function() {
 					vacationInsert();
 				});
 				

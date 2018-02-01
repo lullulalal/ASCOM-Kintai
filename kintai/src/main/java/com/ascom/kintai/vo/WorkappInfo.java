@@ -15,6 +15,7 @@ public class WorkappInfo implements Comparable {
 	public String nickName;
 	public String firstname;
 	public String lastname;
+	public int count;
 
 	public WorkappInfo() {
 		super();
@@ -34,6 +35,7 @@ public class WorkappInfo implements Comparable {
 		this.nickName = nickName;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.count = 0;
 	}
 
 
@@ -121,6 +123,16 @@ public class WorkappInfo implements Comparable {
 		this.nickName = nickName;
 	}
 
+
+
+	public int getCount() {
+		return count;
+	}
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
 
 
 	@Override

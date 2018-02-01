@@ -16,14 +16,11 @@
   <link href="./resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="./resources/css/sb-admin.css" rel="stylesheet">
-  <!-- modal -->
-  <link href="./resources/css/jquery.modal.css" rel="stylesheet">
-  <link href="./resources/css/jquery.modal.theme-atlant.css" rel="stylesheet">
-  <link href="./resources/css/jquery.modal.theme-xenon.css" rel="stylesheet">  
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
+<body class="fixed-nav sticky-footer bg-dark" id="page-top"  ng-app="ascomApp" ng-controller="comnCtrl">
   <!-- Navigation-->
+  <div ng-controller="adminMonthCtrl">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="#"><img class="banner_top" src="./resources/img/logo_banner.png">ASCOM</a> 
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,68 +32,24 @@
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb3">
-        <li>月別勤怠情報</li>
+        <li><span class="0035"></span></li>
       </ol>
       <!-- Example DataTables Card-->
       <div class="card mb-3">
         <div class="card-header">
-          <input type="date">
-          <select class="select_type">
-          	<option>全体</option>
-          	<option>現場</option>
-          	<option>社内</option>
+          <input type="month" id="month" ng-model="workMonth" ng-change="changeWorkState()">
+
+          <select class="select_type" id="workSelect" ng-model="workSelect" ng-change="changeWorkState()" >
+				<option value="0062" class="0062" id="0062"></option>
+				<option value="0063" class="0063" id="0063"></option>
+				<option value="0064" class="0064" id="0064"></option>
           </select>  
         </div>
         <div class="card-body2">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <tbody>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          	<div id="people-list">
+          	
+          	</div>
           </div>
         </div>
       </div>
@@ -118,7 +71,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"><span class='0043'></span></h5>
+            <h5 class="modal-title_logout" id="exampleModalLabel"><span class='0043'></span></h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -131,8 +84,7 @@
         </div>
       </div>
     </div>
-    
-    <!-- menu -->
+      <!-- menu -->
   	<input type="hidden"  value={{::getText('0034')}}>
 	<input type="hidden"  value={{::getText('0035')}}>
 	<input type="hidden"  value={{::getText('0036')}}>
@@ -140,12 +92,17 @@
 	<input type="hidden"  value={{::getText('0013')}}>
 	<input type="hidden" value={{::getText('0042')}}>
 	<input type="hidden" value={{::getText('0021')}}>
-
+	
 	<!-- logout modal -->
 	<input type="hidden" value={{::getText('0043')}}>
  	<input type="hidden" value={{::getText('0045')}}>
   	<input type="hidden" value={{::getText('0044')}}>
-  		
+  	
+  	<!-- select box -->
+	<input type="hidden" value={{::getText('0062')}}>
+ 	<input type="hidden" value={{::getText('0063')}}>
+  	<input type="hidden" value={{::getText('0064')}}>
+    
     <!-- Bootstrap core JavaScript-->
     <script src="./resources/vendor/jquery/jquery.min.js"></script>
     <script src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -155,7 +112,11 @@
     <script src="./resources/vendor/datatables/jquery.dataTables.js"></script>
     <script src="./resources/vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
-    <!-- modal --> 
+    
+    <!-- modal -->
+    <link href="./resources/css/jquery.modal.css" rel="stylesheet">
+    <link href="./resources/css/jquery.modal.theme-atlant.css" rel="stylesheet">
+    <link href="./resources/css/jquery.modal.theme-xenon.css" rel="stylesheet">   
     <script src="./resources/js/jquery.modal.js"></script>
     
     <!-- angular js -->
@@ -164,9 +125,10 @@
  	<script src="./resources/angular/service/common_service.js"></script>
 	<script src="./resources/angular/controller/common_controller.js"></script>
 	
-	<script src="./resources/angular/service/admin_service.js"></script>
-	<script src="./resources/angular/controller/admin_controller.js"></script>
+	<script src="./resources/angular/service/admin_month_service.js"></script>
+	<script src="./resources/angular/controller/admin_month_controller.js"></script>
 	
+  </div>
   </div>
 </body>
 

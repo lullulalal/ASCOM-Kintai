@@ -16,6 +16,7 @@
   <link href="./resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="./resources/css/sb-admin.css" rel="stylesheet">
+  
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top"  ng-app="ascomApp" ng-controller="comnCtrl">
@@ -71,7 +72,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"><span class='0043'></span></h5>
+            <h5 class="modal-title_logout" id="exampleModalLabel"><span class='0043'></span></h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -125,8 +126,8 @@
  	<script src="./resources/angular/service/common_service.js"></script>
 	<script src="./resources/angular/controller/common_controller.js"></script>
 	
-	<script src="./resources/angular/service/admin_service.js"></script>
-	<script src="./resources/angular/controller/admin_controller.js"></script>
+	<script src="./resources/angular/service/admin_day_service.js"></script>
+	<script src="./resources/angular/controller/admin_day_controller.js"></script>
 	
   </div>
   </div>

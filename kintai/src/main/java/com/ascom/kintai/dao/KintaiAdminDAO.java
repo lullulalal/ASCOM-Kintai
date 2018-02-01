@@ -18,4 +18,9 @@ public class KintaiAdminDAO {
 		KintaiAdminMapper mapper = sqlSession.getMapper(KintaiAdminMapper.class);
 		return  mapper.getWorkInfoByDay(date, state);
 	}
+	
+	public List getWorkInfoByMonth(String month, String minTime, String maxTime) {
+		KintaiAdminMapper mapper = sqlSession.getMapper(KintaiAdminMapper.class);
+		return  mapper.getWorkInfoByMonth(month, minTime, maxTime);
+	}
 }

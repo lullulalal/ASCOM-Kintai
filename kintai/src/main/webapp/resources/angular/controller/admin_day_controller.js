@@ -5,12 +5,11 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
     angular.element(document).ready(function () {
 		$(document).ready(function(){
 			$("#workState option:first").remove();
-			//날짜 받아 오기
-			
+
 			adminService.getCurrentDate(function(date){
 
 				$('#date').val(date);
-				
+					
 				adminService.getWorkInfoByDay( date, '0029', function(response){
 					printHtml(response);
 				});
@@ -23,6 +22,7 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
     	
     	var state = $('#workState option:selected').val();
     	var date = $('#date').val();
+    	if( date == null || date == '') return;
     	adminService.getWorkInfoByDay( date , state, function(response){
     		printHtml(response);
     		$compile($scope.workState);
@@ -50,12 +50,12 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
 
     	 $('#people-list').html($compile(listHtml)($scope));
     }
-    
+
     function getBtnList(list, state){
     	var btnHtml = '';
 	   	for (var i = 0; i < list.length; i++) {
 	   		 var id = 'people' + state + i;
-
+	   		 
 			 btnHtml += 
 			    		 '<button class="btn_'+ state +' "' 
 			    		+ 'email=' + list[i]['email'] + " " 
@@ -75,7 +75,11 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
 			 btnHtml +=
 			    		 '>' 
 			    		+ list[i]['nickName'] 
-			    		+ '</button>';
+			 			+ '<br><font size="2">'
+			 			+ list[i]['startTime'].substring(0, 5)
+			 			+ ' - '
+			 			+ list[i]['endTime'].substring(0, 5)
+			    		+ '</font></button>';
 		}
 	   	 return btnHtml;
     }
@@ -91,31 +95,33 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
     					var kinmuStr = text;
     					comnService.getText2($('#' + id).attr('workState'), function(text){
         					var workState = text;
-    						
-        					var shukin = $('#' + id).attr('startTime');
-        					var taikin = $('#' + id).attr('endTime');
-        					var yasumi = $('#' + id).attr('restTime');
-        					var kinmu = $('#' + id).attr('workTime');
-        					var workDate = $('#' + id).attr('workDate');
-        					
-        					var title = $('#' + id).attr('firstname') + ' ' +$('#' + id).attr('lastname') + ' - ' + workState;
-        					
-        					var html = '';
-        					
-        					html = '<table id="workInfoTable" class="table table-bordered table-hover">'
-    	   					     +		'<tr><th>' + '日付' + '</th>'
-    						     +		 	'<td>' + workDate + '</td></tr>'
-        					     +		'<tr><th>' + shukinStr + '</th>'
-        					     +		 	'<td>' + shukin + '</td></tr>'
-        					     +		'<tr><th>' + taikinStr + '</th>'
-        					     +		 	'<td>' + taikin + '</td></tr>'    
-        					     +		'<tr><th>' + yasumiStr + '</th>'
-        					     +		 	'<td>' + yasumi + '</td></tr>' 
-        					     +		'<tr><th>' + kinmuStr + '</th>'
-        					     +		 	'<td>' + kinmu + '</td></tr>' 
-    		    				 +	'</table>';
-        					
-        					comnService.commonModal(title, html, '0037');
+        					comnService.getText2('0023', function(text){
+	    						
+	        					var shukin = $('#' + id).attr('startTime');
+	        					var taikin = $('#' + id).attr('endTime');
+	        					var yasumi = $('#' + id).attr('restTime');
+	        					var kinmu = $('#' + id).attr('workTime');
+	        					var workDate = $('#' + id).attr('workDate');
+	        					
+	        					var title = $('#' + id).attr('firstname') + ' ' +$('#' + id).attr('lastname') + ' - ' + workState;
+	        					
+	        					var html = '';
+	        					
+	        					html = '<table id="workInfoTable" class="table table-bordered table-hover">'
+	    	   					     +		'<tr align="center"><th>' + text + '</th>'
+	    						     +		 	'<td>' + workDate + '</td></tr>'
+	        					     +		'<tr align="center"><th>' + shukinStr + '</th>'
+	        					     +		 	'<td>' + shukin + '</td></tr>'
+	        					     +		'<tr align="center"><th>' + taikinStr + '</th>'
+	        					     +		 	'<td>' + taikin + '</td></tr>'    
+	        					     +		'<tr align="center"><th>' + yasumiStr + '</th>'
+	        					     +		 	'<td>' + yasumi + '</td></tr>' 
+	        					     +		'<tr align="center"><th>' + kinmuStr + '</th>'
+	        					     +		 	'<td>' + kinmu.substring(0,5) + '</td></tr>' 
+	    		    				 +	'</table>';
+	        					
+	        					comnService.commonModal(title, html, '0037');
+    						});
     					});
 
     				});

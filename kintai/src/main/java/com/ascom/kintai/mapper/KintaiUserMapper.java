@@ -21,4 +21,6 @@ public interface KintaiUserMapper {
 	public int vacationInsert(String email);
 	public int vacationCheck(String email);
 	public String getComment();
+	public String currentRestTime(String email);
+	
 }

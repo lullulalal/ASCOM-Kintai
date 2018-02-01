@@ -26,5 +26,26 @@
 			wit.workState = #{1}
 		
 		and wit.workDate = #{0}
+	</select>	
+	
+	<select id="getWorkInfoByMonth" resultType="WorkappInfo">
+	<![CDATA[
+		select 
+			count(*) count, et.nickName nickName, et.firstname firstname, et.lastname lastname, wit.email email, DATE_FORMAT(wit.workDate, '%Y-%m') workDate,  SUM( TIME_TO_SEC( wit.workTime ) )  workTime  
+		from 
+			workapp_info_table wit, 
+			employee_table et
+		where 
+			et.email = wit.email
+		and
+			DATE_FORMAT(wit.workDate, '%Y-%m') = #{0} 
+		and 
+			wit.workState != '0012'
+		group by email
+		having workTime  >=  ( TIME_TO_SEC(#{1})*count )
+		and workTime  < (TIME_TO_SEC(#{2}) * count)
+		order by workTime desc 
+
+	]]>
 	</select>
 </mapper>

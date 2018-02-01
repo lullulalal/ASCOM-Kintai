@@ -99,4 +99,8 @@ public class KintaiUserService {
 		
 		return resultShukin;
 	}
+	
+	public String currentRestTime(String email){
+		return wdao.currentRestTime(email);
+	}
 }
