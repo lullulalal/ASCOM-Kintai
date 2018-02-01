@@ -44,7 +44,7 @@
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
 			<ol class="breadcrumb"></ol>
-
+			<ol class="breadcrumb4"></ol>
 			<div class="breadcrumb2">
 				<input type="text" id="date" readonly style="text-align: center;">
 				<input type="text" id="time" style="text-align: center;">
@@ -151,7 +151,7 @@
 					type : 'POST',
 					datatype : 'json',
 					success : function(data) {
-						$(".breadcrumb").append(
+						$(".breadcrumb4").append(
 								'<li class="breadcrumb-item active">' + data
 										+ '</li>');
 					},

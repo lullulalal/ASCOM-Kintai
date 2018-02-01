@@ -41,8 +41,8 @@
 	<div class="content-wrapper-gray">
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
-			<ol class="breadcrumb"></ol>
-			
+			<ol class="breadcrumb3">Notice</ol>
+			<ol class="breadcrumb4"></ol>
 			<div class="breadcrumb2">
 				<table style="width:200px" align="center">
 				  <tr>
@@ -187,7 +187,7 @@
 					type : 'POST',
 					datatype : 'json',
 					success : function(data) {
-						$(".breadcrumb").append(
+						$(".breadcrumb4").append(
 								'<li class="breadcrumb-item active">' + data
 										+ '</li>');
 					},
