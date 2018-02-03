@@ -11,6 +11,7 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
 	    	$("#searchInfo").click(function(){
 	    		$scope.InputDate();
 	    	});
+	    	
 		});
     });
     
@@ -60,7 +61,7 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
 				}else{
 					$.each(data[0],function(index,item){
 						
-						workInfoList += '<tr><td>'+item.workDate+'</td><td>'+item.startTime
+						workInfoList += '<tr><td class=\"DateInfo\" email=\"park.siwon@a-s.com.co\">'+item.workDate+'</td><td>'+item.startTime
 									 	+'</td><td>'+item.endTime+'</td><td>'+item.restTime
 									 	+'</td><td>'+item.workTime+'</td><td><button date=\"'
 								  		+item.workDate+'\" class=\"update_btn\">ok</button></td></tr>';
@@ -68,7 +69,8 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
 					$('#AllWorkTime').text(data[1]);
 				}
 				$('.WorkInfoTable').html(workInfoList);
-				
+				$scope.MonthWorkInfo();
+		
 				$scope.UpdateInfo();
 			}
 		}); 
@@ -76,6 +78,7 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
     }
     
     var UpDate;
+    var Udate;
 	//修正ボタンを押せば該当する修正したい日の情報をデータベースでもらう機能
     $scope.UpdateInfo = function(){
     	
@@ -84,7 +87,7 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
     		UpDate = $(this).attr("date");
 
     		var ym = $('.searchTime').val();
-    		var Udate = [ym, UpDate].join('-');
+    		Udate = [ym, UpDate].join('-');
 
 
     		$.ajax({
@@ -149,5 +152,59 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
 			 }
 		 });  
 	 }
+    	
+    	$scope.MonthWorkInfo = function(){
+             $(".DateInfo").click(function(){
+
+            
+                var getDate = $(this).text();  
+                var email = $(this).attr('email');
+
+                var nowDate = $('.searchTime').val();
+                Udate = [nowDate, getDate].join('-');
+                
+                $.ajax({
+                   type:'post',
+                   url:'MonthWorkInfo',
+                   data:{
+                      date:Udate,
+                      email:email
+                   },
+                   success:function(data){
+                      
+                      var MonthDailyInfo;
+                      
+                      if(data[0].length==0){
+                         
+                    	  MonthDailyInfo = "";
+                         
+                      }else{
+                         
+                         $.each(data[0],function(index,item){
+                            
+                        	 MonthDailyInfo='<div class=\"Timeline\"><svg height=\"5\" width=\"100\"><line x1=\"0\" y1=\"0\" x2=\"200\" y2=\"0\"'
+                                 +'style=\"stroke:#E0E0E0;stroke-width:5\"/></svg><div class=\"event1\"><div class=\"event1Bubble\"><div class=\"Day\">出勤</div></div>'
+                                 +'<svg height=\"20\" width=\"20\"><circle cx=\"10\" cy=\"11\" r=\"5\" fill=\"#C92800\" />'
+                                 +'</svg><div class=\"time1\">'+item.startTime+'</div></div><svg height=\"5\" width=\"300\">'
+                                 +'<line x1=\"0\" y1=\"0\" x2=\"300\" y2=\"0\" style=\"stroke:#ED4C00;stroke-width:5\" /></svg>'
+                                 +'<div class=\"event2\"><svg height=\"20\" width=\"20\"><circle cx=\"10\" cy=\"11\" r=\"5\" fill=\"#C92800\" />'
+                                 +'</svg><div class=\"time3\">'+item.endTime+'</div><div class=\"time2\">退勤</div></div><svg height=\"5\"'
+                                 +' width=\"100\"><line x1=\"0\" y1=\"0\" x2=\"100\" y2=\"0\" style=\"stroke:#E0E0E0;stroke-width:5\" />'
+                                 +'</svg></div><div class=\"monthDiv\"><table class="monthTable"><tr><th>休み:</th><td>'+item.restTime+'</td>'
+                                 +'<th>総:</th><td>'+item.workTime+'</td></tr></table><div>';
+                         });
+
+
+                      }
+                      
+                      comnService.commonModal(Udate, MonthDailyInfo, '0037', function() {
+                        $scope.UpdateWorkInfo();
+                        return true;
+                     });
+                   }
+                   
+                });
+             });
+          }
 	 
 }]);
