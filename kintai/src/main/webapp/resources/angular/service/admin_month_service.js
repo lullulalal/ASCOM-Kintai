@@ -57,7 +57,16 @@ app.factory('adminMonthService', ['comnService', '$compile' , '$rootScope',funct
 	   	for (var i = 0; i < list.length; i++) {
 	   		 var id = 'people' + i;
 			 btnHtml += 
-			    		 '<button class="btn_' + stateStr + '"' 
+			    		 '<button onclick="window.location.href = \'adminMonthDetail?'
+				 		+ 'email=' + list[i]['email'] + '&'
+			 			+ 'workDate=' + list[i]['workDate'] +'&'
+			 			+ 'firstname=' + list[i]['firstname'] +'&'
+			 			+ 'lastname=' + list[i]['lastname'] +'&'
+			 			+ 'condi=' + state +'&'
+			 			+ 'nickName=' + list[i]['nickName'] +'&'
+			 			+ 'prePage=' + 'adminMonth'
+			 			+ '\'"' 
+				 		+ ' class="btn_' + stateStr + '"' 
 			    		+ 'email=' + list[i]['email'] + " " 
 			    		+ 'workDate=' + list[i]['workDate'] + " "
 			    		+ 'workTime=' + list[i]['workTime'] + " "

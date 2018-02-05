@@ -37,25 +37,25 @@
       <!-- Example DataTables Card-->
       <div class="card mb-3">
         <div class="card-header">
-          <input type="month" ng-model="workInfo" class="searchTime"><button type="button" id="searchInfo"><span class="0025"></span></button></div>
+          <input type="month" ng-model="workInfo" class="searchTime" ng-change="InputDate()"></div>
         <div class="card-body2">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th><span class="0023"></span></th>
                   <th><span class="0011"></span></th>
                   <th><span class="0016"></span></th>
-                  <th><span class="0017"></span></th>
-                  <th><span class="0027"></span></th>
+                  <th><span class="0017"></span><br><font size=1>(<span class='0067'></span>)</font></th>
+                  <th><span class="0027"></span><br><font size=1>(<span class='0067'></span>)</font></th>
                   <th><span class="0041"></span></th>
                 </tr>
-              </thead>
+              </thead>	
               <tbody class="WorkInfoTable">
 
               </tbody>
             </table>
-            	<table class="bottom_table">
+            	<table class="bottom_table ">
             	 <thead>
                  <tr>
                   <th><span class="0026"></span></th>
@@ -120,7 +120,7 @@
 	<input type="hidden"  value={{::getText('0035')}}>
 	<input type="hidden"  value={{::getText('0036')}}>
 	<input type="hidden"  value={{::getText('0042')}}>
-	
+	<input type="hidden"  value={{::getText('0067')}}>
 	<!-- logout modal -->
 	<input type="hidden" value={{::getText('0043')}}>
  	<input type="hidden" value={{::getText('0045')}}>

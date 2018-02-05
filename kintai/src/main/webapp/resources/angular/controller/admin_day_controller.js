@@ -9,7 +9,7 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
 			adminService.getCurrentDate(function(date){
 
 				$('#date').val(date);
-					
+			
 				adminService.getWorkInfoByDay( date, '0029', function(response){
 					printHtml(response);
 				});
@@ -74,12 +74,16 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
 			 
 			 btnHtml +=
 			    		 '>' 
-			    		+ list[i]['nickName'] 
-			 			+ '<br><font size="2">'
+			    		+ list[i]['nickName'] ;
+			 if(state != 'yasumi'){
+				 btnHtml +=
+					 	 '<br><font size="2">'
 			 			+ list[i]['startTime'].substring(0, 5)
 			 			+ ' - '
 			 			+ list[i]['endTime'].substring(0, 5)
-			    		+ '</font></button>';
+			    		+ '</font>'
+			 }  		
+			 btnHtml +=	'</button>';
 		}
 	   	 return btnHtml;
     }

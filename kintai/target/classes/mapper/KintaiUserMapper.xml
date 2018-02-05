@@ -11,7 +11,9 @@
 			date_format(startTime,'%H:%i:%s') as startTime,
 			date_format(endTime,'%H:%i:%s') as endTime,
 			date_format(restTime,'%H:%i') as restTime,
-			date_format(workTime,'%H:%i') as workTime 
+			date_format(workTime,'%H:%i') as workTime,
+			dayOfWeek, 
+			workState 
 				
 			from 
 				workapp_info_table
@@ -29,12 +31,28 @@
          set 
             startTime=CONCAT(#{workDate},' ',#{startTime}),
             endTime=CONCAT(#{workDate},' ',#{endTime}),restTime=#{restTime},
-            workTime=(select subtime((select subtime(#{endTime},#{startTime})),#{restTime}))
+            workTime=(select subtime((select subtime(#{endTime},#{startTime})),#{restTime})),
+            workState=#{workState}
          
          where 
-            email = #{email} and workDate like CONCAT(#{workDate}, '%');
+            email = #{email} and workDate like CONCAT(#{workDate}, '%')
             
    </update>
+	
+	<select id="getWorkInfo"  parameterType="WorkappInfo" resultType="WorkappInfo">
+		select 
+			date_format(workDate,'%d') as workDate, 
+			date_format(startTime,'%H:%i:%s') as startTime,
+			date_format(endTime,'%H:%i:%s') as endTime,
+			date_format(restTime,'%H:%i') as restTime,
+			date_format(workTime,'%H:%i') as workTime,
+			dayOfWeek, 
+			workState 
+		from 
+			workapp_info_table
+		where 
+			email=#{email} and workDate like CONCAT(#{workDate}, '%')
+	</select>
 	
 	<select id="AllWorkTime" parameterType="String" resultType="String">
 		select 
@@ -93,14 +111,16 @@
 				email, 
 				workdate, 
 				starttime,
-				workState
+				workState, 
+				dayOfWeek
 			)
 		VALUES 
 			(
 				#{email},
 				curdate(),
 				#{startTime},
-				#{workState}
+				#{workState}, 
+				#{dayOfWeek}
 			)
 	</insert>
 	
@@ -141,19 +161,21 @@
 				workdate=curdate()
 	</update>
 	
-	<insert id="vacationInsert" parameterType="String">
+	<insert id="vacationInsert" >
 		INSERT INTO 
 			workapp_info_table 
 			(
 				email, 
 				workdate, 
-				workstate
+				workstate,
+				dayOfWeek
 			)
 		VALUES
 			(
-				#{email},
+				#{0},
 				curdate(),
-				'0012'
+				'0012',
+				#{1}
 			)
 	</insert>
 	

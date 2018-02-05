@@ -18,9 +18,9 @@
   <link href="./resources/css/sb-admin.css" rel="stylesheet">
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
+<body class="fixed-nav sticky-footer bg-dark" id="page-top"  ng-app="ascomApp" ng-controller="comnCtrl">
   <!-- Navigation-->
-  <div ng-controller="adminPersonCtrl">
+  <div ng-controller="adminMonthDetailCtrl">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="#"><img class="banner_top" src="./resources/img/logo_banner.png">ASCOM</a> 
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,17 +32,19 @@
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb3">
-        <li><span class="0036"></span></li>
+        <li><span class="0074"></span> - ${workappInfo.nickName}</li>
       </ol>
       <!-- Example DataTables Card-->
       <div class="card mb-3">
+               
         <div class="card-header">
-          <input id="search" type="Text" ng-change="changeInputTag()" ng-model="search" value=${keyword}>
-
+		 
+          <input type="month" id="month" ng-model="workMonth" ng-change="changeWorkState()" value=${workappInfo.workDate}>
+          <a href="javascript:modoru()"><span class="0075"></span></a>
         </div>
         <div class="card-body2">
           <div class="table-responsive">
-            <div id="people-list">
+          	<div id="people-list">
           	
           	</div>
           </div>
@@ -80,7 +82,13 @@
       </div>
     </div>
     
-    <!-- menu -->
+    <input type="hidden" id="workDate" value = ${workappInfo.workDate}>
+    <input type="hidden" id="condi" value = ${workappInfo.condi}>
+    <input type="hidden" id="email" value = ${workappInfo.email}>
+    <input type="hidden" id="nickName" value = ${workappInfo.nickName}>
+   <input type="hidden" id="prePage" value = ${prePage}>
+      
+      <!-- menu -->
   	<input type="hidden"  value={{::getText('0034')}}>
 	<input type="hidden"  value={{::getText('0035')}}>
 	<input type="hidden"  value={{::getText('0036')}}>
@@ -88,14 +96,18 @@
 	<input type="hidden"  value={{::getText('0013')}}>
 	<input type="hidden" value={{::getText('0042')}}>
 	<input type="hidden" value={{::getText('0021')}}>
-
+	
 	<!-- logout modal -->
 	<input type="hidden" value={{::getText('0043')}}>
  	<input type="hidden" value={{::getText('0045')}}>
   	<input type="hidden" value={{::getText('0044')}}>
-
-  	<input type="hidden" value={{::getText('0036')}}>
-  		
+ 	
+ 	<!-- title  -->
+ 	<input type="hidden" value={{::getText('0074')}}>
+ 	
+ 	 <!-- back  -->
+ 	<input type="hidden" value={{::getText('0075')}}>
+    
     <!-- Bootstrap core JavaScript-->
     <script src="./resources/vendor/jquery/jquery.min.js"></script>
     <script src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -105,6 +117,7 @@
     <script src="./resources/vendor/datatables/jquery.dataTables.js"></script>
     <script src="./resources/vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
+    
     <!-- modal -->
     <link href="./resources/css/jquery.modal.css" rel="stylesheet">
     <link href="./resources/css/jquery.modal.theme-atlant.css" rel="stylesheet">
@@ -117,9 +130,30 @@
  	<script src="./resources/angular/service/common_service.js"></script>
 	<script src="./resources/angular/controller/common_controller.js"></script>
 	
-	<script src="./resources/angular/service/admin_person_service.js"></script>
-	<script src="./resources/angular/controller/admin_person_controller.js"></script>
-	
+	<script src="./resources/angular/service/admin_month_detail_service.js"></script>
+	<script src="./resources/angular/controller/admin_month_detail_controller.js"></script>
+
+	<script>
+	function modoru(){
+		var prePage = $('#prePage').val();
+		alert(prePage);
+		if(prePage == 'adminMonth') {
+			var workDate =  $('#workDate').val();
+			var condi =  $('#condi').val();
+			alert(condi);
+			var url = 'adminMonth?workDate=' + workDate + '&condi=' + condi;
+			location.href = url;
+		}
+		else if(prePage == 'adminYear'){
+			var year =  $('#workDate').val().substring(0, 4);
+			var email =  $('#email').val();
+			var nickName =  $('#nickName').val();
+			var url = 'adminPersonYear?email=' + email + '&year=' + year + '&nickName=' + nickName;
+			location.href = url;
+		}
+	}
+	</script>
+  </div>
   </div>
 </body>
 

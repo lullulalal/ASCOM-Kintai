@@ -6,12 +6,27 @@ app.controller('adminMonthCtrl', ['$scope', 'adminMonthService',  function($scop
 		$(document).ready(function(){
 			$("#workSelect option:first").remove();
 
-			adminMonthService.getCurrentDate(function(date){
-				var month = date.substring(0, 7);
-				$('#month').val(month);
-					
-				adminMonthService.printWorkInfoByMonth( month, '0062');
-			});
+			var workMonth = $('#workMonth').val();
+			var condi = $('#condi').val();
+			
+			
+			
+			if(workMonth == ''|| condi == '') {
+			
+				adminMonthService.getCurrentDate(function(date){
+					var month = date.substring(0, 7);
+					$('#month').val(month);
+						
+					adminMonthService.printWorkInfoByMonth( month, '0062');
+				});
+			}
+			
+			else {
+				$('#month').val(workMonth);
+				$("#workSelect").val(condi).attr("selected", "selected");
+
+				adminMonthService.printWorkInfoByMonth( workMonth, condi);
+			}
 			
 		});
     });

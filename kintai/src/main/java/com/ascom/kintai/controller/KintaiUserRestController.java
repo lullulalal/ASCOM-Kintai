@@ -25,7 +25,7 @@ public class KintaiUserRestController {
 	@ResponseBody
 	@RequestMapping(value="workInfo", method = RequestMethod.POST)
 	public ArrayList<Object> workInfo(String date, HttpSession session){
-		//�션처리�기
+		//�션처리�기
 		
 		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
 		String email = account.getEmail();
@@ -40,12 +40,13 @@ public class KintaiUserRestController {
 	@RequestMapping(value="UpdateWorkInfo", method = RequestMethod.POST)
 	public String UpdateWorkInfo(WorkappInfo updateInfo, HttpSession session){
 		String mention;
-		//�션처리�기
+		//�션처리�기
 		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		AppSet set = (AppSet)session.getAttribute(KintaiConstant.SESSION_SETTING);
 		String email = account.getEmail();
 		
 		updateInfo.setEmail(email);
-		int result = service.UpdateWorkInfo(updateInfo);
+		int result = service.UpdateWorkInfo(updateInfo, set);
 		if(result!=0){
 			mention="success";
 		}else{

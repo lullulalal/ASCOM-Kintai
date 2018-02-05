@@ -16,11 +16,12 @@
   <link href="./resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="./resources/css/sb-admin.css" rel="stylesheet">
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
   <!-- Navigation-->
-  <div ng-controller="adminPersonCtrl">
+  <div ng-controller="adminPersonYearCtrl">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="#"><img class="banner_top" src="./resources/img/logo_banner.png">ASCOM</a> 
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,18 +33,18 @@
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb3">
-        <li><span class="0036"></span></li>
+        <li><span class="0036"></span> - ${workappInfo.nickName}</li>
       </ol>
       <!-- Example DataTables Card-->
       <div class="card mb-3">
         <div class="card-header">
-          <input id="search" type="Text" ng-change="changeInputTag()" ng-model="search" value=${keyword}>
-
+           <select class="select_type" id="year" >
+          </select>  
+          <a href="adminPerson"><span class="0075"></span></a>
         </div>
         <div class="card-body2">
           <div class="table-responsive">
-            <div id="people-list">
-          	
+            <div id="list">
           	</div>
           </div>
         </div>
@@ -80,6 +81,9 @@
       </div>
     </div>
     
+    <input type="hidden" id="email" value= ${workappInfo.email}>
+    <input type="hidden" id="tYear"  value=${year}>
+    
     <!-- menu -->
   	<input type="hidden"  value={{::getText('0034')}}>
 	<input type="hidden"  value={{::getText('0035')}}>
@@ -95,6 +99,7 @@
   	<input type="hidden" value={{::getText('0044')}}>
 
   	<input type="hidden" value={{::getText('0036')}}>
+  	<input type="hidden" value={{::getText('0075')}}>
   		
     <!-- Bootstrap core JavaScript-->
     <script src="./resources/vendor/jquery/jquery.min.js"></script>
@@ -117,8 +122,8 @@
  	<script src="./resources/angular/service/common_service.js"></script>
 	<script src="./resources/angular/controller/common_controller.js"></script>
 	
-	<script src="./resources/angular/service/admin_person_service.js"></script>
-	<script src="./resources/angular/controller/admin_person_controller.js"></script>
+	<script src="./resources/angular/service/admin_person_year_service.js"></script>
+	<script src="./resources/angular/controller/admin_person_year_controller.js"></script>
 	
   </div>
 </body>

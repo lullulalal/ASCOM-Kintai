@@ -24,7 +24,7 @@ app.factory('comnService',  function(){
 	function getText2(code, rstHandle ){
 		
 		var success= function(response){
-			rstHandle(response[code]);
+			rstHandle(response[code], code);
 		};
 		$.ajax({
 			url:'getText',
@@ -54,8 +54,8 @@ app.factory('comnService',  function(){
 		if( $('#navbarResponsive').html() == '') {
 			$.ajax({
 				url:'getAuth', 
-				type: 'post',             
-				//async: false,
+				type: 'post', 
+				//async: false, 
 				success: function(response) { 
 					var auth = response["auth"];
 		

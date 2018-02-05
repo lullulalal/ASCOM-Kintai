@@ -24,6 +24,12 @@ public class KintaiAdminService {
 	@Autowired
 	KintaiSuperAdminDAO sdao;
 	
+	public List getEmployees() {
+		
+		List rst = dao.getEmployees();
+		return rst;
+		
+	}
 	
 	public List getWorkInfoByMonth(String month, String state) {
 	
@@ -48,6 +54,28 @@ public class KintaiAdminService {
 		
 		List rst = dao.getWorkInfoByMonth(month, minTime, maxTime);
 		
+		return rst;
+	}
+	
+	public List getWorkInfoByMonthDetail(String month, String email) {
+		Map saset = sdao.getSuperAdminSetting();
+		String maxTime = ( (String)saset.get("maxTime") ) + ":00";
+		String minTime = ( (String)saset.get("minTime") ) + ":00";  
+
+		
+/*		if("0062".equals(state)) {
+			minTime = setMaxTime;
+			maxTime = "24:00:00";
+		} else if ("0063".equals(state)) {
+			minTime = setMinTime;
+			maxTime = setMaxTime;
+		} else if ("0064".equals(state)) {
+			minTime = "00:00:00";
+			maxTime = setMinTime;
+		}*/
+		
+		List rst = dao.getWorkInfoByMonthDetail(month,  email,  minTime, maxTime);
+
 		return rst;
 	}
 	
@@ -114,5 +142,15 @@ public class KintaiAdminService {
 		
 		return rtn;
 		
+	}
+	
+	public List getWorkInfoByYear(String email, String year) {
+
+		Map saset = sdao.getSuperAdminSetting();
+		String maxTime = ( (String)saset.get("maxTime") ) + ":00";
+		String minTime = ( (String)saset.get("minTime") ) + ":00";  
+		
+		List rst = dao.getWorkInfoByYear(email, year, minTime, maxTime);
+		return rst;
 	}
 }

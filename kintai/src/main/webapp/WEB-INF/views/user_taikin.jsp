@@ -57,7 +57,8 @@
 				  	<td colspan="2" style="color:white"><span class='0017'></span></td>
 				  </tr>
 				  <tr>
-				  	<td colspan="2"><input type="text" id="rest" size="10" readonly style="text-align: center;"></td>
+				  	<td colspan="2"　 style="color:white"><input type="text" id="rest" size="10" readonly style="text-align: center;">
+				  					<font size=2　>(<span class='0067'></span>)</font></td>
 				  </tr>
 				<!-- <input type="text" id="date" size="10" readonly style="text-align: center;"> 
 				<input type="text" id="time" size="10" readonly style="text-align: center;"> 
@@ -115,7 +116,8 @@
 	  	<input type="hidden" value={{::getText('0044')}}>
 		<input type="hidden" value={{::getText('0021')}}>
 		
-	
+		<!-- 時間:分 -->
+		<input type="hidden" value={{::getText('0067')}}>
 		
 		<!-- Bootstrap core JavaScript-->
 		<script src="./resources/vendor/jquery/jquery.min.js"></script>
@@ -157,6 +159,7 @@
 					type : 'POST',
 					datatype : 'json',
 					success : function(data) {
+						if (data == null || data == '') data='01:00'
 						$('#rest').val(data);
 						$('#rest').timeDropper({
 							setCurrentTime: false
@@ -188,8 +191,8 @@
 					datatype : 'json',
 					success : function(data) {
 						$(".breadcrumb4").append(
-								'<li class="breadcrumb-item active">' + data
-										+ '</li>');
+								'<li class=""><span style="word-break:break-all">' + data
+										+ '</span></li>');
 					},
 					error : function() {
 					}

@@ -1,19 +1,27 @@
 'use strict';
 
 app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnService) {
-
+	var dayOfWeekCodes = ['', '0066', '0068', '0069', '0070', '0071', '0072', '0073' ];
+	var dayOfWeekStrs = {'' : ''};
+	
     angular.element(document).ready(function () {
 		$(document).ready(function(){
 	    	var date = NowDate();
-	    	
-	    	
-        	
-	    	$scope.GetWorkInfoList(date);
+	    
+	    	for(var i = 1; i < dayOfWeekCodes.length; i++) {
+	    		
+		    	 comnService.getText2(dayOfWeekCodes[i], function(dayOfWeekStr, code){
+		    		 dayOfWeekStrs[code] = dayOfWeekStr;
+
+		    		 if(Object.keys(dayOfWeekStrs).length == dayOfWeekCodes.length){
+		    			 $scope.GetWorkInfoList(date);
+		    		 }
+		    	 });
+	    	}
 	    	
 	    	$("#searchInfo").click(function(){
 	    		$scope.InputDate();
 	    	});
-	       	
 	    	
 		});
     });
@@ -45,7 +53,7 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
     
 	//入れた変数の勤務表をもらう機能
     $scope.GetWorkInfoList = function(date){
-
+    	
   		$.ajax({
 			type:"post",
 			url:"workInfo",
@@ -53,38 +61,60 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
 				date:date
 			},
 			success:function(data){
-				
-				var workInfoList;
 
-				if(data[0].length==0){
-					
-					workInfoList = '';
-					$('#AllWorkTime').text("0");
-					
-				}else{
-					/*$.each(data[0],function(index,item){
+
+					var workInfoList;
+		
+					if(data[0].length==0){
+							
+						workInfoList = '';
+						$('#AllWorkTime').text("0");
+						$('.WorkInfoTable').html(workInfoList);
+							
+						$scope.UpdateInfo();
+							
+					}else{
+						/*$.each(data[0],function(index,item){
+								
+							workInfoList += '<tr><td>'+item.workDate+'</td><td>'+item.startTime
+										 	+'</td><td>'+item.endTime+'</td><td>'+item.restTime
+										 	+'</td><td>'+item.workTime+'</td><td><button date=\"'
+									  		+item.workDate+'\" class=\"update_btn\">ok</button></td></tr>';
+						});	*/
+							
+						$.each(data[0],function(index,item){
+						   var fontColor = '';
+						   if(item.dayOfWeek*1 == 1)  fontColor = 'red';
+						   else if (item.dayOfWeek*1 ==7) fontColor = 'blue';
+						   else fontColor = 'black';
+						   
+						   var rowColor = '';
+						   if (item.workState == '0012') rowColor = '#fff9f9';
+						   else rowColor = 'white';
+							workInfoList += '<tr bgcolor="' + rowColor +'"><td><font color="' + fontColor + '">'+item.workDate+ '(' +dayOfWeekStrs[dayOfWeekCodes[item.dayOfWeek]] + ')' +'</font></td><td>'+item.startTime.substring(0, 5)
+										 	+'</td><td>'+item.endTime.substring(0, 5)+'</td><td>'+item.restTime
+										 	+'</td><td>'+item.workTime+'</td><td><span date=\"'
+									  		+item.workDate+'\" class=\"update_btn\"><i class="fa fa-fw fa-wrench"></i></span></td></tr>';
+						});
 						
-						workInfoList += '<tr><td>'+item.workDate+'</td><td>'+item.startTime
-									 	+'</td><td>'+item.endTime+'</td><td>'+item.restTime
-									 	+'</td><td>'+item.workTime+'</td><td><button date=\"'
-								  		+item.workDate+'\" class=\"update_btn\">ok</button></td></tr>';
-					});	*/
-					
-					$.each(data[0],function(index,item){
-						
-						workInfoList += '<tr><td>'+item.workDate+'</td><td>'+item.startTime
-									 	+'</td><td>'+item.endTime+'</td><td>'+item.restTime
-									 	+'</td><td>'+item.workTime+'</td><td><span date=\"'
-								  		+item.workDate+'\" class=\"update_btn\"><i class="fa fa-fw fa-wrench"></i></span></td></tr>';
-					});
-					
-					
-					
-					$('#AllWorkTime').text(data[1]);
-				}
-				$('.WorkInfoTable').html(workInfoList);
-				
-				$scope.UpdateInfo();
+						var hourStr = '';
+						var minuteStr = '';
+						comnService.getText2('0048', function(text){
+							hourStr = text;
+							comnService.getText2('0049', function(text){
+								minuteStr = text;
+								var newTimeStr = data[1].replace(":", hourStr);
+								newTimeStr += minuteStr;
+								
+								$('#AllWorkTime').text(newTimeStr);
+								$('.WorkInfoTable').html(workInfoList);
+									
+								$scope.UpdateInfo();
+								
+							});
+						});	
+
+					}
 			}
 		}); 
   		
@@ -133,30 +163,36 @@ app.controller('userCtrl', ['$scope', 'comnService', function($scope, comnServic
 				 takinStr = text;
 				 comnService.getText2('0017', function(text){
 					 yasumiStr = text;
-					 
-			 			$.each(workInfo,function(index,item){
-			 				
-			 				updateInfo = '<table class=\"Updatetable\">'
-								 +'<tbody><tr><th>' + shukinStr + ':</th><td><input type=\"time\" id=\"UstartTime\" value=\"'
-								 +item.startTime+'\"></td><th>' + takinStr + ':</th><td><input type=\"time\" id=\"UendTime\" value=\"'
-								 +item.endTime+'\"></td></tr><tr><th>' + yasumiStr +  ':</th><td><input type=\"text\" id=\"UrestTime\" value=\"'
-								 +item.restTime+'\"></td></tr></tbody></table>';
-			 				
-						});
-					 
-			 		   comnService.commonModal(Udate, updateInfo, '0037', function() {
-							$scope.UpdateWorkInfo();
-							return true;
-						}, function(){
-							$('#UrestTime').timeDropper({
-								setCurrentTime: false,
-								textColor: '#FF9436',
-								primaryColor: '#FF5E00',
-			                    borderColor: '#C92800',
+					 comnService.getText2('0067', function(text){
+						 	
+				 			$.each(workInfo,function(index,item){
+				 				
+				 				updateInfo = '<table align="center" class=\"Updatetable\">'
+									 + '<tr><th>' + shukinStr + '</th>'
+									 + '    <th>' + takinStr + '</th></tr>'
+									 + '<tr><td><input type=\"text\" class="seTime" id=\"UstartTime\" value=\"'
+									 + item.startTime+'\"></td>'
+									 + '<td><input type=\"text\" class="seTime" id=\"UendTime\" value=\"'
+									 + item.endTime+'\"></td>'
+									 + '<tr><th colspan="2">' + yasumiStr + '<font size=1>(' + text +  ')</font></th><tr>'
+									 + '<tr><td colspan="2"><input style="width:130px" type=\"text\" class="seTime" id=\"UrestTime\" value=\"'
+									 + item.restTime+'\"></td></tr></table>';
+				 				
 							});
-						});
+						 
+				 		   comnService.commonModal(Udate, updateInfo, '0037', function() {
+								$scope.UpdateWorkInfo();
+								return true;
+							}, function(){
+								$('.seTime').timeDropper({
+									setCurrentTime: false,
+									textColor: '#FF9436',
+									primaryColor: '#FF5E00',
+				                    borderColor: '#C92800',
+								});
+							});
 			 		   
-					 
+					 });
 					 
 				 });
 			 });

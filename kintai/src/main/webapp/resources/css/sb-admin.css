@@ -112,6 +112,26 @@ table-bordered {
     font-size: 20px;
 }
 
+ .btn_people{
+	background-color: #f9f9f9;
+    border-width: 1px;
+    border-radius:5px;
+    color: black;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-family: "Sawarabi Gothic";
+    font: bold;
+    font-size: 20px;
+}
+
+
  
 .content-wrapper-gray {
   min-height: calc(100vh - 56px);

@@ -11,6 +11,7 @@
 		<typeAlias type="com.ascom.kintai.vo.Employee" alias="Employee" />
 		<typeAlias type="com.ascom.kintai.vo.AppSet" alias="AppSet" />
 		<typeAlias type="com.ascom.kintai.vo.WorkappUser" alias="WorkappUser" />
+		<typeAlias type="com.ascom.kintai.vo.Employee" alias="Employee" />
 	</typeAliases>
 	
 	<mappers>

@@ -43,7 +43,7 @@
 	<div class="content-wrapper-gray">
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
-			<ol class="breadcrumb"></ol>
+			<ol class="breadcrumb3">Notice</ol>
 			<ol class="breadcrumb4"></ol>
 			<div class="breadcrumb2">
 				<input type="text" id="date" readonly style="text-align: center;">
@@ -152,8 +152,8 @@
 					datatype : 'json',
 					success : function(data) {
 						$(".breadcrumb4").append(
-								'<li class="breadcrumb-item active">' + data
-										+ '</li>');
+								'<li class=""><span style="word-break:break-all">' + data
+										+ '</span></li>');
 					},
 					error : function() {
 					}

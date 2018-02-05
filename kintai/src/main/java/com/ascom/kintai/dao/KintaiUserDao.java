@@ -36,6 +36,12 @@ public class KintaiUserDao extends TimeOnlyTypeHandler{
 		return AllWorkData;
 	}
 	
+	public WorkappInfo getWorkInfo(WorkappInfo updateInfo){
+		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
+		WorkappInfo workapp = Wmapper.getWorkInfo(updateInfo);
+		return workapp;
+	}
+	
 	public int UpdateWorkInfo(WorkappInfo updateInfo){
 		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
 		int result = Wmapper.UpdateWorkInfo(updateInfo);
@@ -99,11 +105,11 @@ public class KintaiUserDao extends TimeOnlyTypeHandler{
 		return insertResult;
 	}
 	
-	public int vacationInsert(String email) {
+	public int vacationInsert(String email, int dayOfWeek) {
 		int insertResult=0;
 		
 		KintaiUserMapper Wmapper = sqlsession.getMapper(KintaiUserMapper.class);
-		insertResult = Wmapper.vacationInsert(email);
+		insertResult = Wmapper.vacationInsert(email, dayOfWeek);
 		
 		return insertResult;
 	}

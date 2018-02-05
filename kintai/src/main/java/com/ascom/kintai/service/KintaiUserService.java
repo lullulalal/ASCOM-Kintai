@@ -1,8 +1,10 @@
 package com.ascom.kintai.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,14 +23,24 @@ public class KintaiUserService {
 
 	public ArrayList<Object> workInfo(String email, String date) {
 		ArrayList<Object> AllWorkData = wdao.workInfo(email, date);
+		System.out.println(AllWorkData.toString());
 
 		return AllWorkData;
 	}
 
-	public int UpdateWorkInfo(WorkappInfo updateInfo) {
+	public int UpdateWorkInfo(WorkappInfo updateInfo, AppSet set) {
 
+		String upEndTime = updateInfo.getEndTime();
+		String upStartTime = updateInfo.getStartTime();
+		
+		if("00:00".equals(upEndTime) && "00:00".equals(upStartTime))
+			updateInfo.setWorkState("0012");
+		
+		else
+			updateInfo.setWorkState(set.getWorkLocation());
+		
 		int result = wdao.UpdateWorkInfo(updateInfo);
-
+		
 		return result;
 	}
 
@@ -66,7 +78,11 @@ public class KintaiUserService {
 
 	public int vacationInsert(String email) {
 		int resultVacation = 0;
-		resultVacation = wdao.vacationInsert(email);
+		
+		 Calendar cal = Calendar.getInstance(); 
+		 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK); 
+		
+		resultVacation = wdao.vacationInsert(email, dayOfWeek);
 		return resultVacation;
 	}
 
@@ -75,7 +91,7 @@ public class KintaiUserService {
 
 		String new_endTime = workDate + " " + endTime;
 
-		WorkappInfo workappinfo = new WorkappInfo(email, "", "", new_endTime, restTime, "", workState, "", "", "");
+		WorkappInfo workappinfo = new WorkappInfo(email, "", "", new_endTime, restTime, "", workState, "", "", "", 0);
 		
 		resultTaikin = wdao.taikinInsert(workappinfo);
 		
@@ -89,8 +105,23 @@ public class KintaiUserService {
 		int resultShukin = 0;
 		
 		String new_startTime = workDate + " " + startTime;
-		WorkappInfo workappinfo = new WorkappInfo(email, workDate, new_startTime, "", "", "", workState, "", "", "");
 		
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd") ;
+	    Date nDate = null;
+		
+	    try {
+			nDate = dateFormat.parse(workDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
+	     
+	    Calendar cal = Calendar.getInstance() ;
+	    cal.setTime(nDate);
+	     
+	    int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) ;
+
+		WorkappInfo workappinfo = new WorkappInfo(email, workDate, new_startTime, "", "", "", workState, "", "", "", dayOfWeek);
+
 		resultShukin = wdao.shukinInsert(workappinfo);
 		
 		return resultShukin;

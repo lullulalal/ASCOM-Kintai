@@ -131,8 +131,8 @@
 					datatype : 'json',
 					success : function(data) {
 						$(".breadcrumb4").append(
-								'<li class="breadcrumb-item active">' + data
-										+ '</li>');
+								'<li class=""><span style="word-break:break-all">' + data
+										+ '</span></li>');
 					},
 					error : function() {
 					}

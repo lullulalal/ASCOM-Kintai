@@ -102,6 +102,9 @@
 	<input type="hidden" value={{::getText('0062')}}>
  	<input type="hidden" value={{::getText('0063')}}>
   	<input type="hidden" value={{::getText('0064')}}>
+  	
+  	<input type="hidden" id="workMonth" value = ${workappInfo.workDate}>
+    <input type="hidden" id="condi" value = ${workappInfo.condi}>
     
     <!-- Bootstrap core JavaScript-->
     <script src="./resources/vendor/jquery/jquery.min.js"></script>
