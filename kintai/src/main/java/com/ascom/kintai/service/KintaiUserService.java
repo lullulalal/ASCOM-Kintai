@@ -130,4 +130,6 @@ public class KintaiUserService {
 	public String currentRestTime(String email){
 		return wdao.currentRestTime(email);
 	}
+	
+	
 }

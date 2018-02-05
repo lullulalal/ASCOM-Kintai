@@ -56,6 +56,16 @@ public class KintaiUserRestController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="MonthWorkInfo", method = RequestMethod.POST)
+	public ArrayList<Object> MonthWorkInfo(String date, String email){
+		
+		ArrayList<Object> AllWorkData = service.workInfo(email, date);
+
+		return AllWorkData;
+		
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/getUserAppSetting", method = RequestMethod.POST)
 	public Object getUserAppSetting(HttpSession session) {
 		return session.getAttribute(KintaiConstant.SESSION_SETTING);
