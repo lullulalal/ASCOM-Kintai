@@ -15,4 +15,9 @@ app.controller('comnCtrl', ['$scope', 'comnService', function($scope, comnServic
 		comnService.commonModal(titleCode, textCode, btnTextCode, btnHandler);
 	};
 	
+	$scope.MonthWorkInfo = function(id){
+		comnService.MonthWorkInfo(id);
+
+      }
+	
 }]);

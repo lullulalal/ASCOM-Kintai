@@ -136,11 +136,9 @@
 	<script>
 	function modoru(){
 		var prePage = $('#prePage').val();
-		alert(prePage);
 		if(prePage == 'adminMonth') {
 			var workDate =  $('#workDate').val();
 			var condi =  $('#condi').val();
-			alert(condi);
 			var url = 'adminMonth?workDate=' + workDate + '&condi=' + condi;
 			location.href = url;
 		}

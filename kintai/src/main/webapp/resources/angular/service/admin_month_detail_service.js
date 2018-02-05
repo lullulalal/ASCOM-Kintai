@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('adminMonthDetailService', ['comnService', '$compile' , '$rootScope',  function(comnService, $compile, $rootScope){
+app.factory('adminMonthDetailService', ['comnService', '$compile' ,  function(comnService, $compile){
 	
 /*    function getCurrentDate(handler){
 		$.ajax({
@@ -12,8 +12,9 @@ app.factory('adminMonthDetailService', ['comnService', '$compile' , '$rootScope'
 		});
     }
     */
+	var rScope = null;
 	
-    function printWorkInfoMonthDetail(month, email, dayOfWeekCodes, dayOfWeekStrs){
+    function printWorkInfoMonthDetail(month, email, dayOfWeekCodes, dayOfWeekStrs, scope){
     		
 		$.ajax({
 			url : 'getWorkInfoByMonthDetail', 
@@ -23,6 +24,7 @@ app.factory('adminMonthDetailService', ['comnService', '$compile' , '$rootScope'
 				email : email
 			}, 
 			success: function(response) { 
+				rScope = scope;
 				printHtml(response, dayOfWeekCodes, dayOfWeekStrs);
 			}
 		});
@@ -39,7 +41,7 @@ app.factory('adminMonthDetailService', ['comnService', '$compile' , '$rootScope'
 		    	 
 		    $('#people-list').html('');
 		
-		    $('#people-list').html($compile(listHtml)($rootScope));
+		    $('#people-list').html($compile(listHtml)(rScope));
 
     	});
     }
@@ -57,11 +59,17 @@ app.factory('adminMonthDetailService', ['comnService', '$compile' , '$rootScope'
 				 		+ ' class="btn_' + stateStr + '"' 
 			    		+ 'email=' + list[i]['email'] + " " 
 			    		+ 'workDate=' + list[i]['workDate'] + " "
+			    		+ 'startTime=' + list[i]['startTime'] + " "
+			    		+ 'endTime=' + list[i]['endTime'] + " "
+			    		+ 'restTime=' + list[i]['restTime'] + " "
 			    		+ 'workTime=' + list[i]['workTime'] + " "
+			    		+ 'workState=' + list[i]['workState'] + " "
 						+ 'firstname=' + list[i]['firstname'] + " "
 						+ 'lastname=' + list[i]['lastname'] + " "
 			 			+ 'id=' + id + " ";
-			 
+			 if(stateStr != 'yasumi'){
+				 btnHtml += 'ng-click="peopleClick(' + "'" + id + "'" + ')"'  + " ";
+			 }
 			 btnHtml +=
 			    		 '>' 
 			    		+ list[i]['workDate'].substring(8, 10)

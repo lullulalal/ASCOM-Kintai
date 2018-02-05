@@ -89,7 +89,8 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
     }
     
     $scope.peopleClick = function(id) {
-    	comnService.getText2('0011', function(text) {
+    	comnService.MonthWorkInfo(id);
+/*    	comnService.getText2('0011', function(text) {
     		var shukinStr = text;
     		comnService.getText2('0016', function(text){
     			var taikinStr = text;
@@ -131,7 +132,7 @@ app.controller('adminCtrl', ['$scope', '$compile', 'adminService', 'comnService'
     				});
     			});
     		});
-    	});
+    	});*/
 
     };
 }]);

@@ -58,27 +58,33 @@
 	<select id="getWorkInfoByMonthDetail" resultType="WorkappInfo">
 	<![CDATA[
 		select 
-			workDate workDate,
-			DATE_FORMAT(startTime, '%H:%i:%s') startTime,
-			DATE_FORMAT(endTime, '%H:%i:%s') endTime,
-			DATE_FORMAT(restTime, '%H:%i') restTime,
-			TIME_TO_SEC( workTime ) workTime,
-			workState,
-			email,
-			dayOfWeek,
+			wit.workDate workDate,
+			DATE_FORMAT(wit.startTime, '%H:%i:%s') startTime,
+			DATE_FORMAT(wit.endTime, '%H:%i:%s') endTime,
+			DATE_FORMAT(wit.restTime, '%H:%i') restTime,
+			TIME_TO_SEC( wit.workTime ) workTime,
+			wit.workState,
+			wit.email,
+			wit.dayOfWeek,
+			et.nickName,
+			et.firstName,
+			et.lastName,
  			CASE 
-			if( TIME_TO_SEC(workTime) < TIME_TO_SEC(#{2}), 'good', 'warn')
-			WHEN 'warn' THEN if( TIME_TO_SEC(workTime) >= TIME_TO_SEC(#{3}), 'bad', 'warn')
+			if( TIME_TO_SEC(wit.workTime) < TIME_TO_SEC(#{2}), 'good', 'warn')
+			WHEN 'warn' THEN if( TIME_TO_SEC(wit.workTime) >= TIME_TO_SEC(#{3}), 'bad', 'warn')
 			ELSE 'good'
 			END condi
 
 		from 
-			workapp_info_table
+			workapp_info_table wit, 
+			employee_table et
 		where 
-			DATE_FORMAT(workDate, '%Y-%m') = #{0} 
+			wit.email = et.email
+		and
+			DATE_FORMAT(wit.workDate, '%Y-%m') = #{0} 
 		and 
-			email = #{1}
-		order by workDate 
+			wit.email = #{1}
+		order by wit.workDate 
 	]]>
 	</select>
 	

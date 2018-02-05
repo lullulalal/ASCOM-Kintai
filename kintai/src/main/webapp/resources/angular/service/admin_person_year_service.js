@@ -34,18 +34,20 @@ app.factory('adminPersonYearService', ['comnService', '$compile' , '$rootScope',
    		var timeStr = text;
    		comnService.getText2('0066', function(text) {
    			var dayStr = text;
-				
-		        listHtml += getBtnList(jsn, timeStr, dayStr);
+   			comnService.getText2('0076', function(text) {
+   				var monthStr = text;
+   				
+		        listHtml += getBtnList(jsn, timeStr, dayStr, monthStr);
 		    	 
 		    	 $('#list').html('');
 		
 		    	 $('#list').html($compile(listHtml)($rootScope));
-
+   			});
    		});
    	});
    }
    
-   function getBtnList(list, timeStr, dayStr){
+   function getBtnList(list, timeStr, dayStr, monthStr){
    	var btnHtml = '';
    	
 	for (var i = 0; i < list.length; i++) {
@@ -66,7 +68,7 @@ app.factory('adminPersonYearService', ['comnService', '$compile' , '$rootScope',
 			 
 		btnHtml +=
 			'>' 
-			+ list[i]['workDate'].substring(5, 7) 
+			+ list[i]['workDate'].substring(5, 7) + monthStr
 			+ '<br><font size="2">'
 			+ Math.round(list[i]['workTime']*1 / 3600 )
 			+ timeStr + ' / '

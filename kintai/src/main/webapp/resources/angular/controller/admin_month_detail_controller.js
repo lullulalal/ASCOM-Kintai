@@ -19,7 +19,7 @@ app.controller('adminMonthDetailCtrl', ['$scope',  'adminMonthDetailService','co
 		    		 dayOfWeekStrs[code] = dayOfWeekStr;
 		    		 
 		    		 if(Object.keys(dayOfWeekStrs).length == dayOfWeekCodes.length){
-		    			 adminMonthDetailService.printWorkInfoMonthDetail( month, email, dayOfWeekCodes, dayOfWeekStrs);
+		    			 adminMonthDetailService.printWorkInfoMonthDetail( month, email, dayOfWeekCodes, dayOfWeekStrs, $scope);
 		    		 }
 		    	 });
 	    	}
@@ -33,7 +33,10 @@ app.controller('adminMonthDetailCtrl', ['$scope',  'adminMonthDetailService','co
     	
     	if( month == null || month == '') return;
     	
-    	adminMonthDetailService.printWorkInfoMonthDetail( month, email, dayOfWeekCodes, dayOfWeekStrs);
+    	adminMonthDetailService.printWorkInfoMonthDetail( month, email, dayOfWeekCodes, dayOfWeekStrs, $scope);
     };
-
+    
+    $scope.peopleClick = function(id) {
+    	comnService.MonthWorkInfo(id);
+    };
 }]);

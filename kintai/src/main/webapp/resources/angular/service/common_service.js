@@ -2,6 +2,58 @@
 
 app.factory('comnService',  function(){
 	
+	function MonthWorkInfo(id) {
+		getText2($('#' + id).attr('workState'), function(text){
+			var workState = text;
+			getText2('0011', function(text) {
+				var shukinStr = text;
+				getText2('0016', function(text){
+					var taikinStr = text;
+					getText2('0017', function(text){
+						var yasumiStr = text;
+						getText2('0027', function(text){
+							var kinmuStr = text;
+							getText2('0048', function(text){
+								var hourStr = text;			
+								getText2('0049', function(text){
+									var minStr = text;
+				
+						            var MonthDailyInfo;
+						            
+									var shukin = $('#' + id).attr('startTime');
+									var taikin = $('#' + id).attr('endTime');
+									var yasumi = $('#' + id).attr('restTime');
+									var kinmu = $('#' + id).attr('workTime');
+									var workDate = $('#' + id).attr('workDate');
+										
+									var title = $('#' + id).attr('firstname') + ' ' +$('#' + id).attr('lastname') + ' - ' + workState;
+						                  
+						            MonthDailyInfo= '<div><font size=4>' + workDate + '</font></div>'
+						              	 +'<div class=\"Timeline\">'
+						                 + '<svg height=\"5\" width=\"100\"><line x1=\"0\" y1=\"0\" x2=\"200\" y2=\"0\"'
+						                 +'style=\"stroke:#E0E0E0;stroke-width:5\"/></svg><div class=\"event1\"><div class=\"event1Bubble\"><div class=\"Day\">' + shukinStr +'</div></div>'
+						                 +'<svg height=\"20\" width=\"20\"><circle cx=\"10\" cy=\"11\" r=\"5\" fill=\"#C92800\" />'
+						                 +'</svg><div class=\"time1\">'+shukin.substring(0, 5)+'</div></div><svg height=\"5\" width=\"300\">'
+						                 +'<line x1=\"0\" y1=\"0\" x2=\"300\" y2=\"0\" style=\"stroke:#ED4C00;stroke-width:5\" /></svg>'
+						                 +'<div class=\"event2\"><svg height=\"20\" width=\"20\"><circle cx=\"10\" cy=\"11\" r=\"5\" fill=\"#C92800\" />'
+						                 +'</svg><div class=\"time3\">'+taikin.substring(0, 5)+'</div><div class=\"time2\">' + taikinStr +'</div></div><svg height=\"5\"'
+						                 +' width=\"100\"><line x1=\"0\" y1=\"0\" x2=\"100\" y2=\"0\" style=\"stroke:#E0E0E0;stroke-width:5\" />'
+						                 +'</svg></div><table align=center><tr><th>' + yasumiStr +' : </th><td>'+yasumi.substring(0, 2)+hourStr+yasumi.substring(3, 5) + minStr +'</td></tr></table><div class=\"monthDiv\"><table class="monthTable">'
+						                 +'<tr style="font-size:30px;"><th>' + kinmuStr +'</th></tr><tr style="font-size:30px;"><td>'+kinmu.substring(0, 5).substring(0, 2)+hourStr+ kinmu.substring(0, 5).substring(3, 5)+ minStr+'</td></tr></table><div>';
+					
+						            
+						             commonModal(title, MonthDailyInfo, '0037', function() {
+						            	 return true;
+							         });
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+	}
+	
 	function getText(code){
 		var text;
 		
@@ -130,7 +182,8 @@ app.factory('comnService',  function(){
 		 getMenu : getMenu,
 		 getText2 : getText2,
 		 commonModal : commonModal,
-		 printMenuRec : printMenuRec
+		 printMenuRec : printMenuRec,
+		 MonthWorkInfo : MonthWorkInfo
 	 }
 
 });
