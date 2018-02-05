@@ -1,6 +1,7 @@
 'use strict';
 
 app.factory('comnService',  function(){
+
 	
 	function MonthWorkInfo(id) {
 		getText2($('#' + id).attr('workState'), function(text){
@@ -25,7 +26,7 @@ app.factory('comnService',  function(){
 									var yasumi = $('#' + id).attr('restTime');
 									var kinmu = $('#' + id).attr('workTime');
 									var workDate = $('#' + id).attr('workDate');
-										
+									
 									var title = $('#' + id).attr('firstname') + ' ' +$('#' + id).attr('lastname') + ' - ' + workState;
 						                  
 						            MonthDailyInfo= '<div><font size=4>' + workDate + '</font></div>'

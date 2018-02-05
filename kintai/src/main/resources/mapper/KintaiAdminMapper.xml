@@ -62,7 +62,7 @@
 			DATE_FORMAT(wit.startTime, '%H:%i:%s') startTime,
 			DATE_FORMAT(wit.endTime, '%H:%i:%s') endTime,
 			DATE_FORMAT(wit.restTime, '%H:%i') restTime,
-			TIME_TO_SEC( wit.workTime ) workTime,
+			wit.workTime workTime,
 			wit.workState,
 			wit.email,
 			wit.dayOfWeek,

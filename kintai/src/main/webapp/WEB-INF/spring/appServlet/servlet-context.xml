@@ -31,8 +31,15 @@
 	    </interceptor> 
 	    
 	    <interceptor>
-	      <mapping path="/test" />
-
+ 		  <mapping path="/adminDay" />
+ 		  <mapping path="/adminMonth" />
+ 		  <mapping path="/adminPerson" />
+ 		  <mapping path="/adminPersonYear" />
+ 		  <mapping path="/adminMonthDetail" />
+ 		  <mapping path="/superSetting" />
+ 		  <mapping path="/workappInfoPage" />
+ 		  <mapping path="/appSetting" />
+ 		  <mapping path="/shukinCheck" />    
 	      <beans:bean id="loginInterceptor" class="com.ascom.kintai.intercepter.LoginInterceptor"></beans:bean>
 	    </interceptor> 
 	</interceptors>
