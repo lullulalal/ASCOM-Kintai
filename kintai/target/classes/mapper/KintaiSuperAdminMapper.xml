@@ -38,4 +38,80 @@
 		where
 			setting = 'notice'
 	</update>
+	
+	<insert id="insertToEmployeeTable"  parameterType="hashmap" >
+		INSERT INTO EMPLOYEE_TABLE  
+			(
+				email, 
+				nickName, 
+				firstName,
+				lastName,
+				department,
+				phone
+				
+			)
+		VALUES
+			(
+				#{email},
+				#{nickName},
+				#{firstName},
+				#{lastName},
+				#{department},
+				#{phone}
+			)
+	</insert>
+	
+	<insert id="insertToAppSetLanguage"  parameterType="hashmap" >
+		INSERT INTO WORKAPP_APP_SET_TABLE (email , setting , setvalue)
+		VALUES (#{email}, 'language' ,'JP');
+	</insert>
+	
+	<insert id="insertToAppSetWorkLocation"  parameterType="hashmap" >
+		INSERT INTO WORKAPP_APP_SET_TABLE (email , setting , setvalue)
+		VALUES (#{email}, 'workLocation' ,'0028');
+	</insert>
+	
+	<insert id="insertToAppSetAuth"  parameterType="hashmap" >
+		INSERT INTO WORKAPP_APP_SET_TABLE (email , setting , setvalue)
+		VALUES (#{email}, 'authority' ,#{authority});
+	</insert>
+	
+	<insert id="insertToAppAcountTable"  parameterType="hashmap" >
+		INSERT INTO app_account_table (email , password)
+		VALUES (#{email}, #{password});
+	</insert>	
+	
+	<update id="updateToEmployeeTable"  parameterType="hashmap" >
+		update 
+			EMPLOYEE_TABLE  
+		set
+			email = #{email}, 
+			nickName = #{nickName}, 
+			firstName = #{firstName},
+			lastName = #{lastName},
+			department = #{department},
+			phone = #{phone}
+		where 
+			email = #{email}
+	</update>
+	
+	<update id="updateToAppSetAuth"  parameterType="hashmap" >		
+		update 
+			WORKAPP_APP_SET_TABLE 
+		set 
+			setvalue= #{authority}	
+		where 
+			email = #{email}
+		and
+			setting = 'authority'
+	</update>
+	
+	<update id="updateToAppAcountTable"  parameterType="hashmap" >
+		update 
+			app_account_table 
+		set 
+			password= #{password}	
+		where 
+			email = #{email}
+	</update>	
 </mapper>

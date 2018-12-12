@@ -22,7 +22,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         HttpSession session = request.getSession();
         Object obj = session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
         if ( obj == null ){ 
-        	System.out.println("asfasf");
         	response.sendRedirect("/kintai");
         	return false;
         }

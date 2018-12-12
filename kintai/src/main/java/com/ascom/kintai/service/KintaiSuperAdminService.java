@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ascom.kintai.dao.KintaiSuperAdminDAO;
 
@@ -20,6 +21,14 @@ public class KintaiSuperAdminService {
 	public void updateSuperAdminSetting( Map set){
 
 		dao.updateSuperAdminSetting(set);
+	}
+	
+	public void insertEmployee(Map info) {
+		dao.insertEmployee(info);
+	}
+	
+	public void updateEmployee(Map info) {
+		dao.updateEmployee(info);
 	}
 	
 }

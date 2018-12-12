@@ -17,6 +17,7 @@
 		<mapper resource="./mapper/KintaiCommonMapper.xml" />
 		<mapper resource="./mapper/KintaiSuperAdminMapper.xml" />
 		<mapper resource="./mapper/KintaiAdminMapper.xml" />
+		<mapper resource="./mapper/KintaiBatchMapper.xml" />
 	</mappers>
 </configuration>
 

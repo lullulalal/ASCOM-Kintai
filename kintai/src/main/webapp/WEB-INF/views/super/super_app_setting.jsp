@@ -51,8 +51,17 @@
 		      	    <span class='0010'></span>
 		      	    <input type="text" id="maxTimepicker"  name="maxTime" readonly>
 		      	</div>
-		    <hr>
 		      	<div align=right style="padding : 4px">
+		    	  <button class="btn btn-secondary" ng-click="updateSuperAdminSetting()"><span class='0047'></span></button>
+	      		</div>
+		    <hr>
+				<div style="padding : 4px">
+					<span class='0079'></span>
+				</div>
+				<div style="padding : 4px">
+		          	<textarea id="notice" rows="3" cols="40"></textarea>
+	          	</div>
+	          	<div align=right style="padding : 4px">
 		    	  <button class="btn btn-secondary" ng-click="updateSuperAdminSetting()"><span class='0047'></span></button>
 	      		</div>
 	        <hr>
@@ -77,7 +86,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"><span class='0043'></span></h5>
+            <h5 class="modal-title_logout" id="exampleModalLabel"><span class='0043'></span></h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -103,6 +112,7 @@
   <input type="hidden" value={{::getText('0009')}}>
   <input type="hidden" value={{::getText('0010')}}>
   <input type="hidden" value={{::getText('0047')}}> 
+  <input type="hidden" value={{::getText('0079')}}>
   
   <input type="hidden" id = "hourStr" value={{::getText('0048')}}>
   <input type="hidden" id = "minuteStr" value={{::getText('0049')}}> 

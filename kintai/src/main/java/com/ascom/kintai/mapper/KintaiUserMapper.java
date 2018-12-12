@@ -18,7 +18,10 @@ public interface KintaiUserMapper {
 	public int shukinInsert(WorkappInfo workappinfo);
 	public int taikinInsert(WorkappInfo workappinfo);
 	public int worktimeInsert(String email);
-	public int vacationInsert(String email);
+	public int vacationInsert(String email, int dayOfWeek);
 	public int vacationCheck(String email);
 	public String getComment();
+	public String currentRestTime(String email);
+	public WorkappInfo getWorkInfo(WorkappInfo updateInfo);
+	
 }

@@ -20,8 +20,8 @@
   border: 1px solid #ddd !important;
 }
 
-table caption {
-	padding: .5em 0;
+table-bordered {
+  border: 1px solid #ddd !important;
 }
 
 @media screen and (max-width: 767px) {
@@ -37,11 +37,11 @@ table caption {
 }
 
  .btn_bad{
-	background-color: #960000;
+	background-color: #f12323;
     border-width: 1px;
     border-radius:5px;
     color: white;
-    padding: 10px 20px;
+    padding: 3px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -60,7 +60,7 @@ table caption {
     border-width: 1px;
     border-radius:5px;
     color: black;
-    padding: 10px 20px;
+    padding: 3px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -75,11 +75,11 @@ table caption {
 }
 
  .btn_good{
-	background-color: #020096;
+	background-color: #2435f2;
     border-width: 1px;
     border-radius:5px;
     color: white;
-    padding: 10px 20px;
+    padding: 3px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -98,7 +98,7 @@ table caption {
     border-width: 1px;
     border-radius:5px;
     color: black;
-    padding: 10px 20px;
+    padding: 4px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -111,6 +111,26 @@ table caption {
     font: bold;
     font-size: 20px;
 }
+
+ .btn_people{
+	background-color: #f9f9f9;
+    border-width: 1px;
+    border-radius:5px;
+    color: black;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-family: "Sawarabi Gothic";
+    font: bold;
+    font-size: 20px;
+}
+
 
  
 .content-wrapper-gray {

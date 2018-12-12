@@ -31,12 +31,23 @@ public class KintaiCommonRestController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getAuth", method = RequestMethod.POST)
-	public Map getAuth(String code, HttpSession session) {
+	public Map getAuth(HttpSession session) {
 		AppSet appSet = (AppSet)session.getAttribute(KintaiConstant.SESSION_SETTING);
 		
 		HashMap<String, Integer> auth = new HashMap<>();
 		auth.put("auth", appSet.getAuthority());
 		return auth;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getAuthByEmail", method = RequestMethod.POST)
+	public Map getAuthByEmail(String email, HttpSession session) {
+		AppSet appSet = service.getAppSetting(email);
+		HashMap<String, Integer> auth = new HashMap<>();
+		auth.put("auth", appSet.getAuthority());
+		return auth;
+	}
+	
+	
 
 }

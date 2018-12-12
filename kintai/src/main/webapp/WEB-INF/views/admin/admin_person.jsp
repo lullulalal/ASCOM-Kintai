@@ -20,6 +20,7 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top" ng-app="ascomApp" ng-controller="comnCtrl">
   <!-- Navigation-->
+  <div ng-controller="adminPersonCtrl">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="#"><img class="banner_top" src="./resources/img/logo_banner.png">ASCOM</a> 
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,68 +32,19 @@
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb3">
-        <li>月別勤怠情報</li>
+        <li><span class="0036"></span></li>
       </ol>
       <!-- Example DataTables Card-->
       <div class="card mb-3">
         <div class="card-header">
-          <input type="date">
-          <select class="select_type">
-          	<option>全体</option>
-          	<option>現場</option>
-          	<option>社内</option>
-          </select>  
+          <input id="search" type="Text" ng-change="changeInputTag()" ng-model="search" value=${keyword}>
+
         </div>
         <div class="card-body2">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <tbody>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  	<button class="btn_nichiji">ソ</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">ジン</button>
-                  </td>
-                  <td>
-                  	<button class="btn_nichiji">クリ</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div id="people-list">
+          	
+          	</div>
           </div>
         </div>
       </div>
@@ -114,7 +66,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"><span class='0043'></span></h5>
+            <h5 class="modal-title_logout" id="exampleModalLabel"><span class='0043'></span></h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -142,7 +94,8 @@
  	<input type="hidden" value={{::getText('0045')}}>
   	<input type="hidden" value={{::getText('0044')}}>
 
-	
+  	<input type="hidden" value={{::getText('0036')}}>
+  		
     <!-- Bootstrap core JavaScript-->
     <script src="./resources/vendor/jquery/jquery.min.js"></script>
     <script src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -164,8 +117,8 @@
  	<script src="./resources/angular/service/common_service.js"></script>
 	<script src="./resources/angular/controller/common_controller.js"></script>
 	
-	<script src="./resources/angular/service/admin_service.js"></script>
-	<script src="./resources/angular/controller/admin_controller.js"></script>
+	<script src="./resources/angular/service/admin_person_service.js"></script>
+	<script src="./resources/angular/controller/admin_person_controller.js"></script>
 	
   </div>
 </body>

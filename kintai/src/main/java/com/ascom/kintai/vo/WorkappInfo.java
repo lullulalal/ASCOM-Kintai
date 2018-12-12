@@ -15,14 +15,21 @@ public class WorkappInfo implements Comparable {
 	public String nickName;
 	public String firstname;
 	public String lastname;
+	public int count;
+	public int dayOfWeek;
+	public String condi;
 
 	public WorkappInfo() {
 		super();
 	}
 
 
+
+
+
 	public WorkappInfo(String email, String workDate, String startTime, String endTime, String restTime,
-			String workTime, String workState, String nickName, String firstname, String lastname) {
+			String workTime, String workState, String nickName, String firstname, String lastname, 
+			int dayOfWeek) {
 		super();
 		this.email = email;
 		this.workDate = workDate;
@@ -34,8 +41,20 @@ public class WorkappInfo implements Comparable {
 		this.nickName = nickName;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.count = 0;
+		this.dayOfWeek = dayOfWeek;
 	}
 
+
+
+	public String getCondi() {
+		return condi;
+	}
+
+
+	public void setCondi(String condi) {
+		this.condi = condi;
+	}
 
 	public String getFirstname() {
 		return firstname;
@@ -123,13 +142,33 @@ public class WorkappInfo implements Comparable {
 
 
 
+	public int getCount() {
+		return count;
+	}
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	
+
+	public int getDayOfWeek() {
+		return dayOfWeek;
+	}
+
+
+	public void setDayOfWeek(int dayOfWeek) {
+		this.dayOfWeek = dayOfWeek;
+	}
+
 	@Override
 	public String toString() {
 		return "WorkappInfo [email=" + email + ", workDate=" + workDate + ", startTime=" + startTime + ", endTime="
 				+ endTime + ", restTime=" + restTime + ", workTime=" + workTime + ", workState=" + workState
-				+ ", nickName=" + nickName + ", firstname=" + firstname + ", lastname=" + lastname + "]";
+				+ ", nickName=" + nickName + ", firstname=" + firstname + ", lastname=" + lastname + ", count=" + count
+				+ ", dayOfWeek=" + dayOfWeek + "]";
 	}
-
 
 	@Override
 	public int compareTo(Object compObj) {

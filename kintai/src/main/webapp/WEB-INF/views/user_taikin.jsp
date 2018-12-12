@@ -41,26 +41,32 @@
 	<div class="content-wrapper-gray">
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
-			<ol class="breadcrumb"></ol>
-			
+			<ol class="breadcrumb3">Notice</ol>
+			<ol class="breadcrumb4"></ol>
 			<div class="breadcrumb2">
-				<table style="width:100%">
+				<table style="width:200px" align="center">
 				  <tr>
 				  	<td style="color:white"><span class='0023'></span></td>
 				  	<td style="color:white"><span class='0016'></span></td>
-				  	<td style="color:white"><span class='0017'></span></td>
 				  </tr>
 				  <tr>
 				    <td><input type="text" id="date" size="10" readonly style="text-align: center;"> </td>
 				    <td><input type="text" id="time" size="10" readonly style="text-align: center;"></td> 
-				    <td><input type="text" id="rest" size="10" readonly style="text-align: center;"></td>
 				  </tr>
-			  
+				  <tr>
+				  	<td colspan="2" style="color:white"><span class='0017'></span></td>
+				  </tr>
+				  <tr>
+				  	<td colspan="2"　 style="color:white"><input type="text" id="rest" size="10" readonly style="text-align: center;">
+				  					<font size=2　>(<span class='0067'></span>)</font></td>
+				  </tr>
 				<!-- <input type="text" id="date" size="10" readonly style="text-align: center;"> 
 				<input type="text" id="time" size="10" readonly style="text-align: center;"> 
 				<input type="text" id="rest" size="10" readonly style="text-align: center;"> -->
+
 				
 				</table>
+
 			</div>
 
 			<!-- Icon Cards-->
@@ -78,33 +84,24 @@
 			</div>
 		</div>
 
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">
-							<span class='0043'></span>
-						</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<span class='0045'></span>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">
-							<span class='0044'></span>
-						</button>
-						<a class="btn btn-primary" href="logout"><span class='0021'></span></a>
-					</div>
-				</div>
-			</div>
-		</div>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title_logout" id="exampleModalLabel"><span class='0043'></span></h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body"><span class='0045'></span></div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal"><span class='0044'></span></button>
+            <a class="btn btn-primary" href="logout"><span class='0021'></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
 
 		<!-- 退勤 -->
 		<input type="hidden" value={{::getText('0016')}}>
@@ -119,7 +116,8 @@
 	  	<input type="hidden" value={{::getText('0044')}}>
 		<input type="hidden" value={{::getText('0021')}}>
 		
-	
+		<!-- 時間:分 -->
+		<input type="hidden" value={{::getText('0067')}}>
 		
 		<!-- Bootstrap core JavaScript-->
 		<script src="./resources/vendor/jquery/jquery.min.js"></script>
@@ -155,14 +153,23 @@
 			var workDate;
 			function timeInit() {
 				$('#time').timeDropper();
-				 $('#rest').mobiscroll().time({
-				        theme: 'mobiscroll',
-				        display: 'center',
-				        timeFormat: 'HH:ii',
-				        onInit: function (event, inst) {
-				            inst.setVal('00:00', true);
-				        }
-				    });
+				
+				$.ajax({
+					url : 'currentRestTime',
+					type : 'POST',
+					datatype : 'json',
+					success : function(data) {
+						if (data == null || data == '') data='01:00'
+						$('#rest').val(data);
+						$('#rest').timeDropper({
+							setCurrentTime: false
+						});
+					},
+					error : function() {
+					}
+				});
+				
+
 				
 				$.ajax({
 					url : 'currentTime',
@@ -183,22 +190,63 @@
 					type : 'POST',
 					datatype : 'json',
 					success : function(data) {
-						$(".breadcrumb").append(
-								'<li class="breadcrumb-item active">' + data
-										+ '</li>');
+						$(".breadcrumb4").append(
+								'<li class=""><span style="word-break:break-all">' + data
+										+ '</span></li>');
 					},
 					error : function() {
 					}
 				});
 			}
+			
+		    function updateCheck(start, end, rest){
+		    	   
+		    	var hStart = start.substring(0, 2);
+		    	var mStart = start.substring(3, 5);
+		    	var sStart = hStart*1*3600 + mStart*1*60;
+		    	
+		    	var hEnd = end.substring(0, 2);
+		    	var mEnd = end.substring(3, 5);
+		    	var sEnd = hEnd*1*3600 + mEnd*1*60;
+		    	
+		    	var hRest = rest.substring(0, 2);
+		    	var mRest = rest.substring(3, 5);
+		    	var sRest = hRest*1*3600 + mRest*1*60;
+		    	
+		    	if( (sEnd - sStart - sRest) < 0 )
+		    		return false;
+		    	
+		    	return true;
+		    }
+		    
 
 			function taikinInsertCheck() {
 
-				var modalFunc = angular.element(document.getElementById('page-top')).scope().commonModal;
+				var endTime = $("#time").val();
+				var restTime = $("#rest").val();
 				
-				modalFunc('0016', '0059', '0037', function() {
-						taikinInsert();
-				});
+				var uDate = $("#date").val();
+	    		$.ajax({
+	    			type:"post",
+	    			url:"workInfo",
+	    			data:{
+	    				date:uDate
+	    			},
+	    			success:function(data){
+	    				var modalFunc = angular.element(document.getElementById('page-top')).scope().commonModal;
+	    				
+	    				if ( updateCheck(data[0][0].startTime.substring(0, 5), endTime, restTime) == false) {
+		    				modalFunc('0077', '0078', '0037');
+	    					return;
+	    				}
+
+	    				modalFunc('0016', '0059', '0037', function() {
+	    						taikinInsert();
+	    				});
+	    			}
+	    		});
+				
+
 				
 			/*	modal({
 					type : 'confirm',
@@ -215,7 +263,7 @@
 			function taikinInsert() {
 				var endTime = $("#time").val();
 				var restTime = $("#rest").val();
-
+				
 				$.ajax({
 					url : 'taikinInsert',
 					type : 'POST',

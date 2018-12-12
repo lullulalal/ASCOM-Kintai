@@ -25,7 +25,6 @@ public class KintaiUserRestController {
 	@ResponseBody
 	@RequestMapping(value="workInfo", method = RequestMethod.POST)
 	public ArrayList<Object> workInfo(String date, HttpSession session){
-		//세션처리하기
 		
 		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
 		String email = account.getEmail();
@@ -40,12 +39,12 @@ public class KintaiUserRestController {
 	@RequestMapping(value="UpdateWorkInfo", method = RequestMethod.POST)
 	public String UpdateWorkInfo(WorkappInfo updateInfo, HttpSession session){
 		String mention;
-		//세션처리하기
 		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		AppSet set = (AppSet)session.getAttribute(KintaiConstant.SESSION_SETTING);
 		String email = account.getEmail();
 		
 		updateInfo.setEmail(email);
-		int result = service.UpdateWorkInfo(updateInfo);
+		int result = service.UpdateWorkInfo(updateInfo, set);
 		if(result!=0){
 			mention="success";
 		}else{
@@ -55,11 +54,19 @@ public class KintaiUserRestController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="MonthWorkInfo", method = RequestMethod.POST)
+	public ArrayList<Object> MonthWorkInfo(String date, String email){
+		
+		ArrayList<Object> AllWorkData = service.workInfo(email, date);
+
+		return AllWorkData;
+		
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/getUserAppSetting", method = RequestMethod.POST)
 	public Object getUserAppSetting(HttpSession session) {
-
 		return session.getAttribute(KintaiConstant.SESSION_SETTING);
-		
 	}
 	
 	@ResponseBody
@@ -128,6 +135,12 @@ public class KintaiUserRestController {
 	public String getComment() {
 		return service.getComment();
 	}
-	
-
+	@ResponseBody
+	@RequestMapping(value = "currentRestTime", method = RequestMethod.POST,  produces = "application/text; charset=utf8")
+	public String currentRestTime(HttpSession session) {
+		WorkappUser account = (WorkappUser)session.getAttribute(KintaiConstant.SESSION_LOGIN_ACCOUNT);
+		String email = account.getEmail();
+		
+		return service.currentRestTime(email);
+	}
 }

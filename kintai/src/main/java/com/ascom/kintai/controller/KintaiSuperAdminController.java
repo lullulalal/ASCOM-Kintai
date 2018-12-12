@@ -8,7 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class KintaiSuperAdminController {
 	
 	@RequestMapping(value = "superSetting", method = RequestMethod.GET)
-	public String home() {
+	public String superSetting() {
 		return "super/super_app_setting";
+	}
+	
+	
+	@RequestMapping(value="/empsManage", method=RequestMethod.GET)
+	public String empsManage(){
+		return "super/super_app_mng_emps";
 	}
 }

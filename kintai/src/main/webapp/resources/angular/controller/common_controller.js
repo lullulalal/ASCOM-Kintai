@@ -1,7 +1,6 @@
 'use strict';
 
-app.controller('comnCtrl', ['$scope', 'comnService', function($scope, comnService) {
-	
+app.controller('comnCtrl', ['$scope', 'comnService', function($scope, comnService) {	
     angular.element(document).ready(function () {
 		$(document).ready(function(){
 			comnService.getMenu();
@@ -15,5 +14,10 @@ app.controller('comnCtrl', ['$scope', 'comnService', function($scope, comnServic
 	$scope.commonModal = function(titleCode, textCode, btnTextCode, btnHandler) {
 		comnService.commonModal(titleCode, textCode, btnTextCode, btnHandler);
 	};
+	
+	$scope.MonthWorkInfo = function(id){
+		comnService.MonthWorkInfo(id);
+
+    };
 	
 }]);

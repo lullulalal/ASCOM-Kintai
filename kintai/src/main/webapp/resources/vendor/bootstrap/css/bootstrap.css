@@ -9,6 +9,23 @@
 /*-------------------------  */
 
 
+.Updatetable{
+	text-align: center;
+}
+
+.Updatetable td{
+	width: 40%;
+	padding: 3px;
+}
+
+.Updatetable input{
+	width: 100%;
+	text-align: center;
+}
+
+
+/*  */
+
 .main_logo {
 	text-align: center;
 }
@@ -67,6 +84,21 @@
 
 }
 
+.breadcrumb4 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  margin-top:1rem;
+  list-style: none;
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+  font-size: 15px;
+  font-family: "Sawarabi Gothic";
+}
+
 .input_date{
 	width:60%;	
 }
@@ -85,8 +117,6 @@
 	width: 40%;
 	border-collapse: collapse;
 	border: 1px solid black;
-	border-radius: 10px; 
-	left: 10px;
 }
 
 .bottom_table th{

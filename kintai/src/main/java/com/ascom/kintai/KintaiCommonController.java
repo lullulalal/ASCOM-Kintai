@@ -45,7 +45,6 @@ public class KintaiCommonController {
 			
 			if(("on").equals(autoLogin) && 
 					appSet.getAuthority()!=KintaiConstant.AUTH_SUPER_ADMIN){
-				System.out.println("emfdjdhkTekd!!");
 				Cookie cookie = new Cookie("loginCookie", session.getId());
 	            cookie.setPath("/");
 	            cookie.setMaxAge(KintaiConstant.AUTO_LOGIN_EXPIRE); 

@@ -40,5 +40,23 @@
 			ref="sqlSessionFactory" />
 	</bean>
 	
+    <bean id="kintaiBatch" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.ascom.kintai.dao.KintaiBatchDao"/>
+        <property name="applicationContextJobDataKey" value="applicationContext"/>   
+    </bean>
+	
+	<!-- 테스트용  트리거-->
+	<bean id="batchJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail" ref="kintaiBatch" />
+	    <property name="cronExpression" value="0 30 16 * * ? *" />
+	</bean>
+	
+	<!-- 테스트용 스케줄러 -->
+	<bean id="batchJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	        <list><ref bean="batchJobTrigger" /></list>
+	    </property>
+	</bean>
+	
 </beans>
 

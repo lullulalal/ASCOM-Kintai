@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>ASCOM-SUPER</title>
+  <title>ASCOM</title>
   <!-- Bootstrap core CSS-->
   <link href="./resources/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -126,7 +126,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"><span class='0043'></span></h5>
+            <h5 class="modal-title_logout" id="exampleModalLabel"><span class='0043'></span></h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>

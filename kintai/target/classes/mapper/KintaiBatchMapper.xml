@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ascom.kintai.mapper.KintaiBatchMapper">
+<!-- 	<update id="updateTaikin">
+		UPDATE 
+				workapp_info_table
+		SET 
+			workTime = '23:23:23',
+			restTime = '00:00:00',
+			endTime = CONCAT(curdate(), ' 23:23:23')
+		WHERE 
+			workState != '0012' 
+		and 
+			endTime = '0000-00-00 00:00:00'
+	</update> -->
+	
+	<select id="getWorkedInfoToday" resultType="Employee">
+		select 
+			workedList.email 
+		from (
+			select 
+				ne.email email, 
+				wit.email witemail
+			FROM (	
+				select 
+					email
+				from 
+					employee_table
+				where 
+					status = 0 
+				and 
+					email != 'admin' ) ne 
+			LEFT OUTER JOIN workapp_info_table wit
+		  	ON ne.email = wit.email   
+		  
+			and wit.workDate = curdate() ) workedList
+		
+		where workedList.witemail IS NULL
+	</select>	
+	
+</mapper>

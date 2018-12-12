@@ -26,5 +26,117 @@
 			wit.workState = #{1}
 		
 		and wit.workDate = #{0}
+	</select>	
+	
+	<select id="getWorkInfoByMonth" resultType="WorkappInfo">
+	<![CDATA[
+		select 
+			count(*) count, 
+			et.nickName nickName, 
+			et.firstname firstname, 
+			et.lastname lastname, 
+			wit.email email, 
+			DATE_FORMAT(wit.workDate, '%Y-%m') workDate,  
+			SUM( TIME_TO_SEC( wit.workTime ) )  workTime  
+		from 
+			workapp_info_table wit, 
+			employee_table et
+		where 
+			et.email = wit.email
+		and
+			DATE_FORMAT(wit.workDate, '%Y-%m') = #{0} 
+		and 
+			wit.workState != '0012'
+		group by email
+		having workTime  >=  ( TIME_TO_SEC(#{1})*count )
+		and workTime  < (TIME_TO_SEC(#{2}) * count)
+		order by workTime desc 
+
+	]]>
 	</select>
+	
+	<select id="getWorkInfoByMonthDetail" resultType="WorkappInfo">
+	<![CDATA[
+		select 
+			wit.workDate workDate,
+			DATE_FORMAT(wit.startTime, '%H:%i:%s') startTime,
+			DATE_FORMAT(wit.endTime, '%H:%i:%s') endTime,
+			DATE_FORMAT(wit.restTime, '%H:%i') restTime,
+			wit.workTime workTime,
+			wit.workState,
+			wit.email,
+			wit.dayOfWeek,
+			et.nickName,
+			et.firstName,
+			et.lastName,
+ 			CASE 
+			if( TIME_TO_SEC(wit.workTime) < TIME_TO_SEC(#{2}), 'good', 'warn')
+			WHEN 'warn' THEN if( TIME_TO_SEC(wit.workTime) >= TIME_TO_SEC(#{3}), 'bad', 'warn')
+			ELSE 'good'
+			END condi
+
+		from 
+			workapp_info_table wit, 
+			employee_table et
+		where 
+			wit.email = et.email
+		and
+			DATE_FORMAT(wit.workDate, '%Y-%m') = #{0} 
+		and 
+			wit.email = #{1}
+		order by wit.workDate 
+	]]>
+	</select>
+	
+	<select id="getEmployees" resultType="Employee">
+		select email, nickName, firstName, lastName, department, phone
+		from 
+			employee_table
+		where 
+			status = 0 
+		and 
+			email != 'admin'
+	</select>	
+	
+	<select id="getWorkInfoByYear" resultType="WorkappInfo">
+	<![CDATA[
+		select 
+			subt.count,
+			subt.email,
+			subt.workDate,
+			subt.workTime,
+			CASE 
+			if( TIME_TO_SEC(subt.workTime) < TIME_TO_SEC(#{2})*count, 'good', 'warn')
+			WHEN 'warn' THEN if( TIME_TO_SEC(subt.workTime) >= TIME_TO_SEC(#{3})*count, 'bad', 'warn')
+			ELSE 'good'
+			END condi,
+			et.nickName,
+			et.firstname,
+			et.lastname
+			
+		from  
+			(select 
+				count(*) count, 
+				email, workDate, 
+				SUM( TIME_TO_SEC( st.workTime ) )  workTime
+			from 
+				(select 
+					email, 
+					DATE_FORMAT(workDate, '%Y-%m') workDate,  
+					workTime  
+				from 
+					workapp_info_table
+				where 
+					email = #{0}
+				and
+					DATE_FORMAT(workDate, '%Y') = #{1}
+				and 
+					workState != '0012') st
+			group by st.workDate
+			order by st.workDate ) subt,
+			employee_table et
+		where subt.email = et.email
+	]]>
+	</select>
+	
 </mapper>
